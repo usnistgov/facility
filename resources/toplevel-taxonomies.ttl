@@ -1,0 +1,47 @@
+# baseURI: http://modelmeth.nist.gov/toplevel-taxonomies
+
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix top: <http://modelmeth.nist.gov/toplevel-taxonomies#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://modelmeth.nist.gov/toplevel-taxonomies>
+  rdf:type owl:Ontology ;
+  owl:versionInfo "Created with TopBraid Composer"^^xsd:string ;
+.
+top:curatedCharacteristic
+  rdf:type rdf:Property ;
+.
+top:equipmentCharacteristic
+  rdf:type rdf:Property ;
+  rdfs:label "Equipment Characteristic"^^xsd:string ;
+  rdfs:subPropertyOf top:curatedCharacteristic ;
+  owl:disjointWith top:processCharacteristic ;
+  owl:disjointWith top:productCharacteristic ;
+  owl:disjointWith top:systemStateCharacteristic ;
+.
+top:processCharacteristic
+  rdf:type rdf:Property ;
+  rdfs:label "Process Characteristic"^^xsd:string ;
+  rdfs:subPropertyOf top:curatedCharacteristic ;
+  owl:disjointWith top:equipmentCharacteristic ;
+  owl:disjointWith top:productCharacteristic ;
+  owl:disjointWith top:systemStateCharacteristic ;
+.
+top:productCharacteristic
+  rdf:type rdf:Property ;
+  rdfs:label "Product Characteristic"^^xsd:string ;
+  rdfs:subPropertyOf top:curatedCharacteristic ;
+  owl:disjointWith top:equipmentCharacteristic ;
+  owl:disjointWith top:processCharacteristic ;
+  owl:disjointWith top:systemStateCharacteristic ;
+.
+top:systemStateCharacteristic
+  rdf:type rdf:Property ;
+  rdfs:label "System State Characteristic"^^xsd:string ;
+  rdfs:subPropertyOf top:curatedCharacteristic ;
+  owl:disjointWith top:equipmentCharacteristic ;
+  owl:disjointWith top:processCharacteristic ;
+  owl:disjointWith top:productCharacteristic ;
+.

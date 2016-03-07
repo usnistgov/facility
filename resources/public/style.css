@@ -1,0 +1,142 @@
+/* http://matthewjamestaylor.com/blog/beautiful-css-centered-menus-no-hacks-full-cross-browser-support */
+
+#metaltop-teal {
+    clear:left;
+    float:left;
+    padding:0;
+    background:#96CBCA url(metaltop-teal.gif) top repeat-x;
+    border-bottom:1px solid #677E78;
+    width:100%;
+    border-top:4px solid #000;
+    overflow:hidden;
+    font-family:Verdana, sans-serif;
+}
+#metaltop-teal ul {
+    float:left;
+    margin:0;
+    padding:0;
+    list-style:none;
+    position:relative;
+    left:50%;
+    text-align:center;
+}
+#metaltop-teal ul li {
+    display:block;
+    float:left;
+    list-style:none;
+    margin:0;
+    padding:0;
+    position:relative;
+    right:50%;
+}
+#metaltop-teal ul li.first {
+    border-left:1px solid #677E78;
+}
+#metaltop-teal ul li.last {
+    border-right:1px solid #D8ECEC;
+}
+#metaltop-teal ul li a {
+    display:block;
+    float:left;
+    margin:0;
+    padding:20px 10px 6px 10px;
+    border-left:1px solid #D8ECEC;
+    border-right:1px solid #677E78;
+    text-decoration:none;
+    color:#467D71;
+    font-size:.8em;
+    font-weight:bold;
+    text-transform:uppercase;
+    line-height:1.3em;
+}
+#metaltop-teal ul li a:hover {
+    color:#000;
+    background-color:#D8F5F4;
+    border-left:1px solid #fff;
+    padding-top:18px;
+    padding-bottom:8px;
+}
+#metaltop-teal ul li.active a,
+#metaltop-teal ul li.active a:hover {
+    color:#fff;
+    background:#000;
+    border-left:1px solid #000;
+    padding-top:18px;
+    padding-bottom:8px;
+}
+
+/* Stuff from the SEI work */
+
+#bodyText {
+  line-height: 1.5em;
+  margin: 5mm 2em 0 12em;
+  padding: 0 1em 1ex 5em; /* 5em is space between sideBox and text */
+  text-decoration: none;  
+}
+
+#bodyText p {
+  padding-bottom: 1ex;
+}
+
+#bodyText ul {
+  padding-bottom: 1ex;
+}
+
+a { 
+  text-decoration: none;  
+  color: #1396b0;  
+  font-weight: bold; 
+  font-size: 20px; 
+  line-height: 20px; 
+}
+
+a:hover { 
+  color: #12d8ff;
+}
+
+body {
+  background-color: white;
+  color: black;
+  font-family: "arial"; /* verdana, tahoma, helvetica, arial, sans-serif;*/
+  font-size: 100%;
+  margin: 0;
+}
+
+h1, h2, h3 {
+  font-weight: bold;
+  font-family: "arial"; 
+  color: #6572a2;
+  padding-bottom: 0.5ex;
+}
+
+h1 {
+  font-size: 200%;
+  line-height: 48px; 
+  border-bottom: 1px solid;
+}
+
+h2 {
+  font-size: 160%;
+}
+
+h3 {
+  font-size: 125%;
+}
+
+code {
+  font-family: "lucida console", monospace;
+  font-size: 90%;
+}
+
+img {
+  border: 0;
+}
+
+
+
+/* More stuff, random source */
+table {
+    margin: 0 auto;
+}
+ 
+

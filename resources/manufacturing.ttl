@@ -1,0 +1,249 @@
+@prefix mfg: <http://modelmeth.nist.gov/manufacturing#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://modelmeth.nist.gov/manufacturing> .
+
+<http://modelmeth.nist.gov/manufacturing> rdf:type owl:Ontology .
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://modelmeth.nist.gov/manufacturing#Alloy
+
+mfg:Alloy rdf:type owl:Class ;
+       
+       rdfs:subClassOf mfg:Material .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#Aluminum
+
+mfg:Aluminum rdf:type owl:Class ;
+          
+          rdfs:subClassOf mfg:Alloy .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#CastIron
+
+mfg:CastIron rdf:type owl:Class ;
+          
+          rdfs:subClassOf mfg:Alloy .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#CuttingFeedRate
+
+mfg:CuttingFeedRate rdf:type owl:Class ;
+                 
+                 rdfs:subClassOf mfg:MachiningProcessParameter .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#CuttingFluid
+
+mfg:CuttingFluid rdf:type owl:Class ;
+              
+              rdfs:subClassOf mfg:MachiningProcessParameter .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#CuttingSpeed
+
+mfg:CuttingSpeed rdf:type owl:Class ;
+              
+              rdfs:subClassOf mfg:MachiningProcessParameter .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#Equipment
+
+mfg:Equipment rdf:type owl:Class .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#EquipmentCharacteristic
+
+mfg:EquipmentCharacteristic rdf:type owl:Class .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#Facing
+
+mfg:Facing rdf:type owl:Class ;
+        
+        rdfs:subClassOf mfg:SinglePointCutting ;
+        
+        owl:disjointWith mfg:Turning ;
+        
+        rdfs:comment "a subtractive manufacturing process in which the part is rotated and a single point cutting tool is moved perpendicular to the axis of rotation." .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#Fixture
+
+mfg:Fixture rdf:type owl:Class ;
+         
+         rdfs:subClassOf mfg:Equipment .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#MachineBed
+
+mfg:MachineBed rdf:type owl:Class ;
+            
+            rdfs:subClassOf mfg:MachineCharacteristic .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#MachineCharacteristic
+
+mfg:MachineCharacteristic rdf:type owl:Class ;
+                       
+                       rdfs:subClassOf mfg:EquipmentCharacteristic .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#MachinePower
+
+mfg:MachinePower rdf:type owl:Class ;
+              
+              rdfs:subClassOf mfg:MachineCharacteristic .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#MachineSpindle
+
+mfg:MachineSpindle rdf:type owl:Class ;
+                
+                rdfs:subClassOf mfg:MachineCharacteristic .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#MachineTool
+
+mfg:MachineTool rdf:type owl:Class ;
+             
+             rdfs:subClassOf mfg:Equipment .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#MachineToolChanger
+
+mfg:MachineToolChanger rdf:type owl:Class ;
+                    
+                    rdfs:subClassOf mfg:MachineCharacteristic .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#MachiningProcess
+
+mfg:MachiningProcess rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf mfg:ManufacturingProcess ;
+                  
+                  rdfs:comment "a subtractive manufacturing process" .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#MachiningProcessParameter
+
+mfg:MachiningProcessParameter rdf:type owl:Class ;
+                           
+                           rdfs:subClassOf mfg:ProcessParameter .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#ManufacturingProcess
+
+mfg:ManufacturingProcess rdf:type owl:Class ;
+                      
+                      rdfs:subClassOf mfg:Process ;
+                      
+                      rdfs:comment "any process that is part of creating a manufactured artifact" .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#Material
+
+mfg:Material rdf:type owl:Class .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#MildSteel
+
+mfg:MildSteel rdf:type owl:Class ;
+           
+           rdfs:subClassOf mfg:Alloy .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#Process
+
+mfg:Process rdf:type owl:Class .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#ProcessCharacteristic
+
+mfg:ProcessCharacteristic rdf:type owl:Class ;
+                       
+                       rdfs:comment "a property describing a manufacturing process" .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#ProcessParameter
+
+mfg:ProcessParameter rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf mfg:ProcessCharacteristic ;
+                  
+                  rdfs:comment "a controllable characteristics of a manufacturing process" .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#SinglePointCutting
+
+mfg:SinglePointCutting rdf:type owl:Class ;
+                    
+                    rdfs:subClassOf mfg:MachiningProcess .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#StainlessSteel
+
+mfg:StainlessSteel rdf:type owl:Class ;
+                
+                rdfs:subClassOf mfg:Alloy .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#Turning
+
+mfg:Turning rdf:type owl:Class ;
+         
+         rdfs:subClassOf mfg:SinglePointCutting ;
+         
+         rdfs:comment "a subtractive manufacturing process in which the part is rotated and a single point cutting tool is moved parallel to the axis of rotation." .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#WorkpieceMaterial
+
+mfg:WorkpieceMaterial rdf:type owl:Class ;
+                   
+                   rdfs:subClassOf mfg:Material .
+
+
+
+
+###  Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net
+
