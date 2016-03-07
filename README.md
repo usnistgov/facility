@@ -13,7 +13,7 @@ we use the server, we can manage the OWL ontology through this github repostiory
 2. Type 'lein deps' at a shell prompt in the facility directory and wait while it downloads 
     all the related libraries. 
 3. Type 'lein repl' at a shell prompt in the facility directory and waiting for a clojure prompt.
-4. At the clojure prompt, type (-main :port 3034) and verify that things are working.
+4. At the clojure prompt, type (-main :port 3034) and verify that things are working: (Point browser at http://localhost:3034)
 
 If you do not plan to do development on the server, then the easiest way to use the server is to create an uberjar: at a shell prompt in the project directory type:
 
