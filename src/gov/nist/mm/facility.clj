@@ -14,8 +14,7 @@
             [edu.ucdenver.ccp.kr.kb :refer :all]
             [edu.ucdenver.ccp.kr.rdf :refer :all]
             [edu.ucdenver.ccp.kr.sparql :refer :all]
-            [edu.ucdenver.ccp.kr.jena.kb]
-            [gov.nist.pod]) ; POD temporary
+            [edu.ucdenver.ccp.kr.jena.kb])
   (:import java.net.URI
            java.io.ByteArrayInputStream)
   (:gen-class))

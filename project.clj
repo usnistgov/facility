@@ -1,6 +1,6 @@
 (defproject gov.nist.mm/facility "0.1.0-SNAPSHOT"
   :description "Demo Production Facility Ontology Management System"
-  :url "https://github.com/usnistgov/facilityh"
+  :url "https://github.com/usnistgov/facility"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
    :dependencies [[org.clojure/clojure "1.7.0"]
@@ -14,8 +14,7 @@
                  [environ "1.0.0"]
                  [org.clojure/java.jdbc "0.3.6"]
                  [hiccup "1.0.5"]
-                 [edu.ucdenver.ccp/kr-jena-core "1.4.17"]
-                 [gov.nist/pod "0.1.0-SNAPSHOT"]] ; POD for development
+                 [edu.ucdenver.ccp/kr-jena-core "1.4.17"]]
   :repositories [["Immutant incremental builds"
                   "http://downloads.immutant.org/incremental/"]]
   :plugins [[lein-immutant "2.0.0"]]
