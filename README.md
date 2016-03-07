@@ -2,22 +2,24 @@
 
 This is early development of a web facility that would present various factory resources
 to an end user. We (talking to the Vanderbilt folks) could potentially use this 
-for elaborate queries, doing the query development in Clojure. The alternative is to 
-do those queries directly from JENA. 
+to serve data from SPARQL queries. The alternative is to do those queries directly from JENA. 
+
+The program provides a rudimentary OWL ontology. See the resources directory. Whether or not
+we use the server, we can manage the OWL ontology through this github repostiory.
 
 ## Installation
 
-I've set this up to run as a jar (uberjar). See Usage. 
-
-If you want to do real development with it, that would involve minimally:
-
 1. Download the [leiningen shell script](http://leiningen.org/).
-2. Type 'lein deps' at a shell prompt in the facility directory and waiting while it downloads 
+2. Type 'lein deps' at a shell prompt in the facility directory and wait while it downloads 
     all the related libraries. 
 3. Type 'lein repl' at a shell prompt in the facility directory and waiting for a clojure prompt.
-4. At the clojure prompt, type (-main :port 3034)
+4. At the clojure prompt, type (-main :port 3034) and verify that things are working.
 
-One can also build a an uberjar by typing 'lein uberjar' at a shell prompt in the project directory.
+If you do not plan to do development on the server, then the easiest way to use the server is to create an uberjar: at a shell prompt in the project directory type:
+
+```
+lein uberjar
+```
 
 ## Usage (if using an uberjar)
 
@@ -26,14 +28,7 @@ One can also build a an uberjar by typing 'lein uberjar' at a shell prompt in th
     $ java -jar facility-standalone.jar :port 3034
 
 
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-
-### Bugs
+## Bugs
 
 Doesn't do much. 
 
