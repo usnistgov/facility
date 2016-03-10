@@ -1,6 +1,6 @@
 # facility
 
-This is early development of a web facility that would present various factory resources
+This is early development of a web server that would present information about various production facility resources and processes
 to an end user. We (talking to the Vanderbilt folks) could potentially use this 
 to serve data from SPARQL queries. The alternative is to do those queries directly from JENA. 
 
