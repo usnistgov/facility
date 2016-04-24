@@ -14,7 +14,8 @@
             [edu.ucdenver.ccp.kr.kb :refer :all]
             [edu.ucdenver.ccp.kr.rdf :refer :all]
             [edu.ucdenver.ccp.kr.sparql :refer :all]
-            [edu.ucdenver.ccp.kr.jena.kb])
+            [edu.ucdenver.ccp.kr.jena.kb]
+            [cheshire.core])
   (:import java.net.URI
            java.io.ByteArrayInputStream)
   (:gen-class))
@@ -73,7 +74,8 @@
              (if (= k tab)
                `[:li {:class "active"} [:a {:href ~(str "/FacilitySearch/" (name k))} ~v]]
                `[:li                   [:a {:href ~(str "/FacilitySearch/" (name k))} ~v]]))
-          {:process "Process", :product "Product", :equip "Equipment", :state "System State", :all "Unconstrained"})])
+           {:process "Process", :product "Product", :equip "Equipment",
+            :state "System State", :search "Search" :nb "Notebook"})])
 
 ;;; ToDo:
 ;;;   - Add parameters (title, at least. See pod-utils/html-utils)
@@ -84,7 +86,7 @@
   `(->
     (response 
      (html [:html {:lang "en"}
-            [:head [:title "Facility Search"]
+            [:head [:title "Production Facility"]
              [:meta {:http-equiv "content-type" :content "text/html" :charset="iso-8859-1"}]
              [:link {:rel "stylesheet" :type "text/css" :href "/style.css"}]] ; Really need /style.css STRANGE!
             [:div {:id "metaltop-teal"} ~(active-tab :tab (:tab args))]
@@ -99,7 +101,7 @@
         (map? s) {}
         (set? s) #{}))
 
-(defn seq-equal-length 
+(defn seq-equal-length
   "Return vectors or lists of equal length, adding elements ELEM to end of shorter, if necessary."
   [l1 l2 elem]
   (let [c1 (count l1)
@@ -110,12 +112,12 @@
           (< c1 c2) (vector    (make (concat l1 (into (empty-of l1) (repeatedly (- c2 c1) (fn [] elem))) l2))))))
 
 ;;; POD Use url-params http://briancarper.net/clojure/compojure-doc.html
-(defn owl-class-url 
-  "Return a URL for an owl:Class."
+(defn owl-class-url
   [obj & {:keys [root] :or {root "process/concept"}}]
+  "Return a URL for an owl:Class."
   `[:a {:href ~(str root "?name=" (url-encode obj))} ~(str (name obj))])
 
-#_(defn- process-search-pg
+#_(defn- process-pg
   [request]
   "Handle page for process tab."
   (app-page-wrapper {:tab :process}
@@ -129,9 +131,9 @@
         [:tr [:th "Process Parameters"] [:th "Machine Characteristics"]]
         ~@(map (fn [d1 d2] [:tr [:td d1] [:td d2]]) params mchars)]))))
 
-(defn- process-search-pg
-  [request]
+(defn- process-pg
   "Handle page for process tab."
+  [request]
   (app-page-wrapper {:tab :process}
     (let [params (query mfg-kb '((?/x rdfs/subClassOf mfg/MachiningProcessParameter)))
           params-url (map owl-class-url (map '?/x params))]
@@ -140,15 +142,15 @@
         `[:ul
           ~@(map (fn [d1] [:li d1]) params-url)]))))
 
-(defn- product-search-pg
-  [request]
+(defn- product-pg
   "Handle page for product tab."
+  [request]
   (app-page-wrapper {:tab :product}
    "Product: Nothing here yet."))
 
-(defn- equipment-search-pg
-  [request]
+(defn- equipment-pg
   "Handle page for equipment tab."
+  [request]
   (app-page-wrapper {:tab :equip}
      (let [mchars (query mfg-kb '((?/x rdfs/subClassOf mfg/MachineCharacteristic)))
            mchars-url (map owl-class-url (map '?/x mchars))]
@@ -157,40 +159,47 @@
         `[:ul
           ~@(map (fn [d1] [:li d1]) mchars-url)]))))
 
-(defn- state-search-pg
-  [request]
+(defn- state-pg
   "Handle page for facility state tab."
+  [request]
   (app-page-wrapper {:tab :state}
    "State: Nothing here yet."))
 
-(defn- all-search-pg
+(defn- search-pg
+  "Handle page for search tab."
   [request]
-  "Handle page for unconstraint search tab."
-  (app-page-wrapper {:tab :all}
-   "All: Nothing here yet."))
+  (app-page-wrapper {:tab :search}
+                    "All: Nothing here yet."))
 
-(defn page-tab 
-  [request & {:keys [default] :or {default :process}}]
+(defn- nb-pg
+  "Handle page for notebook analysis."
+  [request]
+  (app-page-wrapper {:tab :nb}
+   "Notebook: Nothing here yet."))
+
+(defn page-tab
   "Return the keyword indicating the tab on which the page should be displayed."
+  [request & {:keys [default] :or {default :process}}]
   (if-let [tab (:tab (:params request))]
     (keyword tab)
     default))
 
 (defn- concept-desc-pg
-  [request]
   "Describe an owl:Class."
+  [request]
   (app-page-wrapper {:tab (page-tab request)}
       (str "Got it: params = " (:params request) " query-string = " (url-decode (:query-string request)))))
 
 (defroutes routes
-  (GET "/" [] process-search-pg)
+  (GET "/" [] process-pg)
   (GET "/FacilitySearch/:tab" [tab] 
-       (cond (= tab "process") process-search-pg
-             (= tab "product") product-search-pg
-             (= tab "equip"  ) equipment-search-pg
-             (= tab "state"  ) state-search-pg
-             (= tab "all"    ) all-search-pg))
-  (GET "/FacilitySearch/:tab/concept*" [tab] concept-desc-pg) ; /FacilitySearch/process/concept?name=am-model/ModelParameter
+       (cond (= tab "process") process-pg
+             (= tab "product") product-pg
+             (= tab "equip"  ) equipment-pg
+             (= tab "state"  ) state-pg
+             (= tab "search" ) search-pg
+             (= tab "nb"     ) nb-pg))
+  (GET "/FacilitySearch/:tab/concept*" [tab] concept-desc-pg) 
   (route/resources "/") ; This one gets used for static pages in resources/public
   (ANY "*" [] echo)) ; Good for diagnostics
 
@@ -210,15 +219,89 @@
 
 ;;;================== PROCESS =======================================================================
 
+(def nb-content (cheshire.core/parse-stream
+                 (clojure.java.io/reader
+                  "/Users/pdenno/rt/projects/mm/source/turning-optimization/TurningOptimization.ipynb")
+                  true))
 
-;;;================== JUNK ===========================================================================
-          
-#_(defn query-toplevel-chars
-  []
-  (sort
-   (map '?/label
-        (query am-kb '((?/subject rdfs/subPropertyOf top/curatedCharacteristic)
-                       (?/subject rdfs/label ?/label))))))
+(def nb-test  {:cell_type "markdown",
+               :metadata {},
+               :source
+               ["| Symbol | Meaning |\n"
+                "|------------------|\n"
+                "| $D_{LSL}$ | Lower bound on final part diameter|\n"
+                "| $D_{USL}$ | Upper bound on final part diameter|\n"
+                "| $R_{USL}$ | Maximum allowable surface roughness |\n"
+                "\n"
+                "The paper provides the following values:"]})
+
+;;; POD rewrite with reduce
+(defn- table-vals
+  [text]
+  "Returns vector of table rows (list of the row's elements) if TEXT (vector of strings) start a table."
+  (when (re-matches #"^\s*\|-+\|.*\n$"  (text 0)) ; second line of markdown table is just |------|
+    (let [len (dec (count text))]
+      (loop [line-num 1
+             rows []] ; odd-looking because only want first table in this cell (if many).
+        (if (and (< line-num len) 
+                 (re-matches #"\s*\|.*\|\n$" (text line-num)))
+          (recur
+           (inc line-num)
+           (conj rows (butlast (rest (str/split (text line-num) #"\|")))))
+          rows)))))
+
+(defn- find-tables
+  "Return those tables from markdown cells of the file that look like they define variables/parameters."
+  [content]
+  (reduce (fn [doc-tabs cell]
+            (let [text (:source cell)
+                  res
+                  (reduce (fn [cell-tabs line]
+                            (if (re-matches
+                                 #"^\s*\|\s* ([S,s]ymbol | [P,p]arameter| [V,v]ariable)\s*\|.*\n$"
+                                 line)
+                              (conj cell-tabs (table-vals (subvec text (inc (.indexOf text line)))))
+                              cell-tabs))
+                          [] ; cell-tables (tables in this cell)
+                          text)]
+              (if (empty? res) doc-tabs (conj doc-tabs res))))
+          [] ; document-tables (tables in whole document)
+          (filter #(= (:cell_type %) "markdown") (:cells content))))
+
+#_(defn- find-tables
+  "Return those tables from markdown cells of the file that look like they define variables/parameters."
+  [content]
+  (persistent!
+   (reduce (fn [doc-tabs cell]
+             (let [text (:source cell)
+                   res
+                   (persistent!
+                    (reduce (fn [cell-tabs line]
+                              (if (re-matches
+                                   #"^\s*\|\s* ([S,s]ymbol | [P,p]arameter| [V,v]ariable)\s*\|.*\n$"
+                                   line)
+                                (conj! cell-tabs (table-vals (subvec text (inc (.indexOf text line)))))
+                                cell-tabs))
+                            (transient []) ; cell-tables (tables in this cell)
+                            text))]
+               (if (empty? res) doc-tabs (conj! doc-tabs res))))
+           (transient []) ; document-table (tables in whole document)
+           (filter #(= (:cell_type %) "markdown") (:cells content)))))
+
+            
+
+                        
+         
+;            len (dec (count text))]
+;        (for [line-num 0
+;               tabs tables]
+;          (if (< line-num len)
+;            (if (re-matches
+;                 #"^\s*\|\s* ([S,s]ymbol | [P,p]arameter| [V,v]ariable)\s*\|.*\n$"
+;                 (line-num text))
+;              (recur (inc line-num) (conj! (table-vals
+
+
 
 #_(defn facility-search
   [request]
