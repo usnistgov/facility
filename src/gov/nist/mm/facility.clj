@@ -239,7 +239,7 @@
 (defn- table-vals
   [text]
   "Returns vector of table rows (list of the row's elements) if TEXT (vector of strings) start a table."
-  (when (re-matches #"^\s*\|-+\|.*\n$"  (text 0)) ; second line of markdown table is just |------|
+  (when (re-matches #"^\s*\|[-,:,\|]+\|.*\n$" (text 0)) ; second line of markdown table is just |------|
     (let [len (dec (count text))]
       (loop [line-num 1
              rows []] ; odd-looking because only want first table in this cell (if many).
@@ -258,9 +258,9 @@
                   res
                   (reduce (fn [cell-tabs line]
                             (if (re-matches
-                                 #"^\s*\|\s* ([S,s]ymbol | [P,p]arameter| [V,v]ariable)\s*\|.*\n$"
+                                 #"^\s*\|\s*([S,s]ymbol|[P,p]arameter|[V,v]ariable)\s*\|.*\n$"
                                  line)
-                              (conj cell-tabs (table-vals (subvec text (inc (.indexOf text line)))))
+                              (concat cell-tabs (table-vals (subvec text (inc (.indexOf text line)))))
                               cell-tabs))
                           [] ; cell-tables (tables in this cell)
                           text)]
