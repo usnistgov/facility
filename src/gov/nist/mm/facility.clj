@@ -220,9 +220,8 @@
 ;;;================== PROCESS =======================================================================
 
 (def nb-content (cheshire.core/parse-stream
-                 (clojure.java.io/reader
-                  "/Users/pdenno/rt/projects/mm/source/turning-optimization/TurningOptimization.ipynb")
-                  true))
+                 (clojure.java.io/reader "resources/TurningOptimization.ipynb")
+                 true))
 
 (def nb-test  {:cell_type "markdown",
                :metadata {},
