@@ -15,6 +15,12 @@
 # #################################################################
 # 
 # 
+# http://modelmeth.nist.gov/manufacturing#hasFeedRate
+
+:hasFeedRate a owl:ObjectProperty , owl:FunctionalProperty ;
+	rdfs:domain :MachiningProcess ;
+	rdfs:range :CuttingFeedRate .
+# 
 # http://modelmeth.nist.gov/manufacturing#hasFinishedPart
 
 :hasFinishedPart a owl:ObjectProperty ;
@@ -23,9 +29,35 @@
 	rdfs:domain :Workpiece ;
 	rdfs:range :FinishedPart .
 # 
+# http://modelmeth.nist.gov/manufacturing#hasQuantityKind
+
+:hasQuantityKind a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasFeedRate ;
+	rdfs:domain :ModelProperty .
+# 
 # http://modelmeth.nist.gov/manufacturing#hasWorkpiece
 
 :hasWorkpiece a owl:ObjectProperty , owl:InverseFunctionalProperty .
+# 
+# http://modelmeth.nist.gov/manufacturing#referencesEquation
+
+:referencesEquation a owl:ObjectProperty , owl:AsymmetricProperty , owl:IrreflexiveProperty ;
+	rdfs:domain :Model ;
+	rdfs:range :ModelProperty .
+# 
+# http://modelmeth.nist.gov/manufacturing#referencesProperty
+
+:referencesProperty a owl:ObjectProperty , owl:AsymmetricProperty , owl:IrreflexiveProperty ;
+	rdfs:domain :Model ;
+	rdfs:range :ModelProperty .
+# 
+# http://modelmeth.nist.gov/manufacturing#representsProperty
+
+:representsProperty a owl:ObjectProperty ;
+	rdfs:subPropertyOf owl:topObjectProperty ;
+	a owl:AsymmetricProperty , owl:IrreflexiveProperty ;
+	rdfs:domain :Symbol ;
+	rdfs:range :ModelProperty .
 # 
 # 
 # 
@@ -140,7 +172,7 @@
 # http://modelmeth.nist.gov/manufacturing#ManufacturingProcess
 
 :ManufacturingProcess a owl:Class ;
-	rdfs:subClassOf :Process ;
+	rdfs:subClassOf :ProcessType ;
 	rdfs:comment "any process that is part of creating a manufactured artifact" .
 # 
 # http://modelmeth.nist.gov/manufacturing#Material
@@ -152,9 +184,30 @@
 :MildSteel a owl:Class ;
 	rdfs:subClassOf :Alloy .
 # 
-# http://modelmeth.nist.gov/manufacturing#Process
+# http://modelmeth.nist.gov/manufacturing#Model
 
-:Process a owl:Class .
+:Model a owl:Class ;
+	rdfs:subClassOf :ModelAbstraction .
+# 
+# http://modelmeth.nist.gov/manufacturing#ModelAbstraction
+
+:ModelAbstraction a owl:Class .
+# 
+# http://modelmeth.nist.gov/manufacturing#ModelEquation
+
+:ModelEquation a owl:Class ;
+	rdfs:subClassOf :ModelAbstraction .
+# 
+# http://modelmeth.nist.gov/manufacturing#ModelParameter
+
+:ModelParameter a owl:Class ;
+	rdfs:subClassOf :ModelProperty ;
+	rdfs:comment "a ModelProperty whose value can be specified so as to specify a context of the analysis." .
+# 
+# http://modelmeth.nist.gov/manufacturing#ModelProperty
+
+:ModelProperty a owl:Class ;
+	rdfs:subClassOf :ModelAbstraction .
 # 
 # http://modelmeth.nist.gov/manufacturing#ProcessCharacteristic
 
@@ -167,6 +220,10 @@
 	rdfs:subClassOf :ProcessCharacteristic ;
 	rdfs:comment "a controllable characteristics of a manufacturing process" .
 # 
+# http://modelmeth.nist.gov/manufacturing#ProcessType
+
+:ProcessType a owl:Class .
+# 
 # http://modelmeth.nist.gov/manufacturing#SinglePointCutting
 
 :SinglePointCutting a owl:Class ;
@@ -176,6 +233,11 @@
 
 :StainlessSteel a owl:Class ;
 	rdfs:subClassOf :Alloy .
+# 
+# http://modelmeth.nist.gov/manufacturing#Symbol
+
+:Symbol a owl:Class ;
+	rdfs:subClassOf :ModelAbstraction .
 # 
 # http://modelmeth.nist.gov/manufacturing#Turning
 
