@@ -15,6 +15,12 @@
 # #################################################################
 # 
 # 
+# http://modelmeth.nist.gov/manufacturing#exhibitsPhenomenon
+
+:exhibitsPhenomenon a owl:ObjectProperty ;
+	rdfs:domain :ProcessType ;
+	rdfs:range :Phenomenon .
+# 
 # http://modelmeth.nist.gov/manufacturing#hasFeedRate
 
 :hasFeedRate a owl:ObjectProperty , owl:FunctionalProperty ;
@@ -209,6 +215,11 @@
 :ModelProperty a owl:Class ;
 	rdfs:subClassOf :ModelAbstraction .
 # 
+# http://modelmeth.nist.gov/manufacturing#Phenomenon
+
+:Phenomenon a owl:Class ;
+	rdfs:comment "something that can be observed or inferred about a PrrocessType" .
+# 
 # http://modelmeth.nist.gov/manufacturing#ProcessCharacteristic
 
 :ProcessCharacteristic a owl:Class ;
@@ -238,6 +249,11 @@
 
 :Symbol a owl:Class ;
 	rdfs:subClassOf :ModelAbstraction .
+# 
+# http://modelmeth.nist.gov/manufacturing#ToolWear
+
+:ToolWear a owl:Class ;
+	rdfs:subClassOf :Phenomenon .
 # 
 # http://modelmeth.nist.gov/manufacturing#Turning
 
