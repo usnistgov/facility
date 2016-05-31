@@ -39,6 +39,10 @@
 :hasQuantityKind a owl:ObjectProperty ;
 	rdfs:domain :ModelProperty .
 # 
+# http://modelmeth.nist.gov/manufacturing#hasStatus
+
+:hasStatus a owl:ObjectProperty .
+# 
 # http://modelmeth.nist.gov/manufacturing#hasValue
 
 :hasValue a owl:ObjectProperty , owl:AsymmetricProperty .
@@ -47,6 +51,10 @@
 
 :hasWorkpiece a owl:ObjectProperty , owl:InverseFunctionalProperty .
 # 
+# http://modelmeth.nist.gov/manufacturing#isDirectlyProportionalTo
+
+:isDirectlyProportionalTo a owl:ObjectProperty , owl:SymmetricProperty .
+# 
 # http://modelmeth.nist.gov/manufacturing#isGreaterThan
 
 :isGreaterThan a owl:ObjectProperty ;
@@ -54,6 +62,10 @@
 	a owl:AsymmetricProperty , owl:IrreflexiveProperty ;
 	rdfs:domain :MachiningProcessParameter ;
 	rdfs:range :MachiningProcessParameter .
+# 
+# http://modelmeth.nist.gov/manufacturing#isInverselyProportionalTo
+
+:isInverselyProportionalTo a owl:ObjectProperty , owl:SymmetricProperty .
 # 
 # http://modelmeth.nist.gov/manufacturing#isLessThan
 
@@ -109,6 +121,11 @@
 
 :Cost a owl:Class .
 # 
+# http://modelmeth.nist.gov/manufacturing#CutDepth
+
+:CutDepth a owl:Class ;
+	rdfs:subClassOf :CalculatedProcessParameter .
+# 
 # http://modelmeth.nist.gov/manufacturing#CutDepthEquation
 
 :CutDepthEquation a owl:Class ;
@@ -153,6 +170,11 @@
 
 :CuttingTool a owl:Class ;
 	rdfs:subClassOf :Equipment .
+# 
+# http://modelmeth.nist.gov/manufacturing#DiameterDrift
+
+:DiameterDrift a owl:Class ;
+	rdfs:subClassOf :Workpiece .
 # 
 # http://modelmeth.nist.gov/manufacturing#DirectCost
 
@@ -213,6 +235,11 @@
 :MachineCharacteristic a owl:Class ;
 	rdfs:subClassOf :EquipmentCharacteristic .
 # 
+# http://modelmeth.nist.gov/manufacturing#MachineOperation
+
+:MachineOperation a owl:Class ;
+	rdfs:subClassOf :Inputs .
+# 
 # http://modelmeth.nist.gov/manufacturing#MachinePower
 
 :MachinePower a owl:Class ;
@@ -221,7 +248,7 @@
 # http://modelmeth.nist.gov/manufacturing#MachineSpindle
 
 :MachineSpindle a owl:Class ;
-	rdfs:subClassOf :SurfaceRoughnessEquation .
+	rdfs:subClassOf :MachineCharacteristic .
 # 
 # http://modelmeth.nist.gov/manufacturing#MachineTool
 
@@ -260,6 +287,11 @@
 :MaterialCost a owl:Class ;
 	rdfs:subClassOf :Cost .
 # 
+# http://modelmeth.nist.gov/manufacturing#MeanCutDiameter
+
+:MeanCutDiameter a owl:Class ;
+	rdfs:subClassOf :CalculatedProcessParameter .
+# 
 # http://modelmeth.nist.gov/manufacturing#Model
 
 :Model a owl:Class ;
@@ -285,15 +317,15 @@
 :ObjectiveFunction a owl:Class ;
 	rdfs:subClassOf :Equation .
 # 
-# http://modelmeth.nist.gov/manufacturing#Operation
-
-:Operation a owl:Class ;
-	rdfs:subClassOf :Inputs .
-# 
 # http://modelmeth.nist.gov/manufacturing#OperationCost
 
 :OperationCost a owl:Class ;
 	rdfs:subClassOf :Cost .
+# 
+# http://modelmeth.nist.gov/manufacturing#PartTime
+
+:PartTime a owl:Class ;
+	rdfs:subClassOf :CalculatedProcessParameter .
 # 
 # http://modelmeth.nist.gov/manufacturing#ProcessCharacteristic
 
@@ -335,6 +367,10 @@
 :SinglePointCutting a owl:Class ;
 	rdfs:subClassOf :MachiningProcess .
 # 
+# http://modelmeth.nist.gov/manufacturing#Status
+
+:Status a owl:Class .
+# 
 # http://modelmeth.nist.gov/manufacturing#SurfaceRoughness
 
 :SurfaceRoughness a owl:Class ;
@@ -359,6 +395,11 @@
 
 :ToolWearEquation a owl:Class ;
 	rdfs:subClassOf :QualityEquations .
+# 
+# http://modelmeth.nist.gov/manufacturing#TotalTime
+
+:TotalTime a owl:Class ;
+	rdfs:subClassOf :CalculatedProcessParameter .
 # 
 # http://modelmeth.nist.gov/manufacturing#TotalTimeEquation
 
@@ -389,14 +430,54 @@
 
 :Aluminum a owl:NamedIndividual , :Alloy .
 # 
+# http://modelmeth.nist.gov/manufacturing#C_g
+
+:C_g a owl:NamedIndividual , :RegrindingCost .
+# 
+# http://modelmeth.nist.gov/manufacturing#C_h
+
+:C_h a owl:NamedIndividual , :LaborCost .
+# 
+# http://modelmeth.nist.gov/manufacturing#C_w
+
+:C_w a owl:NamedIndividual , :LaborCost .
+# 
+# http://modelmeth.nist.gov/manufacturing#C_z
+
+:C_z a owl:NamedIndividual , :OperationCost .
+# 
 # http://modelmeth.nist.gov/manufacturing#CastIron
 
 :CastIron a owl:NamedIndividual , :Alloy .
 # 
+# http://modelmeth.nist.gov/manufacturing#DC
+
+:DC a owl:NamedIndividual , :Cost ;
+	:hasStatus :Undesirable ;
+	:isInverselyProportionalTo :P .
+# 
+# http://modelmeth.nist.gov/manufacturing#D_i
+
+:D_i a owl:NamedIndividual , :MeanCutDiameter ;
+	:isDirectlyProportionalTo :t_c .
+# 
+# http://modelmeth.nist.gov/manufacturing#Desirable
+
+:Desirable a owl:NamedIndividual , :Status .
+# 
+# http://modelmeth.nist.gov/manufacturing#E
+
+:E a owl:NamedIndividual , :Cost ;
+	:hasStatus :Desirable ;
+	:isDirectlyProportionalTo :P .
+# 
+# http://modelmeth.nist.gov/manufacturing#F
+
+:F a owl:NamedIndividual , :CuttingForce .
+# 
 # http://modelmeth.nist.gov/manufacturing#LoadingUnloading
 
-:LoadingUnloading a owl:NamedIndividual , :Labor ;
-	:hasCost "52"^^xsd:integer .
+:LoadingUnloading a owl:NamedIndividual , :Labor .
 # 
 # http://modelmeth.nist.gov/manufacturing#ManningMachine
 
@@ -406,9 +487,88 @@
 
 :MildSteel a owl:NamedIndividual , :Alloy .
 # 
+# http://modelmeth.nist.gov/manufacturing#N
+
+:N a owl:NamedIndividual , :ProcessCharacteristic ;
+	:isDirectlyProportionalTo :DC , :E , :Z ;
+	rdfs:comment "Number of parts made before regrind" .
+# 
+# http://modelmeth.nist.gov/manufacturing#P
+
+:P a owl:NamedIndividual , :Cost ;
+	:hasStatus :Desirable ;
+	:isDirectlyProportionalTo :Z .
+# 
+# http://modelmeth.nist.gov/manufacturing#QC
+
+:QC a owl:NamedIndividual , :Cost ;
+	:hasStatus :Undesirable ;
+	:isInverselyProportionalTo :P .
+# 
+# http://modelmeth.nist.gov/manufacturing#RC
+
+:RC a owl:NamedIndividual , :Cost ;
+	:hasStatus :Undesirable ;
+	:isInverselyProportionalTo :P .
+# 
 # http://modelmeth.nist.gov/manufacturing#StainlessSteel
 
 :StainlessSteel a owl:NamedIndividual , :Alloy .
+# 
+# http://modelmeth.nist.gov/manufacturing#T_N
+
+:T_N a owl:NamedIndividual , :TotalTime ;
+	:hasStatus :Undesirable ;
+	:isDirectlyProportionalTo :DC , :Z , :t_c .
+# 
+# http://modelmeth.nist.gov/manufacturing#Undesirable
+
+:Undesirable a owl:NamedIndividual , :Status .
+# 
+# http://modelmeth.nist.gov/manufacturing#V
+
+:V a owl:NamedIndividual , :CuttingSpeed ;
+	:isDirectlyProportionalTo :F , :W , :phi ;
+	:isInverselyProportionalTo :t_c .
+# 
+# http://modelmeth.nist.gov/manufacturing#W
+
+:W a owl:NamedIndividual , :ToolWear ;
+	:hasStatus :Undesirable ;
+	:isDirectlyProportionalTo :QC .
+# 
+# http://modelmeth.nist.gov/manufacturing#Z
+
+:Z a owl:NamedIndividual , :FinishedPart ;
+	:hasStatus :Desirable .
+# 
+# http://modelmeth.nist.gov/manufacturing#d_i
+
+:d_i a owl:NamedIndividual , :CutDepth ;
+	:isDirectlyProportionalTo :F , :W , :phi .
+# 
+# http://modelmeth.nist.gov/manufacturing#delta
+
+:delta a owl:NamedIndividual , :DiameterDrift ;
+	:isInverselyProportionalTo :QC .
+# 
+# http://modelmeth.nist.gov/manufacturing#f
+
+:f a owl:NamedIndividual , :CuttingFeedRate ;
+	:isDirectlyProportionalTo :F , :W , :phi ;
+	:isInverselyProportionalTo :t_c .
+# 
+# http://modelmeth.nist.gov/manufacturing#phi
+
+:phi a owl:NamedIndividual , :SurfaceRoughness ;
+	:hasStatus :Undesirable ;
+	:isDirectlyProportionalTo :QC .
+# 
+# http://modelmeth.nist.gov/manufacturing#t_c
+
+:t_c a owl:NamedIndividual , :MachineOperation , :PartTime ;
+	:hasStatus :Undesirable ;
+	:isDirectlyProportionalTo :F , :W , :phi .
 # 
 # 
 # 
