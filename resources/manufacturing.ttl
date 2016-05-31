@@ -15,11 +15,10 @@
 # #################################################################
 # 
 # 
-# http://modelmeth.nist.gov/manufacturing#exhibitsPhenomenon
+# http://modelmeth.nist.gov/manufacturing#hasCost
 
-:exhibitsPhenomenon a owl:ObjectProperty ;
-	rdfs:domain :ProcessType ;
-	rdfs:range :Phenomenon .
+:hasCost a owl:ObjectProperty ;
+	rdfs:domain :Inputs .
 # 
 # http://modelmeth.nist.gov/manufacturing#hasFeedRate
 
@@ -31,25 +30,42 @@
 
 :hasFinishedPart a owl:ObjectProperty ;
 	owl:inverseOf :hasWorkpiece ;
-	a owl:FunctionalProperty ;
+	a owl:FunctionalProperty , owl:AsymmetricProperty ;
 	rdfs:domain :Workpiece ;
 	rdfs:range :FinishedPart .
 # 
 # http://modelmeth.nist.gov/manufacturing#hasQuantityKind
 
 :hasQuantityKind a owl:ObjectProperty ;
-	rdfs:subPropertyOf :hasFeedRate ;
 	rdfs:domain :ModelProperty .
+# 
+# http://modelmeth.nist.gov/manufacturing#hasValue
+
+:hasValue a owl:ObjectProperty , owl:AsymmetricProperty .
 # 
 # http://modelmeth.nist.gov/manufacturing#hasWorkpiece
 
 :hasWorkpiece a owl:ObjectProperty , owl:InverseFunctionalProperty .
 # 
+# http://modelmeth.nist.gov/manufacturing#isGreaterThan
+
+:isGreaterThan a owl:ObjectProperty ;
+	owl:inverseOf :isLessThan ;
+	a owl:AsymmetricProperty , owl:IrreflexiveProperty ;
+	rdfs:domain :MachiningProcessParameter ;
+	rdfs:range :MachiningProcessParameter .
+# 
+# http://modelmeth.nist.gov/manufacturing#isLessThan
+
+:isLessThan a owl:ObjectProperty ;
+	rdfs:domain :MachiningProcessParameter ;
+	rdfs:range :MachiningProcessParameter .
+# 
 # http://modelmeth.nist.gov/manufacturing#referencesEquation
 
 :referencesEquation a owl:ObjectProperty , owl:AsymmetricProperty , owl:IrreflexiveProperty ;
 	rdfs:domain :Model ;
-	rdfs:range :ModelProperty .
+	rdfs:range :Equation .
 # 
 # http://modelmeth.nist.gov/manufacturing#referencesProperty
 
@@ -79,15 +95,29 @@
 :Alloy a owl:Class ;
 	rdfs:subClassOf :Material .
 # 
-# http://modelmeth.nist.gov/manufacturing#Aluminum
+# http://modelmeth.nist.gov/manufacturing#BasicEquations
 
-:Aluminum a owl:Class ;
-	rdfs:subClassOf :Alloy .
+:BasicEquations a owl:Class ;
+	rdfs:subClassOf :Equation .
 # 
-# http://modelmeth.nist.gov/manufacturing#CastIron
+# http://modelmeth.nist.gov/manufacturing#CalculatedProcessParameter
 
-:CastIron a owl:Class ;
-	rdfs:subClassOf :Alloy .
+:CalculatedProcessParameter a owl:Class ;
+	rdfs:subClassOf :ProcessParameter .
+# 
+# http://modelmeth.nist.gov/manufacturing#Cost
+
+:Cost a owl:Class .
+# 
+# http://modelmeth.nist.gov/manufacturing#CutDepthEquation
+
+:CutDepthEquation a owl:Class ;
+	rdfs:subClassOf :BasicEquations .
+# 
+# http://modelmeth.nist.gov/manufacturing#CutTimeEquation
+
+:CutTimeEquation a owl:Class ;
+	rdfs:subClassOf :BasicEquations .
 # 
 # http://modelmeth.nist.gov/manufacturing#CuttingFeedRate
 
@@ -99,6 +129,21 @@
 :CuttingFluid a owl:Class ;
 	rdfs:subClassOf :MachiningProcessParameter .
 # 
+# http://modelmeth.nist.gov/manufacturing#CuttingForce
+
+:CuttingForce a owl:Class ;
+	rdfs:subClassOf :CalculatedProcessParameter .
+# 
+# http://modelmeth.nist.gov/manufacturing#CuttingForceEquation
+
+:CuttingForceEquation a owl:Class ;
+	rdfs:subClassOf :QualityEquations .
+# 
+# http://modelmeth.nist.gov/manufacturing#CuttingInsert
+
+:CuttingInsert a owl:Class ;
+	rdfs:subClassOf :Inputs .
+# 
 # http://modelmeth.nist.gov/manufacturing#CuttingSpeed
 
 :CuttingSpeed a owl:Class ;
@@ -108,6 +153,16 @@
 
 :CuttingTool a owl:Class ;
 	rdfs:subClassOf :Equipment .
+# 
+# http://modelmeth.nist.gov/manufacturing#DirectCost
+
+:DirectCost a owl:Class ;
+	rdfs:subClassOf :ProfitEquations .
+# 
+# http://modelmeth.nist.gov/manufacturing#Equation
+
+:Equation a owl:Class ;
+	rdfs:subClassOf :ModelAbstraction .
 # 
 # http://modelmeth.nist.gov/manufacturing#Equipment
 
@@ -134,6 +189,20 @@
 :Fixture a owl:Class ;
 	rdfs:subClassOf :Equipment .
 # 
+# http://modelmeth.nist.gov/manufacturing#Inputs
+
+:Inputs a owl:Class .
+# 
+# http://modelmeth.nist.gov/manufacturing#Labor
+
+:Labor a owl:Class ;
+	rdfs:subClassOf :Inputs .
+# 
+# http://modelmeth.nist.gov/manufacturing#LaborCost
+
+:LaborCost a owl:Class ;
+	rdfs:subClassOf :Cost .
+# 
 # http://modelmeth.nist.gov/manufacturing#MachineBed
 
 :MachineBed a owl:Class ;
@@ -152,7 +221,7 @@
 # http://modelmeth.nist.gov/manufacturing#MachineSpindle
 
 :MachineSpindle a owl:Class ;
-	rdfs:subClassOf :MachineCharacteristic .
+	rdfs:subClassOf :SurfaceRoughnessEquation .
 # 
 # http://modelmeth.nist.gov/manufacturing#MachineTool
 
@@ -183,12 +252,13 @@
 # 
 # http://modelmeth.nist.gov/manufacturing#Material
 
-:Material a owl:Class .
+:Material a owl:Class ;
+	rdfs:subClassOf :Inputs .
 # 
-# http://modelmeth.nist.gov/manufacturing#MildSteel
+# http://modelmeth.nist.gov/manufacturing#MaterialCost
 
-:MildSteel a owl:Class ;
-	rdfs:subClassOf :Alloy .
+:MaterialCost a owl:Class ;
+	rdfs:subClassOf :Cost .
 # 
 # http://modelmeth.nist.gov/manufacturing#Model
 
@@ -198,11 +268,6 @@
 # http://modelmeth.nist.gov/manufacturing#ModelAbstraction
 
 :ModelAbstraction a owl:Class .
-# 
-# http://modelmeth.nist.gov/manufacturing#ModelEquation
-
-:ModelEquation a owl:Class ;
-	rdfs:subClassOf :ModelAbstraction .
 # 
 # http://modelmeth.nist.gov/manufacturing#ModelParameter
 
@@ -215,10 +280,20 @@
 :ModelProperty a owl:Class ;
 	rdfs:subClassOf :ModelAbstraction .
 # 
-# http://modelmeth.nist.gov/manufacturing#Phenomenon
+# http://modelmeth.nist.gov/manufacturing#ObjectiveFunction
 
-:Phenomenon a owl:Class ;
-	rdfs:comment "something that can be observed or inferred about a PrrocessType" .
+:ObjectiveFunction a owl:Class ;
+	rdfs:subClassOf :Equation .
+# 
+# http://modelmeth.nist.gov/manufacturing#Operation
+
+:Operation a owl:Class ;
+	rdfs:subClassOf :Inputs .
+# 
+# http://modelmeth.nist.gov/manufacturing#OperationCost
+
+:OperationCost a owl:Class ;
+	rdfs:subClassOf :Cost .
 # 
 # http://modelmeth.nist.gov/manufacturing#ProcessCharacteristic
 
@@ -235,15 +310,40 @@
 
 :ProcessType a owl:Class .
 # 
+# http://modelmeth.nist.gov/manufacturing#ProfitEquations
+
+:ProfitEquations a owl:Class ;
+	rdfs:subClassOf :Equation .
+# 
+# http://modelmeth.nist.gov/manufacturing#QualityEquations
+
+:QualityEquations a owl:Class ;
+	rdfs:subClassOf :Equation .
+# 
+# http://modelmeth.nist.gov/manufacturing#QualityLossPenalty
+
+:QualityLossPenalty a owl:Class ;
+	rdfs:subClassOf :ProfitEquations .
+# 
+# http://modelmeth.nist.gov/manufacturing#RegrindingCost
+
+:RegrindingCost a owl:Class ;
+	rdfs:subClassOf :Cost .
+# 
 # http://modelmeth.nist.gov/manufacturing#SinglePointCutting
 
 :SinglePointCutting a owl:Class ;
 	rdfs:subClassOf :MachiningProcess .
 # 
-# http://modelmeth.nist.gov/manufacturing#StainlessSteel
+# http://modelmeth.nist.gov/manufacturing#SurfaceRoughness
 
-:StainlessSteel a owl:Class ;
-	rdfs:subClassOf :Alloy .
+:SurfaceRoughness a owl:Class ;
+	rdfs:subClassOf :CalculatedProcessParameter .
+# 
+# http://modelmeth.nist.gov/manufacturing#SurfaceRoughnessEquation
+
+:SurfaceRoughnessEquation a owl:Class ;
+	rdfs:subClassOf :QualityEquations .
 # 
 # http://modelmeth.nist.gov/manufacturing#Symbol
 
@@ -253,7 +353,17 @@
 # http://modelmeth.nist.gov/manufacturing#ToolWear
 
 :ToolWear a owl:Class ;
-	rdfs:subClassOf :Phenomenon .
+	rdfs:subClassOf :CalculatedProcessParameter .
+# 
+# http://modelmeth.nist.gov/manufacturing#ToolWearEquation
+
+:ToolWearEquation a owl:Class ;
+	rdfs:subClassOf :QualityEquations .
+# 
+# http://modelmeth.nist.gov/manufacturing#TotalTimeEquation
+
+:TotalTimeEquation a owl:Class ;
+	rdfs:subClassOf :BasicEquations .
 # 
 # http://modelmeth.nist.gov/manufacturing#Turning
 
@@ -265,5 +375,120 @@
 
 :Workpiece a owl:Class ;
 	rdfs:comment "something that is in the process of being transformed to a finished part." .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Individuals
+# #
+# #################################################################
+# 
+# 
+# http://modelmeth.nist.gov/manufacturing#Aluminum
+
+:Aluminum a owl:NamedIndividual , :Alloy .
+# 
+# http://modelmeth.nist.gov/manufacturing#CastIron
+
+:CastIron a owl:NamedIndividual , :Alloy .
+# 
+# http://modelmeth.nist.gov/manufacturing#LoadingUnloading
+
+:LoadingUnloading a owl:NamedIndividual , :Labor ;
+	:hasCost "52"^^xsd:integer .
+# 
+# http://modelmeth.nist.gov/manufacturing#ManningMachine
+
+:ManningMachine a owl:NamedIndividual , :Labor .
+# 
+# http://modelmeth.nist.gov/manufacturing#MildSteel
+
+:MildSteel a owl:NamedIndividual , :Alloy .
+# 
+# http://modelmeth.nist.gov/manufacturing#StainlessSteel
+
+:StainlessSteel a owl:NamedIndividual , :Alloy .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    General axioms
+# #
+# #################################################################
+# 
+# 
+
+_:genid1 a owl:AllDifferent ;
+	owl:distinctMembers _:genid3 .
+
+_:genid3 a rdf:List ;
+	rdf:first :Aluminum ;
+	rdf:rest _:genid2 .
+
+_:genid2 a rdf:List ;
+	rdf:first :CastIron ;
+	rdf:rest rdf:nil .
+# 
+
+_:genid4 a owl:AllDifferent ;
+	owl:distinctMembers _:genid6 .
+
+_:genid6 a rdf:List ;
+	rdf:first :Aluminum ;
+	rdf:rest _:genid5 .
+
+_:genid5 a rdf:List ;
+	rdf:first :MildSteel ;
+	rdf:rest rdf:nil .
+# 
+
+_:genid7 a owl:AllDifferent ;
+	owl:distinctMembers _:genid9 .
+
+_:genid9 a rdf:List ;
+	rdf:first :Aluminum ;
+	rdf:rest _:genid8 .
+
+_:genid8 a rdf:List ;
+	rdf:first :StainlessSteel ;
+	rdf:rest rdf:nil .
+# 
+
+_:genid10 a owl:AllDifferent ;
+	owl:distinctMembers _:genid12 .
+
+_:genid12 a rdf:List ;
+	rdf:first :CastIron ;
+	rdf:rest _:genid11 .
+
+_:genid11 a rdf:List ;
+	rdf:first :MildSteel ;
+	rdf:rest rdf:nil .
+# 
+
+_:genid13 a owl:AllDifferent ;
+	owl:distinctMembers _:genid15 .
+
+_:genid15 a rdf:List ;
+	rdf:first :CastIron ;
+	rdf:rest _:genid14 .
+
+_:genid14 a rdf:List ;
+	rdf:first :StainlessSteel ;
+	rdf:rest rdf:nil .
+# 
+
+_:genid16 a owl:AllDifferent ;
+	owl:distinctMembers _:genid18 .
+
+_:genid18 a rdf:List ;
+	rdf:first :MildSteel ;
+	rdf:rest _:genid17 .
+
+_:genid17 a rdf:List ;
+	rdf:first :StainlessSteel ;
+	rdf:rest rdf:nil .
 # 
 # Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi
