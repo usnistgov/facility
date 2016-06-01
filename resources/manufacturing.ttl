@@ -3,6 +3,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix qudt: <http://qudt.org/1.1/schema/qudt#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 <http://modelmeth.nist.gov/manufacturing> a owl:Ontology .
@@ -18,7 +19,12 @@
 # http://modelmeth.nist.gov/manufacturing#hasCost
 
 :hasCost a owl:ObjectProperty ;
-	rdfs:domain :Inputs .
+	rdfs:domain :Resource .
+# 
+# http://modelmeth.nist.gov/manufacturing#hasDuration
+
+:hasDuration a owl:ObjectProperty ;
+	rdfs:domain :Process .
 # 
 # http://modelmeth.nist.gov/manufacturing#hasFeedRate
 
@@ -43,6 +49,10 @@
 
 :hasStatus a owl:ObjectProperty .
 # 
+# http://modelmeth.nist.gov/manufacturing#hasUnits
+
+:hasUnits a owl:ObjectProperty .
+# 
 # http://modelmeth.nist.gov/manufacturing#hasValue
 
 :hasValue a owl:ObjectProperty , owl:AsymmetricProperty .
@@ -55,23 +65,9 @@
 
 :isDirectlyProportionalTo a owl:ObjectProperty , owl:SymmetricProperty .
 # 
-# http://modelmeth.nist.gov/manufacturing#isGreaterThan
-
-:isGreaterThan a owl:ObjectProperty ;
-	owl:inverseOf :isLessThan ;
-	a owl:AsymmetricProperty , owl:IrreflexiveProperty ;
-	rdfs:domain :MachiningProcessParameter ;
-	rdfs:range :MachiningProcessParameter .
-# 
 # http://modelmeth.nist.gov/manufacturing#isInverselyProportionalTo
 
 :isInverselyProportionalTo a owl:ObjectProperty , owl:SymmetricProperty .
-# 
-# http://modelmeth.nist.gov/manufacturing#isLessThan
-
-:isLessThan a owl:ObjectProperty ;
-	rdfs:domain :MachiningProcessParameter ;
-	rdfs:range :MachiningProcessParameter .
 # 
 # http://modelmeth.nist.gov/manufacturing#referencesEquation
 
@@ -129,11 +125,6 @@
 	rdfs:subClassOf :Abstract ;
 	rdfs:comment "Monetary value of an aspect of the smart manufacturing process" .
 # 
-# http://modelmeth.nist.gov/manufacturing#CutDepth
-
-:CutDepth a owl:Class ;
-	rdfs:subClassOf :CalculatedProcessParameter .
-# 
 # http://modelmeth.nist.gov/manufacturing#CutDepthEquation
 
 :CutDepthEquation a owl:Class ;
@@ -167,7 +158,7 @@
 # http://modelmeth.nist.gov/manufacturing#CuttingInsert
 
 :CuttingInsert a owl:Class ;
-	rdfs:subClassOf :Inputs .
+	rdfs:subClassOf :Resource .
 # 
 # http://modelmeth.nist.gov/manufacturing#CuttingSpeed
 
@@ -178,6 +169,11 @@
 
 :CuttingTool a owl:Class ;
 	rdfs:subClassOf :Equipment .
+# 
+# http://modelmeth.nist.gov/manufacturing#DepthOfCut
+
+:DepthOfCut a owl:Class ;
+	rdfs:subClassOf :CalculatedProcessParameter .
 # 
 # http://modelmeth.nist.gov/manufacturing#DiameterDrift
 
@@ -198,7 +194,7 @@
 # http://modelmeth.nist.gov/manufacturing#Equipment
 
 :Equipment a owl:Class ;
-	rdfs:subClassOf :Inputs ;
+	rdfs:subClassOf :Resource ;
 	rdfs:comment "Machine(s) used to turn workpiece into finished part" .
 # 
 # http://modelmeth.nist.gov/manufacturing#EquipmentCharacteristic
@@ -230,16 +226,10 @@
 :Fixture a owl:Class ;
 	rdfs:subClassOf :Equipment .
 # 
-# http://modelmeth.nist.gov/manufacturing#Inputs
-
-:Inputs a owl:Class ;
-	rdfs:subClassOf :Physical ;
-	rdfs:comment "People or items that are necessary for the production of a finished part" .
-# 
 # http://modelmeth.nist.gov/manufacturing#Labor
 
 :Labor a owl:Class ;
-	rdfs:subClassOf :Inputs .
+	rdfs:subClassOf :Resource .
 # 
 # http://modelmeth.nist.gov/manufacturing#LaborCost
 
@@ -280,7 +270,7 @@
 # http://modelmeth.nist.gov/manufacturing#Machinery
 
 :Machinery a owl:Class ;
-	rdfs:subClassOf :Inputs ;
+	rdfs:subClassOf :Resource ;
 	rdfs:comment "Machines needed to produce part" .
 # 
 # http://modelmeth.nist.gov/manufacturing#MachiningProcess
@@ -298,13 +288,13 @@
 # http://modelmeth.nist.gov/manufacturing#ManufacturingProcess
 
 :ManufacturingProcess a owl:Class ;
-	rdfs:subClassOf :ProcessType ;
+	rdfs:subClassOf :Process ;
 	rdfs:comment "any process that is part of creating a manufactured artifact" .
 # 
 # http://modelmeth.nist.gov/manufacturing#Material
 
 :Material a owl:Class ;
-	rdfs:subClassOf :Inputs .
+	rdfs:subClassOf :Resource .
 # 
 # http://modelmeth.nist.gov/manufacturing#MaterialCost
 
@@ -362,15 +352,16 @@
 :PartLength a owl:Class ;
 	rdfs:subClassOf :ProcessConstant .
 # 
-# http://modelmeth.nist.gov/manufacturing#PartTime
-
-:PartTime a owl:Class ;
-	rdfs:subClassOf :CalculatedProcessParameter .
-# 
 # http://modelmeth.nist.gov/manufacturing#Physical
 
 :Physical a owl:Class ;
 	rdfs:comment "Something that has a spatial or temporal location" .
+# 
+# http://modelmeth.nist.gov/manufacturing#Process
+
+:Process a owl:Class ;
+	rdfs:subClassOf :Abstract ;
+	rdfs:comment "Description of the manufacturing taking place to produce the finished part" .
 # 
 # http://modelmeth.nist.gov/manufacturing#ProcessCharacteristic
 
@@ -389,12 +380,6 @@
 :ProcessParameter a owl:Class ;
 	rdfs:subClassOf :ProcessCharacteristic ;
 	rdfs:comment "a controllable characteristics of a manufacturing process" .
-# 
-# http://modelmeth.nist.gov/manufacturing#ProcessType
-
-:ProcessType a owl:Class ;
-	rdfs:subClassOf :Abstract ;
-	rdfs:comment "Description of the manufacturing taking place to produce the finished part" .
 # 
 # http://modelmeth.nist.gov/manufacturing#ProfitEquations
 
@@ -415,6 +400,12 @@
 
 :RegrindingCost a owl:Class ;
 	rdfs:subClassOf :OneTimeCost .
+# 
+# http://modelmeth.nist.gov/manufacturing#Resource
+
+:Resource a owl:Class ;
+	rdfs:subClassOf :Physical ;
+	rdfs:comment "People or items that are necessary for the production of a finished part" .
 # 
 # http://modelmeth.nist.gov/manufacturing#SinglePointCutting
 
@@ -447,6 +438,11 @@
 
 :TimeBasedCost a owl:Class ;
 	rdfs:subClassOf :Cost .
+# 
+# http://modelmeth.nist.gov/manufacturing#TimePerPart
+
+:TimePerPart a owl:Class ;
+	rdfs:subClassOf :CalculatedProcessParameter .
 # 
 # http://modelmeth.nist.gov/manufacturing#ToolWear
 
@@ -607,7 +603,7 @@
 # 
 # http://modelmeth.nist.gov/manufacturing#d_i
 
-:d_i a owl:NamedIndividual , :CutDepth ;
+:d_i a owl:NamedIndividual , :DepthOfCut ;
 	:isDirectlyProportionalTo :F , :W , :phi .
 # 
 # http://modelmeth.nist.gov/manufacturing#delta
@@ -629,7 +625,7 @@
 # 
 # http://modelmeth.nist.gov/manufacturing#t_c
 
-:t_c a owl:NamedIndividual , :Machinery , :PartTime ;
+:t_c a owl:NamedIndividual , :Machinery , :TimePerPart ;
 	:hasStatus :Undesirable ;
 	:isDirectlyProportionalTo :F , :W , :phi .
 # 
