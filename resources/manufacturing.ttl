@@ -102,6 +102,11 @@
 # #################################################################
 # 
 # 
+# http://modelmeth.nist.gov/manufacturing#Abstract
+
+:Abstract a owl:Class ;
+	rdfs:comment "Has neither a spatial nor a temporal location" .
+# 
 # http://modelmeth.nist.gov/manufacturing#Alloy
 
 :Alloy a owl:Class ;
@@ -115,11 +120,14 @@
 # http://modelmeth.nist.gov/manufacturing#CalculatedProcessParameter
 
 :CalculatedProcessParameter a owl:Class ;
-	rdfs:subClassOf :ProcessParameter .
+	rdfs:subClassOf :ProcessParameter ;
+	rdfs:comment "a calculated characteristic dependent on the machining process parameters and constants" .
 # 
 # http://modelmeth.nist.gov/manufacturing#Cost
 
-:Cost a owl:Class .
+:Cost a owl:Class ;
+	rdfs:subClassOf :Abstract ;
+	rdfs:comment "Monetary value of an aspect of the smart manufacturing process" .
 # 
 # http://modelmeth.nist.gov/manufacturing#CutDepth
 
@@ -174,7 +182,7 @@
 # http://modelmeth.nist.gov/manufacturing#DiameterDrift
 
 :DiameterDrift a owl:Class ;
-	rdfs:subClassOf :Workpiece .
+	rdfs:subClassOf :CalculatedProcessParameter .
 # 
 # http://modelmeth.nist.gov/manufacturing#DirectCost
 
@@ -184,15 +192,20 @@
 # http://modelmeth.nist.gov/manufacturing#Equation
 
 :Equation a owl:Class ;
-	rdfs:subClassOf :ModelAbstraction .
+	rdfs:subClassOf :ModelAbstraction ;
+	rdfs:comment "function describing the relation between process characteristics" .
 # 
 # http://modelmeth.nist.gov/manufacturing#Equipment
 
-:Equipment a owl:Class .
+:Equipment a owl:Class ;
+	rdfs:subClassOf :Inputs ;
+	rdfs:comment "Machine(s) used to turn workpiece into finished part" .
 # 
 # http://modelmeth.nist.gov/manufacturing#EquipmentCharacteristic
 
-:EquipmentCharacteristic a owl:Class .
+:EquipmentCharacteristic a owl:Class ;
+	rdfs:subClassOf :Physical ;
+	rdfs:comment "Equipment part that contributes to the manufacturing process" .
 # 
 # http://modelmeth.nist.gov/manufacturing#Facing
 
@@ -201,9 +214,15 @@
 	owl:disjointWith :Turning ;
 	rdfs:comment "a subtractive manufacturing process in which the part is rotated and a single point cutting tool is moved perpendicular to the axis of rotation." .
 # 
+# http://modelmeth.nist.gov/manufacturing#FinalDiameter
+
+:FinalDiameter a owl:Class ;
+	rdfs:subClassOf :ProcessConstant .
+# 
 # http://modelmeth.nist.gov/manufacturing#FinishedPart
 
 :FinishedPart a owl:Class ;
+	rdfs:subClassOf :Physical ;
 	rdfs:comment "a manufactured item ready for use by the customer, or to be included in an assembly." .
 # 
 # http://modelmeth.nist.gov/manufacturing#Fixture
@@ -213,7 +232,9 @@
 # 
 # http://modelmeth.nist.gov/manufacturing#Inputs
 
-:Inputs a owl:Class .
+:Inputs a owl:Class ;
+	rdfs:subClassOf :Physical ;
+	rdfs:comment "People or items that are necessary for the production of a finished part" .
 # 
 # http://modelmeth.nist.gov/manufacturing#Labor
 
@@ -223,7 +244,7 @@
 # http://modelmeth.nist.gov/manufacturing#LaborCost
 
 :LaborCost a owl:Class ;
-	rdfs:subClassOf :Cost .
+	rdfs:subClassOf :TimeBasedCost .
 # 
 # http://modelmeth.nist.gov/manufacturing#MachineBed
 
@@ -233,12 +254,8 @@
 # http://modelmeth.nist.gov/manufacturing#MachineCharacteristic
 
 :MachineCharacteristic a owl:Class ;
-	rdfs:subClassOf :EquipmentCharacteristic .
-# 
-# http://modelmeth.nist.gov/manufacturing#MachineOperation
-
-:MachineOperation a owl:Class ;
-	rdfs:subClassOf :Inputs .
+	rdfs:subClassOf :EquipmentCharacteristic ;
+	rdfs:comment "Machine part that contributes to the manufacturing process" .
 # 
 # http://modelmeth.nist.gov/manufacturing#MachinePower
 
@@ -260,6 +277,12 @@
 :MachineToolChanger a owl:Class ;
 	rdfs:subClassOf :MachineCharacteristic .
 # 
+# http://modelmeth.nist.gov/manufacturing#Machinery
+
+:Machinery a owl:Class ;
+	rdfs:subClassOf :Inputs ;
+	rdfs:comment "Machines needed to produce part" .
+# 
 # http://modelmeth.nist.gov/manufacturing#MachiningProcess
 
 :MachiningProcess a owl:Class ;
@@ -269,7 +292,8 @@
 # http://modelmeth.nist.gov/manufacturing#MachiningProcessParameter
 
 :MachiningProcessParameter a owl:Class ;
-	rdfs:subClassOf :ProcessParameter .
+	rdfs:subClassOf :ProcessParameter ;
+	rdfs:comment "a controllable characteristic that can be adjusted for different final results" .
 # 
 # http://modelmeth.nist.gov/manufacturing#ManufacturingProcess
 
@@ -285,7 +309,7 @@
 # http://modelmeth.nist.gov/manufacturing#MaterialCost
 
 :MaterialCost a owl:Class ;
-	rdfs:subClassOf :Cost .
+	rdfs:subClassOf :OneTimeCost .
 # 
 # http://modelmeth.nist.gov/manufacturing#MeanCutDiameter
 
@@ -299,7 +323,8 @@
 # 
 # http://modelmeth.nist.gov/manufacturing#ModelAbstraction
 
-:ModelAbstraction a owl:Class .
+:ModelAbstraction a owl:Class ;
+	rdfs:subClassOf :Abstract .
 # 
 # http://modelmeth.nist.gov/manufacturing#ModelParameter
 
@@ -317,20 +342,47 @@
 :ObjectiveFunction a owl:Class ;
 	rdfs:subClassOf :Equation .
 # 
+# http://modelmeth.nist.gov/manufacturing#OneTimeCost
+
+:OneTimeCost a owl:Class ;
+	rdfs:subClassOf :Cost .
+# 
 # http://modelmeth.nist.gov/manufacturing#OperationCost
 
 :OperationCost a owl:Class ;
-	rdfs:subClassOf :Cost .
+	rdfs:subClassOf :TimeBasedCost .
+# 
+# http://modelmeth.nist.gov/manufacturing#OriginalDiameter
+
+:OriginalDiameter a owl:Class ;
+	rdfs:subClassOf :ProcessConstant .
+# 
+# http://modelmeth.nist.gov/manufacturing#PartLength
+
+:PartLength a owl:Class ;
+	rdfs:subClassOf :ProcessConstant .
 # 
 # http://modelmeth.nist.gov/manufacturing#PartTime
 
 :PartTime a owl:Class ;
 	rdfs:subClassOf :CalculatedProcessParameter .
 # 
+# http://modelmeth.nist.gov/manufacturing#Physical
+
+:Physical a owl:Class ;
+	rdfs:comment "Something that has a spatial or temporal location" .
+# 
 # http://modelmeth.nist.gov/manufacturing#ProcessCharacteristic
 
 :ProcessCharacteristic a owl:Class ;
+	rdfs:subClassOf :Abstract ;
 	rdfs:comment "a property describing a manufacturing process" .
+# 
+# http://modelmeth.nist.gov/manufacturing#ProcessConstant
+
+:ProcessConstant a owl:Class ;
+	rdfs:subClassOf :ProcessCharacteristic ;
+	rdfs:comment "Constant quantities established by the starting point of the smart manufacturing process" .
 # 
 # http://modelmeth.nist.gov/manufacturing#ProcessParameter
 
@@ -340,7 +392,9 @@
 # 
 # http://modelmeth.nist.gov/manufacturing#ProcessType
 
-:ProcessType a owl:Class .
+:ProcessType a owl:Class ;
+	rdfs:subClassOf :Abstract ;
+	rdfs:comment "Description of the manufacturing taking place to produce the finished part" .
 # 
 # http://modelmeth.nist.gov/manufacturing#ProfitEquations
 
@@ -360,16 +414,19 @@
 # http://modelmeth.nist.gov/manufacturing#RegrindingCost
 
 :RegrindingCost a owl:Class ;
-	rdfs:subClassOf :Cost .
+	rdfs:subClassOf :OneTimeCost .
 # 
 # http://modelmeth.nist.gov/manufacturing#SinglePointCutting
 
 :SinglePointCutting a owl:Class ;
-	rdfs:subClassOf :MachiningProcess .
+	rdfs:subClassOf :MachiningProcess ;
+	rdfs:comment "a subtractive manufacturing process using a single point of contact to remove material" .
 # 
 # http://modelmeth.nist.gov/manufacturing#Status
 
-:Status a owl:Class .
+:Status a owl:Class ;
+	rdfs:subClassOf :Abstract ;
+	rdfs:comment "characteristic that denotes whether the current parameter contributes positively or negatively to the final optimized objective function" .
 # 
 # http://modelmeth.nist.gov/manufacturing#SurfaceRoughness
 
@@ -385,6 +442,11 @@
 
 :Symbol a owl:Class ;
 	rdfs:subClassOf :ModelAbstraction .
+# 
+# http://modelmeth.nist.gov/manufacturing#TimeBasedCost
+
+:TimeBasedCost a owl:Class ;
+	rdfs:subClassOf :Cost .
 # 
 # http://modelmeth.nist.gov/manufacturing#ToolWear
 
@@ -415,6 +477,7 @@
 # http://modelmeth.nist.gov/manufacturing#Workpiece
 
 :Workpiece a owl:Class ;
+	rdfs:subClassOf :Physical ;
 	rdfs:comment "something that is in the process of being transformed to a finished part." .
 # 
 # 
@@ -566,7 +629,7 @@
 # 
 # http://modelmeth.nist.gov/manufacturing#t_c
 
-:t_c a owl:NamedIndividual , :MachineOperation , :PartTime ;
+:t_c a owl:NamedIndividual , :Machinery , :PartTime ;
 	:hasStatus :Undesirable ;
 	:isDirectlyProportionalTo :F , :W , :phi .
 # 
