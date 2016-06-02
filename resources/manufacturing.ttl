@@ -108,32 +108,26 @@
 :Alloy a owl:Class ;
 	rdfs:subClassOf :Material .
 # 
-# http://modelmeth.nist.gov/manufacturing#BasicEquations
+# http://modelmeth.nist.gov/manufacturing#AvoidedCharacteristic
 
-:BasicEquations a owl:Class ;
-	rdfs:subClassOf :Equation .
+:AvoidedCharacteristic a owl:Class ;
+	rdfs:subClassOf :CharacteristicObjectiveType .
 # 
-# http://modelmeth.nist.gov/manufacturing#CalculatedProcessParameter
+# http://modelmeth.nist.gov/manufacturing#AvoidedPhenomenon
 
-:CalculatedProcessParameter a owl:Class ;
-	rdfs:subClassOf :ProcessParameter ;
-	rdfs:comment "a calculated characteristic dependent on the machining process parameters and constants" .
+:AvoidedPhenomenon a owl:Class ;
+	rdfs:subClassOf :PhenomenonObjectiveType .
+# 
+# http://modelmeth.nist.gov/manufacturing#CharacteristicObjectiveType
+
+:CharacteristicObjectiveType a owl:Class ;
+	rdfs:subClassOf :ObjectiveType .
 # 
 # http://modelmeth.nist.gov/manufacturing#Cost
 
 :Cost a owl:Class ;
 	rdfs:subClassOf :Abstract ;
 	rdfs:comment "Monetary value of an aspect of the smart manufacturing process" .
-# 
-# http://modelmeth.nist.gov/manufacturing#CutDepthEquation
-
-:CutDepthEquation a owl:Class ;
-	rdfs:subClassOf :BasicEquations .
-# 
-# http://modelmeth.nist.gov/manufacturing#CutTimeEquation
-
-:CutTimeEquation a owl:Class ;
-	rdfs:subClassOf :BasicEquations .
 # 
 # http://modelmeth.nist.gov/manufacturing#CuttingFeedRate
 
@@ -148,12 +142,7 @@
 # http://modelmeth.nist.gov/manufacturing#CuttingForce
 
 :CuttingForce a owl:Class ;
-	rdfs:subClassOf :CalculatedProcessParameter .
-# 
-# http://modelmeth.nist.gov/manufacturing#CuttingForceEquation
-
-:CuttingForceEquation a owl:Class ;
-	rdfs:subClassOf :QualityEquations .
+	rdfs:subClassOf :ProcessCharacteristic .
 # 
 # http://modelmeth.nist.gov/manufacturing#CuttingInsert
 
@@ -173,17 +162,12 @@
 # http://modelmeth.nist.gov/manufacturing#DepthOfCut
 
 :DepthOfCut a owl:Class ;
-	rdfs:subClassOf :CalculatedProcessParameter .
+	rdfs:subClassOf :ProcessCharacteristic .
 # 
-# http://modelmeth.nist.gov/manufacturing#DiameterDrift
+# http://modelmeth.nist.gov/manufacturing#Drift
 
-:DiameterDrift a owl:Class ;
-	rdfs:subClassOf :CalculatedProcessParameter .
-# 
-# http://modelmeth.nist.gov/manufacturing#DirectCost
-
-:DirectCost a owl:Class ;
-	rdfs:subClassOf :ProfitEquations .
+:Drift a owl:Class ;
+	rdfs:subClassOf :ProcessCharacteristic .
 # 
 # http://modelmeth.nist.gov/manufacturing#Equation
 
@@ -210,10 +194,10 @@
 	owl:disjointWith :Turning ;
 	rdfs:comment "a subtractive manufacturing process in which the part is rotated and a single point cutting tool is moved perpendicular to the axis of rotation." .
 # 
-# http://modelmeth.nist.gov/manufacturing#FinalDiameter
+# http://modelmeth.nist.gov/manufacturing#FinalDimension
 
-:FinalDiameter a owl:Class ;
-	rdfs:subClassOf :ProcessConstant .
+:FinalDimension a owl:Class ;
+	rdfs:subClassOf :WorkpieceCharacteristic .
 # 
 # http://modelmeth.nist.gov/manufacturing#FinishedPart
 
@@ -225,6 +209,11 @@
 
 :Fixture a owl:Class ;
 	rdfs:subClassOf :Equipment .
+# 
+# http://modelmeth.nist.gov/manufacturing#InitialDimension
+
+:InitialDimension a owl:Class ;
+	rdfs:subClassOf :WorkpieceCharacteristic .
 # 
 # http://modelmeth.nist.gov/manufacturing#Labor
 
@@ -301,11 +290,6 @@
 :MaterialCost a owl:Class ;
 	rdfs:subClassOf :OneTimeCost .
 # 
-# http://modelmeth.nist.gov/manufacturing#MeanCutDiameter
-
-:MeanCutDiameter a owl:Class ;
-	rdfs:subClassOf :CalculatedProcessParameter .
-# 
 # http://modelmeth.nist.gov/manufacturing#Model
 
 :Model a owl:Class ;
@@ -332,6 +316,12 @@
 :ObjectiveFunction a owl:Class ;
 	rdfs:subClassOf :Equation .
 # 
+# http://modelmeth.nist.gov/manufacturing#ObjectiveType
+
+:ObjectiveType a owl:Class ;
+	rdfs:subClassOf :Abstract ;
+	rdfs:comment "characteristic that denotes whether the current parameter contributes positively or negatively to the final optimized objective function" .
+# 
 # http://modelmeth.nist.gov/manufacturing#OneTimeCost
 
 :OneTimeCost a owl:Class ;
@@ -342,15 +332,10 @@
 :OperationCost a owl:Class ;
 	rdfs:subClassOf :TimeBasedCost .
 # 
-# http://modelmeth.nist.gov/manufacturing#OriginalDiameter
+# http://modelmeth.nist.gov/manufacturing#PhenomenonObjectiveType
 
-:OriginalDiameter a owl:Class ;
-	rdfs:subClassOf :ProcessConstant .
-# 
-# http://modelmeth.nist.gov/manufacturing#PartLength
-
-:PartLength a owl:Class ;
-	rdfs:subClassOf :ProcessConstant .
+:PhenomenonObjectiveType a owl:Class ;
+	rdfs:subClassOf :ObjectiveType .
 # 
 # http://modelmeth.nist.gov/manufacturing#Physical
 
@@ -360,7 +345,7 @@
 # http://modelmeth.nist.gov/manufacturing#Process
 
 :Process a owl:Class ;
-	rdfs:subClassOf :Abstract ;
+	rdfs:subClassOf :Physical ;
 	rdfs:comment "Description of the manufacturing taking place to produce the finished part" .
 # 
 # http://modelmeth.nist.gov/manufacturing#ProcessCharacteristic
@@ -369,32 +354,16 @@
 	rdfs:subClassOf :Abstract ;
 	rdfs:comment "a property describing a manufacturing process" .
 # 
-# http://modelmeth.nist.gov/manufacturing#ProcessConstant
-
-:ProcessConstant a owl:Class ;
-	rdfs:subClassOf :ProcessCharacteristic ;
-	rdfs:comment "Constant quantities established by the starting point of the smart manufacturing process" .
-# 
 # http://modelmeth.nist.gov/manufacturing#ProcessParameter
 
 :ProcessParameter a owl:Class ;
 	rdfs:subClassOf :ProcessCharacteristic ;
 	rdfs:comment "a controllable characteristics of a manufacturing process" .
 # 
-# http://modelmeth.nist.gov/manufacturing#ProfitEquations
+# http://modelmeth.nist.gov/manufacturing#ProcessingTime
 
-:ProfitEquations a owl:Class ;
-	rdfs:subClassOf :Equation .
-# 
-# http://modelmeth.nist.gov/manufacturing#QualityEquations
-
-:QualityEquations a owl:Class ;
-	rdfs:subClassOf :Equation .
-# 
-# http://modelmeth.nist.gov/manufacturing#QualityLossPenalty
-
-:QualityLossPenalty a owl:Class ;
-	rdfs:subClassOf :ProfitEquations .
+:ProcessingTime a owl:Class ;
+	rdfs:subClassOf :ProcessCharacteristic .
 # 
 # http://modelmeth.nist.gov/manufacturing#RegrindingCost
 
@@ -413,21 +382,20 @@
 	rdfs:subClassOf :MachiningProcess ;
 	rdfs:comment "a subtractive manufacturing process using a single point of contact to remove material" .
 # 
-# http://modelmeth.nist.gov/manufacturing#Status
+# http://modelmeth.nist.gov/manufacturing#SoughtCharacteristic
 
-:Status a owl:Class ;
-	rdfs:subClassOf :Abstract ;
-	rdfs:comment "characteristic that denotes whether the current parameter contributes positively or negatively to the final optimized objective function" .
+:SoughtCharacteristic a owl:Class ;
+	rdfs:subClassOf :CharacteristicObjectiveType .
+# 
+# http://modelmeth.nist.gov/manufacturing#SoughtPhenomenon
+
+:SoughtPhenomenon a owl:Class ;
+	rdfs:subClassOf :PhenomenonObjectiveType .
 # 
 # http://modelmeth.nist.gov/manufacturing#SurfaceRoughness
 
 :SurfaceRoughness a owl:Class ;
-	rdfs:subClassOf :CalculatedProcessParameter .
-# 
-# http://modelmeth.nist.gov/manufacturing#SurfaceRoughnessEquation
-
-:SurfaceRoughnessEquation a owl:Class ;
-	rdfs:subClassOf :QualityEquations .
+	rdfs:subClassOf :ProcessCharacteristic .
 # 
 # http://modelmeth.nist.gov/manufacturing#Symbol
 
@@ -442,27 +410,12 @@
 # http://modelmeth.nist.gov/manufacturing#TimePerPart
 
 :TimePerPart a owl:Class ;
-	rdfs:subClassOf :CalculatedProcessParameter .
+	rdfs:subClassOf :ProcessCharacteristic .
 # 
 # http://modelmeth.nist.gov/manufacturing#ToolWear
 
 :ToolWear a owl:Class ;
-	rdfs:subClassOf :CalculatedProcessParameter .
-# 
-# http://modelmeth.nist.gov/manufacturing#ToolWearEquation
-
-:ToolWearEquation a owl:Class ;
-	rdfs:subClassOf :QualityEquations .
-# 
-# http://modelmeth.nist.gov/manufacturing#TotalTime
-
-:TotalTime a owl:Class ;
-	rdfs:subClassOf :CalculatedProcessParameter .
-# 
-# http://modelmeth.nist.gov/manufacturing#TotalTimeEquation
-
-:TotalTimeEquation a owl:Class ;
-	rdfs:subClassOf :BasicEquations .
+	rdfs:subClassOf :ProcessCharacteristic .
 # 
 # http://modelmeth.nist.gov/manufacturing#Turning
 
@@ -475,6 +428,11 @@
 :Workpiece a owl:Class ;
 	rdfs:subClassOf :Physical ;
 	rdfs:comment "something that is in the process of being transformed to a finished part." .
+# 
+# http://modelmeth.nist.gov/manufacturing#WorkpieceCharacteristic
+
+:WorkpieceCharacteristic a owl:Class ;
+	rdfs:subClassOf :Physical .
 # 
 # 
 # 
@@ -517,13 +475,16 @@
 # 
 # http://modelmeth.nist.gov/manufacturing#D_i
 
-:D_i a owl:NamedIndividual , :MeanCutDiameter ;
-	:isDirectlyProportionalTo :t_c ;
+:D_i a owl:NamedIndividual ;
 	:hasUnits qudt:Millimeter .
+
+qudt:Millimeter a owl:NamedIndividual .
+
+:D_i :isDirectlyProportionalTo :t_c .
 # 
 # http://modelmeth.nist.gov/manufacturing#Desirable
 
-:Desirable a owl:NamedIndividual , :Status .
+:Desirable a owl:NamedIndividual , :ObjectiveType .
 # 
 # http://modelmeth.nist.gov/manufacturing#E
 
@@ -535,6 +496,8 @@
 
 :F a owl:NamedIndividual , :CuttingForce ;
 	:hasUnits qudt:Newton .
+
+qudt:Newton a owl:NamedIndividual .
 # 
 # http://modelmeth.nist.gov/manufacturing#LoadingUnloading
 
@@ -578,21 +541,27 @@
 # 
 # http://modelmeth.nist.gov/manufacturing#T_N
 
-:T_N a owl:NamedIndividual , :TotalTime ;
+:T_N a owl:NamedIndividual , :ProcessingTime ;
 	:hasStatus :Undesirable ;
-	:isDirectlyProportionalTo :DC , :Z , :t_c ;
-	:hasUnits qudt:Minute_Time.
+	:hasUnits qudt:Minute_Time .
+
+qudt:Minute_Time a owl:NamedIndividual .
+
+:T_N :isDirectlyProportionalTo :DC , :Z , :t_c .
 # 
 # http://modelmeth.nist.gov/manufacturing#Undesirable
 
-:Undesirable a owl:NamedIndividual , :Status .
+:Undesirable a owl:NamedIndividual , :ObjectiveType .
 # 
 # http://modelmeth.nist.gov/manufacturing#V
 
 :V a owl:NamedIndividual , :CuttingSpeed ;
-	:isDirectlyProportionalTo :F , :W , :phi ;
-	:isInverselyProportionalTo :t_c ;
 	:hasUnits qudt:Meter_per_Minute .
+
+qudt:Meter_per_Minute a owl:NamedIndividual .
+
+:V :isDirectlyProportionalTo :F , :W , :phi ;
+	:isInverselyProportionalTo :t_c .
 # 
 # http://modelmeth.nist.gov/manufacturing#W
 
@@ -608,12 +577,12 @@
 # http://modelmeth.nist.gov/manufacturing#d_i
 
 :d_i a owl:NamedIndividual , :DepthOfCut ;
-	:isDirectlyProportionalTo :F , :W , :phi ;
-	:hasUnits qudt:Millimeter .
+	:hasUnits qudt:Millimeter ;
+	:isDirectlyProportionalTo :F , :W , :phi .
 # 
 # http://modelmeth.nist.gov/manufacturing#delta
 
-:delta a owl:NamedIndividual , :DiameterDrift ;
+:delta a owl:NamedIndividual , :Drift ;
 	:isInverselyProportionalTo :QC .
 # 
 # http://modelmeth.nist.gov/manufacturing#f
@@ -632,8 +601,16 @@
 
 :t_c a owl:NamedIndividual , :Machinery , :TimePerPart ;
 	:hasStatus :Undesirable ;
-	:isDirectlyProportionalTo :F , :W , :phi ;
-	:hasUnits qudt:Minute_Time .
+	:hasUnits qudt:Minute_Time ;
+	:isDirectlyProportionalTo :F , :W , :phi .
+# 
+# http://qudt.org/1.1/schema/qudt#Meter_per_Minute
+# 
+# http://qudt.org/1.1/schema/qudt#Millimeter
+# 
+# http://qudt.org/1.1/schema/qudt#Minute_Time
+# 
+# http://qudt.org/1.1/schema/qudt#Newton
 # 
 # 
 # 
