@@ -19,6 +19,16 @@
 # 
 # http://modelmeth.nist.gov/manufacturing#hasCost
 
+:characteristicObjectiveType owl:equivalentClass
+   [ rdf:type rdfs:Datatype;
+     owl:oneOf (  "sought_characteristic"^^xsd:NMTOKEN  "avoided_characteristic"^^xsd:NMTOKEN )
+   ] .
+
+:phenomenonObjectiveType owl:equivalentClass
+   [ rdf:type rdfs:Datatype;
+     owl:oneOf (  "sought_phenomenon"^^xsd:NMTOKEN  "avoided_phenomenon"^^xsd:NMTOKEN )
+   ] .
+
 :hasCost a owl:ObjectProperty ;
 	rdfs:domain :Resource .
 # 
