@@ -6,7 +6,8 @@
 @prefix qudt: <http://qudt.org/1.1/schema/qudt#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-<http://modelmeth.nist.gov/manufacturing> a owl:Ontology .
+<http://modelmeth.nist.gov/manufacturing> a owl:Ontology ;
+	owl:imports <http://qudt.org/1.1/schema/qudt> , <http://qudt.org/1.1/schema/quantity> .
 # 
 # 
 # #################################################################
@@ -476,11 +477,8 @@
 # http://modelmeth.nist.gov/manufacturing#D_i
 
 :D_i a owl:NamedIndividual ;
-	:hasUnits qudt:Millimeter .
-
-qudt:Millimeter a owl:NamedIndividual .
-
-:D_i :isDirectlyProportionalTo :t_c .
+	:hasUnits qudt:Millimeter ;
+	:isDirectlyProportionalTo :t_c .
 # 
 # http://modelmeth.nist.gov/manufacturing#Desirable
 
@@ -496,8 +494,6 @@ qudt:Millimeter a owl:NamedIndividual .
 
 :F a owl:NamedIndividual , :CuttingForce ;
 	:hasUnits qudt:Newton .
-
-qudt:Newton a owl:NamedIndividual .
 # 
 # http://modelmeth.nist.gov/manufacturing#LoadingUnloading
 
@@ -543,11 +539,8 @@ qudt:Newton a owl:NamedIndividual .
 
 :T_N a owl:NamedIndividual , :ProcessingTime ;
 	:hasStatus :Undesirable ;
-	:hasUnits qudt:Minute_Time .
-
-qudt:Minute_Time a owl:NamedIndividual .
-
-:T_N :isDirectlyProportionalTo :DC , :Z , :t_c .
+	:hasUnits qudt:Minute_Time ;
+	:isDirectlyProportionalTo :DC , :Z , :t_c .
 # 
 # http://modelmeth.nist.gov/manufacturing#Undesirable
 
@@ -556,11 +549,8 @@ qudt:Minute_Time a owl:NamedIndividual .
 # http://modelmeth.nist.gov/manufacturing#V
 
 :V a owl:NamedIndividual , :CuttingSpeed ;
-	:hasUnits qudt:Meter_per_Minute .
-
-qudt:Meter_per_Minute a owl:NamedIndividual .
-
-:V :isDirectlyProportionalTo :F , :W , :phi ;
+	:hasUnits qudt:Meter_per_Minute ;
+	:isDirectlyProportionalTo :F , :W , :phi ;
 	:isInverselyProportionalTo :t_c .
 # 
 # http://modelmeth.nist.gov/manufacturing#W
@@ -605,12 +595,20 @@ qudt:Meter_per_Minute a owl:NamedIndividual .
 	:isDirectlyProportionalTo :F , :W , :phi .
 # 
 # http://qudt.org/1.1/schema/qudt#Meter_per_Minute
+
+qudt:Meter_per_Minute a owl:NamedIndividual .
 # 
 # http://qudt.org/1.1/schema/qudt#Millimeter
+
+qudt:Millimeter a owl:NamedIndividual .
 # 
 # http://qudt.org/1.1/schema/qudt#Minute_Time
+
+qudt:Minute_Time a owl:NamedIndividual .
 # 
 # http://qudt.org/1.1/schema/qudt#Newton
+
+qudt:Newton a owl:NamedIndividual .
 # 
 # 
 # 
