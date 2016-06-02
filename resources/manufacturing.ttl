@@ -518,7 +518,8 @@
 # http://modelmeth.nist.gov/manufacturing#D_i
 
 :D_i a owl:NamedIndividual , :MeanCutDiameter ;
-	:isDirectlyProportionalTo :t_c .
+	:isDirectlyProportionalTo :t_c ;
+	:hasUnits qudt:Millimeter .
 # 
 # http://modelmeth.nist.gov/manufacturing#Desirable
 
@@ -532,7 +533,8 @@
 # 
 # http://modelmeth.nist.gov/manufacturing#F
 
-:F a owl:NamedIndividual , :CuttingForce .
+:F a owl:NamedIndividual , :CuttingForce ;
+	:hasUnits qudt:Newton .
 # 
 # http://modelmeth.nist.gov/manufacturing#LoadingUnloading
 
@@ -578,7 +580,8 @@
 
 :T_N a owl:NamedIndividual , :TotalTime ;
 	:hasStatus :Undesirable ;
-	:isDirectlyProportionalTo :DC , :Z , :t_c .
+	:isDirectlyProportionalTo :DC , :Z , :t_c ;
+	:hasUnits qudt:Minute_Time.
 # 
 # http://modelmeth.nist.gov/manufacturing#Undesirable
 
@@ -588,7 +591,8 @@
 
 :V a owl:NamedIndividual , :CuttingSpeed ;
 	:isDirectlyProportionalTo :F , :W , :phi ;
-	:isInverselyProportionalTo :t_c .
+	:isInverselyProportionalTo :t_c ;
+	:hasUnits qudt:Meter_per_Minute .
 # 
 # http://modelmeth.nist.gov/manufacturing#W
 
@@ -604,7 +608,8 @@
 # http://modelmeth.nist.gov/manufacturing#d_i
 
 :d_i a owl:NamedIndividual , :DepthOfCut ;
-	:isDirectlyProportionalTo :F , :W , :phi .
+	:isDirectlyProportionalTo :F , :W , :phi ;
+	:hasUnits qudt:Millimeter .
 # 
 # http://modelmeth.nist.gov/manufacturing#delta
 
@@ -627,7 +632,8 @@
 
 :t_c a owl:NamedIndividual , :Machinery , :TimePerPart ;
 	:hasStatus :Undesirable ;
-	:isDirectlyProportionalTo :F , :W , :phi .
+	:isDirectlyProportionalTo :F , :W , :phi ;
+	:hasUnits qudt:Minute_Time .
 # 
 # 
 # 
