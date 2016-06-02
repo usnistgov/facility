@@ -12,22 +12,53 @@
 # 
 # #################################################################
 # #
+# #    Datatypes
+# #
+# #################################################################
+# 
+# 
+# http://modelmeth.nist.gov/manufacturing#characteristicObjectiveType
+
+:characteristicObjectiveType a rdfs:Datatype ;
+	owl:equivalentClass _:genid1 .
+
+_:genid1 a rdfs:Datatype ;
+	owl:oneOf _:genid5 .
+
+_:genid5 a rdf:List ;
+	rdf:first "avoided_characteristic"^^xsd:NMTOKEN ;
+	rdf:rest _:genid4 .
+
+_:genid4 a rdf:List ;
+	rdf:first "sought_characteristic"^^xsd:NMTOKEN ;
+	rdf:rest rdf:nil .
+# 
+# http://modelmeth.nist.gov/manufacturing#phenomenonObjectiveType
+
+:phenomenonObjectiveType a rdfs:Datatype ;
+	owl:equivalentClass _:genid6 .
+
+_:genid6 a rdfs:Datatype ;
+	owl:oneOf _:genid10 .
+
+_:genid10 a rdf:List ;
+	rdf:first "avoided_phenomenon"^^xsd:NMTOKEN ;
+	rdf:rest _:genid9 .
+
+_:genid9 a rdf:List ;
+	rdf:first "sought_phenomenon"^^xsd:NMTOKEN ;
+	rdf:rest rdf:nil .
+# 
+# 
+# 
+# #################################################################
+# #
 # #    Object Properties
 # #
 # #################################################################
 # 
 # 
 # http://modelmeth.nist.gov/manufacturing#hasCost
-
-:characteristicObjectiveType owl:equivalentClass
-   [ rdf:type rdfs:Datatype;
-     owl:oneOf (  "sought_characteristic"^^xsd:NMTOKEN  "avoided_characteristic"^^xsd:NMTOKEN )
-   ] .
-
-:phenomenonObjectiveType owl:equivalentClass
-   [ rdf:type rdfs:Datatype;
-     owl:oneOf (  "sought_phenomenon"^^xsd:NMTOKEN  "avoided_phenomenon"^^xsd:NMTOKEN )
-   ] .
 
 :hasCost a owl:ObjectProperty ;
 	rdfs:domain :Resource .
@@ -99,6 +130,21 @@
 	a owl:AsymmetricProperty , owl:IrreflexiveProperty ;
 	rdfs:domain :Symbol ;
 	rdfs:range :ModelProperty .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Data properties
+# #
+# #################################################################
+# 
+# 
+# http://modelmeth.nist.gov/manufacturing#hasObjectiveType
+
+:hasObjectiveType a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :ProcessCharacteristic ;
+	rdfs:range :characteristicObjectiveType .
 # 
 # 
 # 
@@ -362,7 +408,7 @@
 # http://modelmeth.nist.gov/manufacturing#ProcessCharacteristic
 
 :ProcessCharacteristic a owl:Class ;
-	rdfs:subClassOf :Abstract ;
+	rdfs:subClassOf :Physical ;
 	rdfs:comment "a property describing a manufacturing process" .
 # 
 # http://modelmeth.nist.gov/manufacturing#ProcessParameter
@@ -630,74 +676,74 @@ qudt:Newton a owl:NamedIndividual .
 # 
 # 
 
-_:genid1 a owl:AllDifferent ;
-	owl:distinctMembers _:genid3 .
+_:genid11 a owl:AllDifferent ;
+	owl:distinctMembers _:genid13 .
 
-_:genid3 a rdf:List ;
+_:genid13 a rdf:List ;
 	rdf:first :Aluminum ;
-	rdf:rest _:genid2 .
-
-_:genid2 a rdf:List ;
-	rdf:first :CastIron ;
-	rdf:rest rdf:nil .
-# 
-
-_:genid4 a owl:AllDifferent ;
-	owl:distinctMembers _:genid6 .
-
-_:genid6 a rdf:List ;
-	rdf:first :Aluminum ;
-	rdf:rest _:genid5 .
-
-_:genid5 a rdf:List ;
-	rdf:first :MildSteel ;
-	rdf:rest rdf:nil .
-# 
-
-_:genid7 a owl:AllDifferent ;
-	owl:distinctMembers _:genid9 .
-
-_:genid9 a rdf:List ;
-	rdf:first :Aluminum ;
-	rdf:rest _:genid8 .
-
-_:genid8 a rdf:List ;
-	rdf:first :StainlessSteel ;
-	rdf:rest rdf:nil .
-# 
-
-_:genid10 a owl:AllDifferent ;
-	owl:distinctMembers _:genid12 .
+	rdf:rest _:genid12 .
 
 _:genid12 a rdf:List ;
 	rdf:first :CastIron ;
-	rdf:rest _:genid11 .
+	rdf:rest rdf:nil .
+# 
 
-_:genid11 a rdf:List ;
+_:genid14 a owl:AllDifferent ;
+	owl:distinctMembers _:genid16 .
+
+_:genid16 a rdf:List ;
+	rdf:first :Aluminum ;
+	rdf:rest _:genid15 .
+
+_:genid15 a rdf:List ;
 	rdf:first :MildSteel ;
 	rdf:rest rdf:nil .
 # 
 
-_:genid13 a owl:AllDifferent ;
-	owl:distinctMembers _:genid15 .
+_:genid17 a owl:AllDifferent ;
+	owl:distinctMembers _:genid19 .
 
-_:genid15 a rdf:List ;
-	rdf:first :CastIron ;
-	rdf:rest _:genid14 .
+_:genid19 a rdf:List ;
+	rdf:first :Aluminum ;
+	rdf:rest _:genid18 .
 
-_:genid14 a rdf:List ;
+_:genid18 a rdf:List ;
 	rdf:first :StainlessSteel ;
 	rdf:rest rdf:nil .
 # 
 
-_:genid16 a owl:AllDifferent ;
-	owl:distinctMembers _:genid18 .
+_:genid20 a owl:AllDifferent ;
+	owl:distinctMembers _:genid22 .
 
-_:genid18 a rdf:List ;
+_:genid22 a rdf:List ;
+	rdf:first :CastIron ;
+	rdf:rest _:genid21 .
+
+_:genid21 a rdf:List ;
 	rdf:first :MildSteel ;
-	rdf:rest _:genid17 .
+	rdf:rest rdf:nil .
+# 
 
-_:genid17 a rdf:List ;
+_:genid23 a owl:AllDifferent ;
+	owl:distinctMembers _:genid25 .
+
+_:genid25 a rdf:List ;
+	rdf:first :CastIron ;
+	rdf:rest _:genid24 .
+
+_:genid24 a rdf:List ;
+	rdf:first :StainlessSteel ;
+	rdf:rest rdf:nil .
+# 
+
+_:genid26 a owl:AllDifferent ;
+	owl:distinctMembers _:genid28 .
+
+_:genid28 a rdf:List ;
+	rdf:first :MildSteel ;
+	rdf:rest _:genid27 .
+
+_:genid27 a rdf:List ;
 	rdf:first :StainlessSteel ;
 	rdf:rest rdf:nil .
 # 
