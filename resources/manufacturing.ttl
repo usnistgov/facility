@@ -7,7 +7,9 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 <http://modelmeth.nist.gov/manufacturing> a owl:Ontology ;
-	owl:imports <http://qudt.org/1.1/schema/qudt> , <http://qudt.org/1.1/schema/quantity> .
+	owl:imports <http://model-meth.nist.gov/1.0/schema/dtype> ,
+		    <http://model-meth.nist.gov/1.1/schema/qudt> ,
+		    <http://model-meth.nist.gov/1.2/schema/vaem> .
 # 
 # 
 # #################################################################
@@ -666,18 +668,19 @@ _:genid9 a rdf:List ;
 # http://modelmeth.nist.gov/manufacturing#toolwear-1
 
 :toolwear-1 a owl:NamedIndividual , :ToolWear ;
-	rdfs:comment "POD temporary" .
-# 
-# http://modelmeth.nist.gov/manufacturing#turning-1
-
-:turning-1 a owl:NamedIndividual , :Turning ;
 	:hasProcessContext :turning-1 ;
-	rdfs:comment "POD Temporary" .
+	rdfs:comment "POD temporary" .
 
 _:genid11 a owl:Axiom ;
 	owl:annotatedSource :toolwear-1 ;
 	owl:annotatedProperty :hasProcessContext ;
 	owl:annotatedTarget :turning-1 ;
+	rdfs:comment "POD Temporary" .
+# 
+# http://modelmeth.nist.gov/manufacturing#turning-1
+
+:turning-1 a owl:NamedIndividual , :Turning ;
+	:hasProcessContext :turning-1 ;
 	rdfs:comment "POD Temporary" .
 # 
 # http://qudt.org/1.1/schema/qudt#Meter_per_Minute
