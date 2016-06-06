@@ -7,9 +7,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 <http://modelmeth.nist.gov/manufacturing> a owl:Ontology ;
-	owl:imports <http://model-meth.nist.gov/1.0/schema/dtype> ,
-		    <http://model-meth.nist.gov/1.1/schema/qudt> ,
-		    <http://model-meth.nist.gov/1.2/schema/vaem> .
+	owl:imports <http://model-meth.nist.gov/1.1/schema/qudt> , <http://model-meth.nist.gov/1.2/schema/vaem> , <http://model-meth.nist.gov/1.0/schema/dtype> .
 # 
 # 
 # #################################################################
@@ -389,6 +387,11 @@ _:genid9 a rdf:List ;
 :ModelProperty a owl:Class ;
 	rdfs:subClassOf :ModelAbstraction .
 # 
+# http://modelmeth.nist.gov/manufacturing#NumberOfParts
+
+:NumberOfParts a owl:Class ;
+	rdfs:subClassOf :ProcessCharacteristic .
+# 
 # http://modelmeth.nist.gov/manufacturing#ObjectiveFunction
 
 :ObjectiveFunction a owl:Class ;
@@ -443,9 +446,9 @@ _:genid9 a rdf:List ;
 :ProcessingTime a owl:Class ;
 	rdfs:subClassOf :ProcessCharacteristic .
 # 
-# http://modelmeth.nist.gov/manufacturing#RegrindingCost
+# http://modelmeth.nist.gov/manufacturing#RepairOrReplacementCost
 
-:RegrindingCost a owl:Class ;
+:RepairOrReplacementCost a owl:Class ;
 	rdfs:subClassOf :OneTimeCost .
 # 
 # http://modelmeth.nist.gov/manufacturing#Resource
@@ -510,7 +513,7 @@ _:genid9 a rdf:List ;
 # http://modelmeth.nist.gov/manufacturing#WorkpieceCharacteristic
 
 :WorkpieceCharacteristic a owl:Class ;
-	rdfs:subClassOf :Physical .
+	rdfs:subClassOf :Workpiece .
 # 
 # 
 # 
@@ -527,7 +530,8 @@ _:genid9 a rdf:List ;
 # 
 # http://modelmeth.nist.gov/manufacturing#C_g
 
-:C_g a owl:NamedIndividual , :RegrindingCost .
+:C_g a owl:NamedIndividual , :RepairOrReplacementCost ;
+	rdfs:comment "Regrinding cost" .
 # 
 # http://modelmeth.nist.gov/manufacturing#C_h
 
@@ -554,6 +558,7 @@ _:genid9 a rdf:List ;
 # http://modelmeth.nist.gov/manufacturing#D_i
 
 :D_i a owl:NamedIndividual ;
+	:hasProcessContext :facing-1 , :turning-1 ;
 	:hasUnits qudt:Millimeter ;
 	:isDirectlyProportionalTo :t_c .
 # 
@@ -570,23 +575,73 @@ _:genid9 a rdf:List ;
 # http://modelmeth.nist.gov/manufacturing#F
 
 :F a owl:NamedIndividual , :CuttingForce ;
+	:hasProcessContext :facing-1 , :turning-1 ;
 	:hasUnits qudt:Newton .
+# 
+# http://modelmeth.nist.gov/manufacturing#FinalLength
+
+:FinalLength a owl:NamedIndividual , :FinalDimension ;
+	:hasUnits :Meter .
+# 
+# http://modelmeth.nist.gov/manufacturing#FinalRadius
+
+:FinalRadius a owl:NamedIndividual , :FinalDimension ;
+	:hasUnits :Millimeter ;
+	:isInverselyProportionalTo :d_i .
+# 
+# http://modelmeth.nist.gov/manufacturing#FinalThickness
+
+:FinalThickness a owl:NamedIndividual , :FinalDimension ;
+	:hasUnits :Meter ;
+	:isInverselyProportionalTo :d_i .
+# 
+# http://modelmeth.nist.gov/manufacturing#InitalThickness
+
+:InitalThickness a owl:NamedIndividual ;
+	:hasUnits :Meter .
+# 
+# http://modelmeth.nist.gov/manufacturing#InitialLength
+
+:InitialLength a owl:NamedIndividual , :InitialDimension ;
+	:hasUnits :Meter .
+# 
+# http://modelmeth.nist.gov/manufacturing#InitialRadius
+
+:InitialRadius a owl:NamedIndividual , :InitialDimension ;
+	:hasUnits :Millimeter .
+# 
+# http://modelmeth.nist.gov/manufacturing#InitialThickness
+
+:InitialThickness a owl:NamedIndividual , :InitialDimension .
 # 
 # http://modelmeth.nist.gov/manufacturing#LoadingUnloading
 
 :LoadingUnloading a owl:NamedIndividual , :Labor .
 # 
+# http://modelmeth.nist.gov/manufacturing#MC
+
+:MC a owl:NamedIndividual , :MaterialCost ;
+	:isDirectlyProportionalTo :TC .
+# 
 # http://modelmeth.nist.gov/manufacturing#ManningMachine
 
 :ManningMachine a owl:NamedIndividual , :Labor .
+# 
+# http://modelmeth.nist.gov/manufacturing#Meter
+
+:Meter a owl:NamedIndividual .
 # 
 # http://modelmeth.nist.gov/manufacturing#MildSteel
 
 :MildSteel a owl:NamedIndividual , :Alloy .
 # 
+# http://modelmeth.nist.gov/manufacturing#Millimeter
+
+:Millimeter a owl:NamedIndividual .
+# 
 # http://modelmeth.nist.gov/manufacturing#N
 
-:N a owl:NamedIndividual , :ProcessCharacteristic ;
+:N a owl:NamedIndividual , :NumberOfParts ;
 	:isDirectlyProportionalTo :DC , :E , :Z ;
 	rdfs:comment "Number of parts made before regrind" .
 # 
@@ -596,6 +651,10 @@ _:genid9 a rdf:List ;
 	:hasStatus :Desirable ;
 	:isDirectlyProportionalTo :Z .
 # 
+# http://modelmeth.nist.gov/manufacturing#ProcessingTime
+
+:ProcessingTime a owl:NamedIndividual .
+# 
 # http://modelmeth.nist.gov/manufacturing#QC
 
 :QC a owl:NamedIndividual , :Cost ;
@@ -604,13 +663,19 @@ _:genid9 a rdf:List ;
 # 
 # http://modelmeth.nist.gov/manufacturing#RC
 
-:RC a owl:NamedIndividual , :Cost ;
+:RC a owl:NamedIndividual , :RepairOrReplacementCost ;
 	:hasStatus :Undesirable ;
+	:isDirectlyProportionalTo :TC ;
 	:isInverselyProportionalTo :P .
 # 
 # http://modelmeth.nist.gov/manufacturing#StainlessSteel
 
 :StainlessSteel a owl:NamedIndividual , :Alloy .
+# 
+# http://modelmeth.nist.gov/manufacturing#TC
+
+:TC a owl:NamedIndividual , :Cost ;
+	rdfs:comment "Total cost" .
 # 
 # http://modelmeth.nist.gov/manufacturing#T_N
 
@@ -626,41 +691,52 @@ _:genid9 a rdf:List ;
 # http://modelmeth.nist.gov/manufacturing#V
 
 :V a owl:NamedIndividual , :CuttingSpeed ;
+	:hasProcessContext :facing-1 , :turning-1 ;
 	:hasUnits qudt:Meter_per_Minute ;
 	:isDirectlyProportionalTo :F , :phi ;
 	:isInverselyProportionalTo :t_c .
 # 
 # http://modelmeth.nist.gov/manufacturing#Z
 
-:Z a owl:NamedIndividual , :FinishedPart ;
+:Z a owl:NamedIndividual , :ObjectiveFunction ;
 	:hasStatus :Desirable .
 # 
 # http://modelmeth.nist.gov/manufacturing#d_i
 
 :d_i a owl:NamedIndividual , :DepthOfCut ;
+	:hasProcessContext :facing-1 , :turning-1 ;
 	:hasUnits qudt:Millimeter ;
 	:isDirectlyProportionalTo :F , :phi .
 # 
 # http://modelmeth.nist.gov/manufacturing#delta
 
 :delta a owl:NamedIndividual , :Drift ;
+	:hasProcessContext :facing-1 , :turning-1 ;
 	:isInverselyProportionalTo :QC .
 # 
 # http://modelmeth.nist.gov/manufacturing#f
 
 :f a owl:NamedIndividual , :CuttingFeedRate ;
+	:hasProcessContext :facing-1 , :turning-1 ;
 	:isDirectlyProportionalTo :F , :phi ;
 	:isInverselyProportionalTo :t_c .
+# 
+# http://modelmeth.nist.gov/manufacturing#facing-1
+
+:facing-1 a owl:NamedIndividual , :Facing ;
+	:hasDuration :T_N ;
+	:hasFeedRate :f .
 # 
 # http://modelmeth.nist.gov/manufacturing#phi
 
 :phi a owl:NamedIndividual , :SurfaceRoughness ;
+	:hasProcessContext :facing-1 , :turning-1 ;
 	:hasStatus :Undesirable ;
 	:isDirectlyProportionalTo :QC .
 # 
 # http://modelmeth.nist.gov/manufacturing#t_c
 
-:t_c a owl:NamedIndividual , :Machinery , :TimePerPart ;
+:t_c a owl:NamedIndividual , :TimePerPart ;
 	:hasStatus :Undesirable ;
 	:hasUnits qudt:Minute_Time ;
 	:isDirectlyProportionalTo :F , :phi .
@@ -668,7 +744,7 @@ _:genid9 a rdf:List ;
 # http://modelmeth.nist.gov/manufacturing#toolwear-1
 
 :toolwear-1 a owl:NamedIndividual , :ToolWear ;
-	:hasProcessContext :turning-1 ;
+	:hasProcessContext :facing-1 , :turning-1 ;
 	rdfs:comment "POD temporary" .
 
 _:genid11 a owl:Axiom ;
@@ -680,6 +756,8 @@ _:genid11 a owl:Axiom ;
 # http://modelmeth.nist.gov/manufacturing#turning-1
 
 :turning-1 a owl:NamedIndividual , :Turning ;
+	:hasDuration :T_N ;
+	:hasFeedRate :f ;
 	:hasProcessContext :turning-1 ;
 	rdfs:comment "POD Temporary" .
 # 
@@ -698,6 +776,10 @@ qudt:Minute_Time a owl:NamedIndividual .
 # http://qudt.org/1.1/schema/qudt#Newton
 
 qudt:Newton a owl:NamedIndividual .
+
+:cutting-insert-1 :hasCost :RC .
+:cutting-insert-1 :hasProcessContext :turning-1 .
+
 # 
 # 
 # 
