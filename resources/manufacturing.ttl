@@ -7,7 +7,63 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 <http://modelmeth.nist.gov/manufacturing> a owl:Ontology ;
-	owl:imports <http://qudt.org/1.1/schema/qudt> , <http://qudt.org/1.1/schema/quantity> .
+	owl:imports <http://model-meth.nist.gov/1.0/schema/dtype> ,
+		    <http://model-meth.nist.gov/1.1/schema/qudt> ,
+		    <http://model-meth.nist.gov/1.2/schema/vaem> .
+# 
+# 
+# #################################################################
+# #
+# #    Annotation properties
+# #
+# #################################################################
+# 
+# 
+# http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled
+
+<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> a owl:AnnotationProperty .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Datatypes
+# #
+# #################################################################
+# 
+# 
+# http://modelmeth.nist.gov/manufacturing#characteristicObjectiveType
+
+:characteristicObjectiveType a rdfs:Datatype ;
+	owl:equivalentClass _:genid1 .
+
+_:genid1 a rdfs:Datatype ;
+	owl:oneOf _:genid5 .
+
+_:genid5 a rdf:List ;
+	rdf:first "avoided_characteristic"^^xsd:NMTOKEN ;
+	rdf:rest _:genid4 .
+
+_:genid4 a rdf:List ;
+	rdf:first "sought_characteristic"^^xsd:NMTOKEN ;
+	rdf:rest rdf:nil .
+# 
+# http://modelmeth.nist.gov/manufacturing#phenomenonObjectiveType
+
+:phenomenonObjectiveType a rdfs:Datatype ;
+	owl:equivalentClass _:genid6 .
+
+_:genid6 a rdfs:Datatype ;
+	owl:oneOf _:genid10 .
+
+_:genid10 a rdf:List ;
+	rdf:first "avoided_phenomenon"^^xsd:NMTOKEN ;
+	rdf:rest _:genid9 .
+
+_:genid9 a rdf:List ;
+	rdf:first "sought_phenomenon"^^xsd:NMTOKEN ;
+	rdf:rest rdf:nil .
+# 
 # 
 # 
 # #################################################################
@@ -40,6 +96,12 @@
 	a owl:FunctionalProperty , owl:AsymmetricProperty ;
 	rdfs:domain :Workpiece ;
 	rdfs:range :FinishedPart .
+# 
+# http://modelmeth.nist.gov/manufacturing#hasProcessContext
+
+:hasProcessContext a owl:ObjectProperty ;
+	rdfs:domain :ProcessCharacteristic ;
+	rdfs:range :Process .
 # 
 # http://modelmeth.nist.gov/manufacturing#hasQuantityKind
 
@@ -89,6 +151,21 @@
 	a owl:AsymmetricProperty , owl:IrreflexiveProperty ;
 	rdfs:domain :Symbol ;
 	rdfs:range :ModelProperty .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Data properties
+# #
+# #################################################################
+# 
+# 
+# http://modelmeth.nist.gov/manufacturing#hasObjectiveType
+
+:hasObjectiveType a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain :ProcessCharacteristic ;
+	rdfs:range :characteristicObjectiveType .
 # 
 # 
 # 
@@ -352,7 +429,7 @@
 # http://modelmeth.nist.gov/manufacturing#ProcessCharacteristic
 
 :ProcessCharacteristic a owl:Class ;
-	rdfs:subClassOf :Abstract ;
+	rdfs:subClassOf :Physical ;
 	rdfs:comment "a property describing a manufacturing process" .
 # 
 # http://modelmeth.nist.gov/manufacturing#ProcessParameter
@@ -550,14 +627,8 @@
 
 :V a owl:NamedIndividual , :CuttingSpeed ;
 	:hasUnits qudt:Meter_per_Minute ;
-	:isDirectlyProportionalTo :F , :W , :phi ;
+	:isDirectlyProportionalTo :F , :phi ;
 	:isInverselyProportionalTo :t_c .
-# 
-# http://modelmeth.nist.gov/manufacturing#W
-
-:W a owl:NamedIndividual , :ToolWear ;
-	:hasStatus :Undesirable ;
-	:isDirectlyProportionalTo :QC .
 # 
 # http://modelmeth.nist.gov/manufacturing#Z
 
@@ -568,7 +639,7 @@
 
 :d_i a owl:NamedIndividual , :DepthOfCut ;
 	:hasUnits qudt:Millimeter ;
-	:isDirectlyProportionalTo :F , :W , :phi .
+	:isDirectlyProportionalTo :F , :phi .
 # 
 # http://modelmeth.nist.gov/manufacturing#delta
 
@@ -578,7 +649,7 @@
 # http://modelmeth.nist.gov/manufacturing#f
 
 :f a owl:NamedIndividual , :CuttingFeedRate ;
-	:isDirectlyProportionalTo :F , :W , :phi ;
+	:isDirectlyProportionalTo :F , :phi ;
 	:isInverselyProportionalTo :t_c .
 # 
 # http://modelmeth.nist.gov/manufacturing#phi
@@ -592,7 +663,25 @@
 :t_c a owl:NamedIndividual , :Machinery , :TimePerPart ;
 	:hasStatus :Undesirable ;
 	:hasUnits qudt:Minute_Time ;
-	:isDirectlyProportionalTo :F , :W , :phi .
+	:isDirectlyProportionalTo :F , :phi .
+# 
+# http://modelmeth.nist.gov/manufacturing#toolwear-1
+
+:toolwear-1 a owl:NamedIndividual , :ToolWear ;
+	:hasProcessContext :turning-1 ;
+	rdfs:comment "POD temporary" .
+
+_:genid11 a owl:Axiom ;
+	owl:annotatedSource :toolwear-1 ;
+	owl:annotatedProperty :hasProcessContext ;
+	owl:annotatedTarget :turning-1 ;
+	rdfs:comment "POD Temporary" .
+# 
+# http://modelmeth.nist.gov/manufacturing#turning-1
+
+:turning-1 a owl:NamedIndividual , :Turning ;
+	:hasProcessContext :turning-1 ;
+	rdfs:comment "POD Temporary" .
 # 
 # http://qudt.org/1.1/schema/qudt#Meter_per_Minute
 
@@ -620,75 +709,134 @@ qudt:Newton a owl:NamedIndividual .
 # 
 # 
 
-_:genid1 a owl:AllDifferent ;
-	owl:distinctMembers _:genid3 .
-
-_:genid3 a rdf:List ;
-	rdf:first :Aluminum ;
-	rdf:rest _:genid2 .
-
-_:genid2 a rdf:List ;
-	rdf:first :CastIron ;
-	rdf:rest rdf:nil .
-# 
-
-_:genid4 a owl:AllDifferent ;
-	owl:distinctMembers _:genid6 .
-
-_:genid6 a rdf:List ;
-	rdf:first :Aluminum ;
-	rdf:rest _:genid5 .
-
-_:genid5 a rdf:List ;
-	rdf:first :MildSteel ;
-	rdf:rest rdf:nil .
-# 
-
-_:genid7 a owl:AllDifferent ;
-	owl:distinctMembers _:genid9 .
-
-_:genid9 a rdf:List ;
-	rdf:first :Aluminum ;
-	rdf:rest _:genid8 .
-
-_:genid8 a rdf:List ;
-	rdf:first :StainlessSteel ;
-	rdf:rest rdf:nil .
-# 
-
-_:genid10 a owl:AllDifferent ;
-	owl:distinctMembers _:genid12 .
-
-_:genid12 a rdf:List ;
-	rdf:first :CastIron ;
-	rdf:rest _:genid11 .
-
-_:genid11 a rdf:List ;
-	rdf:first :MildSteel ;
-	rdf:rest rdf:nil .
-# 
-
-_:genid13 a owl:AllDifferent ;
-	owl:distinctMembers _:genid15 .
-
-_:genid15 a rdf:List ;
-	rdf:first :CastIron ;
-	rdf:rest _:genid14 .
+_:genid12 a owl:AllDifferent ;
+	owl:distinctMembers _:genid14 .
 
 _:genid14 a rdf:List ;
-	rdf:first :StainlessSteel ;
+	rdf:first :Aluminum ;
+	rdf:rest _:genid13 .
+
+_:genid13 a rdf:List ;
+	rdf:first :CastIron ;
 	rdf:rest rdf:nil .
 # 
 
-_:genid16 a owl:AllDifferent ;
-	owl:distinctMembers _:genid18 .
-
-_:genid18 a rdf:List ;
-	rdf:first :MildSteel ;
-	rdf:rest _:genid17 .
+_:genid15 a owl:AllDifferent ;
+	owl:distinctMembers _:genid17 .
 
 _:genid17 a rdf:List ;
+	rdf:first :Aluminum ;
+	rdf:rest _:genid16 .
+
+_:genid16 a rdf:List ;
+	rdf:first :MildSteel ;
+	rdf:rest rdf:nil .
+# 
+
+_:genid18 a owl:AllDifferent ;
+	owl:distinctMembers _:genid20 .
+
+_:genid20 a rdf:List ;
+	rdf:first :Aluminum ;
+	rdf:rest _:genid19 .
+
+_:genid19 a rdf:List ;
 	rdf:first :StainlessSteel ;
 	rdf:rest rdf:nil .
 # 
+
+_:genid21 a owl:AllDifferent ;
+	owl:distinctMembers _:genid23 .
+
+_:genid23 a rdf:List ;
+	rdf:first :CastIron ;
+	rdf:rest _:genid22 .
+
+_:genid22 a rdf:List ;
+	rdf:first :MildSteel ;
+	rdf:rest rdf:nil .
+# 
+
+_:genid24 a owl:AllDifferent ;
+	owl:distinctMembers _:genid26 .
+
+_:genid26 a rdf:List ;
+	rdf:first :CastIron ;
+	rdf:rest _:genid25 .
+
+_:genid25 a rdf:List ;
+	rdf:first :StainlessSteel ;
+	rdf:rest rdf:nil .
+# 
+
+_:genid27 a owl:AllDifferent ;
+	owl:distinctMembers _:genid29 .
+
+_:genid29 a rdf:List ;
+	rdf:first :MildSteel ;
+	rdf:rest _:genid28 .
+
+_:genid28 a rdf:List ;
+	rdf:first :StainlessSteel ;
+	rdf:rest rdf:nil .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Rules
+# #
+# #################################################################
+# 
+# 
+
+:tw a <http://www.w3.org/2003/11/swrl#Variable> .
+
+:m a <http://www.w3.org/2003/11/swrl#Variable> .
+
+_:genid30 <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+	rdfs:comment "Tool wear is to be avoided in machining processes."^^xsd:string ;
+	rdfs:label "Def-AvoidToolWearInMachining"^^xsd:string ;
+	a <http://www.w3.org/2003/11/swrl#Imp> ;
+	<http://www.w3.org/2003/11/swrl#body> _:genid35 .
+
+_:genid35 a <http://www.w3.org/2003/11/swrl#AtomList> ;
+	rdf:first _:genid36 .
+
+_:genid36 a <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+	<http://www.w3.org/2003/11/swrl#classPredicate> :ToolWear ;
+	<http://www.w3.org/2003/11/swrl#argument1> :tw .
+
+_:genid35 rdf:rest _:genid33 .
+
+_:genid33 a <http://www.w3.org/2003/11/swrl#AtomList> ;
+	rdf:first _:genid34 .
+
+_:genid34 a <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+	<http://www.w3.org/2003/11/swrl#classPredicate> :MachiningProcess ;
+	<http://www.w3.org/2003/11/swrl#argument1> :m .
+
+_:genid33 rdf:rest _:genid31 .
+
+_:genid31 a <http://www.w3.org/2003/11/swrl#AtomList> ;
+	rdf:first _:genid32 .
+
+_:genid32 a <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+	<http://www.w3.org/2003/11/swrl#propertyPredicate> :hasProcessContext ;
+	<http://www.w3.org/2003/11/swrl#argument1> :tw ;
+	<http://www.w3.org/2003/11/swrl#argument2> :m .
+
+_:genid31 rdf:rest rdf:nil .
+
+_:genid30 <http://www.w3.org/2003/11/swrl#head> _:genid37 .
+
+_:genid37 a <http://www.w3.org/2003/11/swrl#AtomList> ;
+	rdf:first _:genid38 .
+
+_:genid38 a <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+	<http://www.w3.org/2003/11/swrl#propertyPredicate> :hasObjectiveType ;
+	<http://www.w3.org/2003/11/swrl#argument1> :tw ;
+	<http://www.w3.org/2003/11/swrl#argument2> "avoided_characteristic"^^xsd:NMTOKEN .
+
+_:genid37 rdf:rest rdf:nil .
 # Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi
