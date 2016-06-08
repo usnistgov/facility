@@ -7,7 +7,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 <http://modelmeth.nist.gov/manufacturing> a owl:Ontology ;
-	owl:imports <http://model-meth.nist.gov/1.2/schema/vaem> , <http://model-meth.nist.gov/1.0/schema/dtype> .
+	owl:imports <http://model-meth.nist.gov/1.1/schema/qudt> , <http://model-meth.nist.gov/1.2/schema/vaem> , <http://model-meth.nist.gov/1.0/schema/dtype> .
 # 
 # 
 # #################################################################
@@ -45,21 +45,19 @@ _:genid5 a rdf:List ;
 _:genid4 a rdf:List ;
 	rdf:first "sought_characteristic"^^xsd:NMTOKEN ;
 	rdf:rest rdf:nil .
-# 
-# http://modelmeth.nist.gov/manufacturing#phenomenonObjectiveType
 
-:phenomenonObjectiveType a rdfs:Datatype ;
+:processCharacteristicObjectiveType a rdfs:Datatype ;
 	owl:equivalentClass _:genid6 .
 
 _:genid6 a rdfs:Datatype ;
 	owl:oneOf _:genid10 .
 
 _:genid10 a rdf:List ;
-	rdf:first "avoided_phenomenon"^^xsd:NMTOKEN ;
+	rdf:first "avoided_processCharacteristic"^^xsd:NMTOKEN ;
 	rdf:rest _:genid9 .
 
 _:genid9 a rdf:List ;
-	rdf:first "sought_phenomenon"^^xsd:NMTOKEN ;
+	rdf:first "sought_processCharacteristic"^^xsd:NMTOKEN ;
 	rdf:rest rdf:nil .
 # 
 # 
@@ -190,26 +188,10 @@ _:genid9 a rdf:List ;
 	rdfs:subClassOf :Material ;
 	rdfs:comment "Material composed of multiple metals or metals and other elements" .
 # 
-# http://modelmeth.nist.gov/manufacturing#AvoidedCharacteristic
-
-:AvoidedCharacteristic a owl:Class ;
-	rdfs:subClassOf :CharacteristicObjectiveType .
-# 
-# http://modelmeth.nist.gov/manufacturing#AvoidedPhenomenon
-
-:AvoidedPhenomenon a owl:Class ;
-	rdfs:subClassOf :PhenomenonObjectiveType .
-# 
 # http://modelmeth.nist.gov/manufacturing#Boring
 
 :Boring a owl:Class ;
 	rdfs:subClassOf :SinglePointCutting .
-# 
-# http://modelmeth.nist.gov/manufacturing#CharacteristicObjectiveType
-
-:CharacteristicObjectiveType a owl:Class ;
-	rdfs:subClassOf :ObjectiveType ;
-	rdfs:comment "Classification relating to whether tangible aspects of the process contribute positively or negatively to the objective" .
 # 
 # http://modelmeth.nist.gov/manufacturing#ContinuousCost
 
@@ -463,23 +445,11 @@ _:genid9 a rdf:List ;
 	rdfs:subClassOf :Equation ;
 	rdfs:comment "The function that describes the objective to be accomplished" .
 # 
-# http://modelmeth.nist.gov/manufacturing#ObjectiveType
-
-:ObjectiveType a owl:Class ;
-	rdfs:subClassOf :Abstract ;
-	rdfs:comment "Classification denoting whether the current parameter contributes positively or negatively to the final objective" .
-# 
 # http://modelmeth.nist.gov/manufacturing#OperationCost
 
 :OperationCost a owl:Class ;
 	rdfs:subClassOf :ContinuousCost ;
 	rdfs:comment "Cost to keep machines operating during the manufacturing cycle" .
-# 
-# http://modelmeth.nist.gov/manufacturing#PhenomenonObjectiveType
-
-:PhenomenonObjectiveType a owl:Class ;
-	rdfs:subClassOf :ObjectiveType ;
-	rdfs:comment "Classification relating to whether intangible aspects of the process contribute positively or negatively to the objective" .
 # 
 # http://modelmeth.nist.gov/manufacturing#Physical
 
@@ -537,16 +507,6 @@ _:genid9 a rdf:List ;
 :SinglePointCutting a owl:Class ;
 	rdfs:subClassOf :MachiningProcess ;
 	rdfs:comment "A subtractive manufacturing process using a single point of contact to remove material" .
-# 
-# http://modelmeth.nist.gov/manufacturing#SoughtCharacteristic
-
-:SoughtCharacteristic a owl:Class ;
-	rdfs:subClassOf :CharacteristicObjectiveType .
-# 
-# http://modelmeth.nist.gov/manufacturing#SoughtPhenomenon
-
-:SoughtPhenomenon a owl:Class ;
-	rdfs:subClassOf :PhenomenonObjectiveType .
 # 
 # http://modelmeth.nist.gov/manufacturing#SurfaceRoughness
 
@@ -677,7 +637,7 @@ _:genid9 a rdf:List ;
 # 
 # http://modelmeth.nist.gov/manufacturing#Desirable
 
-:Desirable a owl:NamedIndividual , :ObjectiveType .
+:Desirable a owl:NamedIndividual .
 # 
 # http://modelmeth.nist.gov/manufacturing#Diamond
 
@@ -831,7 +791,7 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 :T_N a owl:NamedIndividual , :ProcessingTime ;
 	:hasUnits qudt:MinuteTime ;
 	:isDirectlyProportionalTo :DC , :Z , :t_c ;
-	:hasObjectiveType "avoided_phenomenon" .
+	:hasObjectiveType "avoided_processCharacteristic" .
 # 
 # http://modelmeth.nist.gov/manufacturing#ToolWearEquation
 
@@ -841,11 +801,17 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 # http://modelmeth.nist.gov/manufacturing#TurningOptimization
 
 :TurningOptimization a owl:NamedIndividual , :Model ;
+	:hasStatus :Undesirable ;
+	:hasUnits qudt:Minute_Time .
+
+qudt:Minute_Time a owl:NamedIndividual .
+
+:TurningOptimization :isDirectlyProportionalTo :DC , :Z , :t_c ;
 	:referencesEquation :CuttingForceEquation , :DirectCostEquation , :ProcessingTimeEquation , :ProfitEquation , :QualityCostEquation , :SurfaceRoughnessEquation , :ToolWearEquation .
 # 
 # http://modelmeth.nist.gov/manufacturing#Undesirable
 
-:Undesirable a owl:NamedIndividual , :ObjectiveType .
+:Undesirable a owl:NamedIndividual .
 # 
 # http://modelmeth.nist.gov/manufacturing#V
 
@@ -941,7 +907,7 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 	:hasProcessContext :facing-1 , :turning-1 ;
 	:isDirectlyProportionalTo :QC ;
 	:representsProperty :surfaceRoughness ;
-	:hasObjectiveType "avoided_phenomenon" .
+	:hasObjectiveType "avoided_processCharacteristic" .
 # 
 # http://modelmeth.nist.gov/manufacturing#surfaceRoughness
 
@@ -953,7 +919,7 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 :t_c a owl:NamedIndividual , :TimePerPart ;
 	:hasUnits qudt:MinuteTime ;
 	:isDirectlyProportionalTo :F , :phi ;
-	:hasObjectiveType "avoided_phenomenon" .
+	:hasObjectiveType "avoided_processCharacteristic" .
 # 
 # http://modelmeth.nist.gov/manufacturing#targetSurfaceRoughness
 
@@ -1022,6 +988,8 @@ qudt:Millimeter a owl:NamedIndividual .
 # http://qudt.org/1.1/schema/qudt#MinuteTime
 
 qudt:MinuteTime a owl:NamedIndividual .
+# 
+# http://qudt.org/1.1/schema/qudt#Minute_Time
 # 
 # http://qudt.org/1.1/schema/qudt#Newton
 
