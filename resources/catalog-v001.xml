@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="User Entered Import Resolution" name="http://model-meth.nist.gov/1.0/schema/dtype" uri="file:////elwood.nist.gov/734/users/arn2/My%20Documents/facility/resources/NIST-model-meth-linked-model-dtype.ttl"/>
+    <uri id="User Entered Import Resolution" name="http://model-meth.nist.gov/1.2/schema/vaem" uri="file:////elwood.nist.gov/734/users/arn2/My%20Documents/facility/resources/NIST-model-meth-OSG_vaem-(v1.2).ttl"/>
+    <uri id="User Entered Import Resolution" name="http://model-meth.nist.gov/1.1/schema/qudt" uri="file:/C:/Users/arn2/Desktop/QUDT.ttl"/>
+    <group id="Folder Repository, directory=file:////elwood.nist.gov/734/users/arn2/My%20Documents/facility/resources/, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base=""/>
+</catalog>
