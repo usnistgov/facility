@@ -17,6 +17,10 @@
 # #################################################################
 # 
 # 
+# http://modelmeth.nist.gov/manufacturing#hasUnits
+
+:hasUnits a owl:AnnotationProperty .
+# 
 # http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled
 
 <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> a owl:AnnotationProperty .
@@ -102,7 +106,8 @@ _:genid9 a rdf:List ;
 # 
 # http://modelmeth.nist.gov/manufacturing#hasProcessCharacteristic
 
-:hasProcessCharacteristic a owl:ObjectProperty .
+:hasProcessCharacteristic a owl:ObjectProperty ;
+	owl:inverseOf :hasProcessContext .
 # 
 # http://modelmeth.nist.gov/manufacturing#hasProcessContext
 
@@ -113,8 +118,7 @@ _:genid9 a rdf:List ;
 # http://modelmeth.nist.gov/manufacturing#hasQuantity
 
 :hasQuantity a owl:ObjectProperty ;
-	rdfs:subPropertyOf owl:topObjectProperty ;
-	rdfs:domain :ModelProperty .
+	rdfs:subPropertyOf owl:topObjectProperty .
 # 
 # http://modelmeth.nist.gov/manufacturing#hasSymbol
 
@@ -167,9 +171,7 @@ _:genid9 a rdf:List ;
 # 
 # http://modelmeth.nist.gov/manufacturing#hasObjectiveType
 
-:hasObjectiveType a owl:DatatypeProperty , owl:FunctionalProperty ;
-	rdfs:domain :ProcessCharacteristic ;
-	rdfs:range :characteristicObjectiveType , :processCharacteristicObjectiveType .
+:hasObjectiveType a owl:DatatypeProperty .
 # 
 # 
 # 
@@ -209,13 +211,13 @@ _:genid9 a rdf:List ;
 
 _:genid11 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :NumberOfParts .
+	owl:someValuesFrom :NumberOfParts .
 
 :Cost owl:equivalentClass _:genid12 .
 
 _:genid12 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :ProcessingTime .
+	owl:someValuesFrom :ProcessingTime .
 
 :Cost rdfs:subClassOf :Abstract , _:genid13 .
 
@@ -232,25 +234,25 @@ _:genid13 a owl:Restriction ;
 
 _:genid14 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :CuttingForce .
+	owl:someValuesFrom :CuttingForce .
 
 :CuttingFeedRate owl:equivalentClass _:genid15 .
 
 _:genid15 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :SurfaceRoughness .
+	owl:someValuesFrom :SurfaceRoughness .
 
 :CuttingFeedRate owl:equivalentClass _:genid16 .
 
 _:genid16 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :ToolWear .
+	owl:someValuesFrom :ToolWear .
 
 :CuttingFeedRate owl:equivalentClass _:genid17 .
 
 _:genid17 a owl:Restriction ;
 	owl:onProperty :isInverselyProportionalTo ;
-	owl:allValuesFrom :TimePerPart .
+	owl:someValuesFrom :TimePerPart .
 
 :CuttingFeedRate rdfs:subClassOf :MachiningProcessParameter , _:genid18 .
 
@@ -273,19 +275,19 @@ _:genid18 a owl:Restriction ;
 
 _:genid19 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :CuttingFeedRate .
+	owl:someValuesFrom :CuttingFeedRate .
 
 :CuttingForce owl:equivalentClass _:genid20 .
 
 _:genid20 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :CuttingSpeed .
+	owl:someValuesFrom :CuttingSpeed .
 
 :CuttingForce owl:equivalentClass _:genid21 .
 
 _:genid21 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :DepthOfCut .
+	owl:someValuesFrom :DepthOfCut .
 
 :CuttingForce rdfs:subClassOf :ProcessCharacteristic , _:genid22 .
 
@@ -308,25 +310,25 @@ _:genid22 a owl:Restriction ;
 
 _:genid23 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :CuttingForce .
+	owl:someValuesFrom :CuttingForce .
 
 :CuttingSpeed owl:equivalentClass _:genid24 .
 
 _:genid24 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :SurfaceRoughness .
+	owl:someValuesFrom :SurfaceRoughness .
 
 :CuttingSpeed owl:equivalentClass _:genid25 .
 
 _:genid25 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :ToolWear .
+	owl:someValuesFrom :ToolWear .
 
 :CuttingSpeed owl:equivalentClass _:genid26 .
 
 _:genid26 a owl:Restriction ;
 	owl:onProperty :isInverselyProportionalTo ;
-	owl:allValuesFrom :TimePerPart .
+	owl:someValuesFrom :TimePerPart .
 
 :CuttingSpeed rdfs:subClassOf :MachiningProcessParameter , _:genid27 .
 
@@ -353,19 +355,19 @@ _:genid27 a owl:Restriction ;
 
 _:genid28 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :CuttingForce .
+	owl:someValuesFrom :CuttingForce .
 
 :DepthOfCut owl:equivalentClass _:genid29 .
 
 _:genid29 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :SurfaceRoughness .
+	owl:someValuesFrom :SurfaceRoughness .
 
 :DepthOfCut owl:equivalentClass _:genid30 .
 
 _:genid30 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :ToolWear .
+	owl:someValuesFrom :ToolWear .
 
 :DepthOfCut rdfs:subClassOf :ProcessCharacteristic , _:genid31 .
 
@@ -419,7 +421,6 @@ _:genid32 a owl:Restriction ;
 
 :Facing a owl:Class ;
 	rdfs:subClassOf :Turning ;
-	owl:disjointWith :Turning ;
 	rdfs:comment "A subtractive manufacturing process in which the part is rotated and a single point cutting tool is moved perpendicular to the axis of rotation." .
 # 
 # http://modelmeth.nist.gov/manufacturing#FinalDimension
@@ -577,25 +578,19 @@ _:genid34 a owl:Restriction ;
 
 _:genid35 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :SurfaceRoughness .
+	owl:someValuesFrom :SurfaceRoughness .
 
 :NumberOfParts owl:equivalentClass _:genid36 .
 
 _:genid36 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :ToolWear .
+	owl:someValuesFrom :ToolWear .
 
 :NumberOfParts rdfs:subClassOf :ProcessCharacteristic , _:genid37 .
 
 _:genid37 a owl:Restriction ;
 	owl:onProperty :hasQuantity ;
 	owl:hasValue qudt:Dimensionless .
-
-:NumberOfParts rdfs:subClassOf _:genid38 .
-
-_:genid38 a owl:Restriction ;
-	owl:onProperty :hasObjectiveType ;
-	owl:hasValue "sought_processCharacteristic" .
 
 :NumberOfParts rdfs:comment "The limit of the number of finished parts able to be made without replacing/repairing a machine aspect" .
 # 
@@ -624,11 +619,11 @@ _:genid38 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#Process
 
 :Process a owl:Class ;
-	owl:equivalentClass _:genid39 .
+	owl:equivalentClass _:genid38 .
 
-_:genid39 a owl:Restriction ;
+_:genid38 a owl:Restriction ;
 	owl:onProperty :hasProcessCharacteristic ;
-	owl:allValuesFrom :ProcessCharacteristic .
+	owl:someValuesFrom :ProcessCharacteristic .
 
 :Process rdfs:subClassOf :Physical ;
 	rdfs:comment "Description of the manufacturing taking place to produce the finished part" .
@@ -636,9 +631,9 @@ _:genid39 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#ProcessCharacteristic
 
 :ProcessCharacteristic a owl:Class ;
-	owl:equivalentClass _:genid40 .
+	owl:equivalentClass _:genid39 .
 
-_:genid40 a owl:Restriction ;
+_:genid39 a owl:Restriction ;
 	owl:onProperty :hasProcessContext ;
 	owl:allValuesFrom :Process .
 
@@ -654,9 +649,9 @@ _:genid40 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#ProcessingTime
 
 :ProcessingTime a owl:Class ;
-	rdfs:subClassOf :ProcessCharacteristic , _:genid41 .
+	rdfs:subClassOf :ProcessCharacteristic , _:genid40 .
 
-_:genid41 a owl:Restriction ;
+_:genid40 a owl:Restriction ;
 	owl:onProperty :hasQuantity ;
 	owl:hasValue qudt:Time .
 
@@ -671,9 +666,9 @@ _:genid41 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#Resource
 
 :Resource a owl:Class ;
-	owl:equivalentClass _:genid42 .
+	owl:equivalentClass _:genid41 .
 
-_:genid42 a owl:Restriction ;
+_:genid41 a owl:Restriction ;
 	owl:onProperty :hasCost ;
 	owl:allValuesFrom :Cost .
 
@@ -694,47 +689,47 @@ _:genid42 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#SurfaceRoughness
 
 :SurfaceRoughness a owl:Class ;
-	owl:equivalentClass _:genid43 .
+	owl:equivalentClass _:genid42 .
+
+_:genid42 a owl:Restriction ;
+	owl:onProperty :isDirectlyProportionalTo ;
+	owl:someValuesFrom :CuttingFeedRate .
+
+:SurfaceRoughness owl:equivalentClass _:genid43 .
 
 _:genid43 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :CuttingFeedRate .
+	owl:someValuesFrom :CuttingForce .
 
 :SurfaceRoughness owl:equivalentClass _:genid44 .
 
 _:genid44 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :CuttingForce .
+	owl:someValuesFrom :CuttingSpeed .
 
 :SurfaceRoughness owl:equivalentClass _:genid45 .
 
 _:genid45 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :CuttingSpeed .
+	owl:someValuesFrom :DepthOfCut .
 
 :SurfaceRoughness owl:equivalentClass _:genid46 .
 
 _:genid46 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :DepthOfCut .
+	owl:someValuesFrom :NumberOfParts .
 
-:SurfaceRoughness owl:equivalentClass _:genid47 .
+:SurfaceRoughness rdfs:subClassOf :ProcessCharacteristic , _:genid47 .
 
 _:genid47 a owl:Restriction ;
-	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :NumberOfParts .
-
-:SurfaceRoughness rdfs:subClassOf :ProcessCharacteristic , _:genid48 .
-
-_:genid48 a owl:Restriction ;
 	owl:onProperty :hasQuantity ;
 	owl:hasValue qudt:Length .
 
-:SurfaceRoughness rdfs:subClassOf _:genid49 .
+:SurfaceRoughness rdfs:subClassOf _:genid48 .
 
-_:genid49 a owl:Restriction ;
+_:genid48 a owl:Restriction ;
 	owl:onProperty :hasObjectiveType ;
-	owl:hasValue "avoided_characteristic" .
+	owl:hasValue "avoided_processCharacteristic" .
 
 :SurfaceRoughness rdfs:comment "The quality of the finish on a workpiece" .
 # 
@@ -747,76 +742,76 @@ _:genid49 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#TimePerPart
 
 :TimePerPart a owl:Class ;
-	owl:equivalentClass _:genid50 .
+	owl:equivalentClass _:genid49 .
+
+_:genid49 a owl:Restriction ;
+	owl:onProperty :isInverselyProportionalTo ;
+	owl:someValuesFrom :CuttingFeedRate .
+
+:TimePerPart owl:equivalentClass _:genid50 .
 
 _:genid50 a owl:Restriction ;
 	owl:onProperty :isInverselyProportionalTo ;
-	owl:allValuesFrom :CuttingFeedRate .
+	owl:someValuesFrom :CuttingSpeed .
 
-:TimePerPart owl:equivalentClass _:genid51 .
+:TimePerPart rdfs:subClassOf :ProcessCharacteristic , _:genid51 .
 
 _:genid51 a owl:Restriction ;
-	owl:onProperty :isInverselyProportionalTo ;
-	owl:allValuesFrom :CuttingSpeed .
-
-:TimePerPart rdfs:subClassOf :ProcessCharacteristic , _:genid52 .
-
-_:genid52 a owl:Restriction ;
 	owl:onProperty :hasQuantity ;
 	owl:hasValue qudt:Time .
 
-:TimePerPart rdfs:subClassOf _:genid53 .
+:TimePerPart rdfs:subClassOf _:genid52 .
 
-_:genid53 a owl:Restriction ;
+_:genid52 a owl:Restriction ;
 	owl:onProperty :hasObjectiveType ;
-	owl:hasValue "avoided_characteristic" .
+	owl:hasValue "avoided_processCharacteristic" .
 
 :TimePerPart rdfs:comment "Length of time necessary for one Workpiece to be made into a FinishedPart" .
 # 
 # http://modelmeth.nist.gov/manufacturing#ToolWear
 
 :ToolWear a owl:Class ;
-	owl:equivalentClass _:genid54 .
+	owl:equivalentClass _:genid53 .
+
+_:genid53 a owl:Restriction ;
+	owl:onProperty :isDirectlyProportionalTo ;
+	owl:someValuesFrom :CuttingFeedRate .
+
+:ToolWear owl:equivalentClass _:genid54 .
 
 _:genid54 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :CuttingFeedRate .
+	owl:someValuesFrom :CuttingForce .
 
 :ToolWear owl:equivalentClass _:genid55 .
 
 _:genid55 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :CuttingForce .
+	owl:someValuesFrom :CuttingSpeed .
 
 :ToolWear owl:equivalentClass _:genid56 .
 
 _:genid56 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :CuttingSpeed .
+	owl:someValuesFrom :DepthOfCut .
 
 :ToolWear owl:equivalentClass _:genid57 .
 
 _:genid57 a owl:Restriction ;
 	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :DepthOfCut .
+	owl:someValuesFrom :NumberOfParts .
 
-:ToolWear owl:equivalentClass _:genid58 .
+:ToolWear rdfs:subClassOf :ProcessCharacteristic , _:genid58 .
 
 _:genid58 a owl:Restriction ;
-	owl:onProperty :isDirectlyProportionalTo ;
-	owl:allValuesFrom :NumberOfParts .
-
-:ToolWear rdfs:subClassOf :ProcessCharacteristic , _:genid59 .
-
-_:genid59 a owl:Restriction ;
 	owl:onProperty :hasQuantity ;
 	owl:hasValue qudt:Time .
 
-:ToolWear rdfs:subClassOf _:genid60 .
+:ToolWear rdfs:subClassOf _:genid59 .
 
-_:genid60 a owl:Restriction ;
+_:genid59 a owl:Restriction ;
 	owl:onProperty :hasObjectiveType ;
-	owl:hasValue "avoided_characteristic" .
+	owl:hasValue "avoided_processCharacteristic" .
 
 :ToolWear rdfs:comment "Damage done to a machine tool due to the manufacturing process" .
 # 
@@ -934,7 +929,7 @@ _:genid60 a owl:Restriction ;
 # 
 # http://modelmeth.nist.gov/manufacturing#E
 
-:E a owl:NamedIndividual , :Cost ;
+:E a owl:NamedIndividual ;
 	:hasQuantity qudt:Currency ;
 	:isDirectlyProportionalTo :P ;
 	:hasObjectiveType "sought_characteristic" .
@@ -980,6 +975,11 @@ _:genid60 a owl:Restriction ;
 
 :InitialThickness a owl:NamedIndividual , :InitialDimension .
 # 
+# http://modelmeth.nist.gov/manufacturing#KE
+
+:KE a owl:NamedIndividual ;
+	:hasUnits :EnergyAndWork .
+# 
 # http://modelmeth.nist.gov/manufacturing#LinearVelocity
 
 :LinearVelocity a owl:NamedIndividual .
@@ -1015,7 +1015,7 @@ _:genid60 a owl:Restriction ;
 # 
 # http://modelmeth.nist.gov/manufacturing#P
 
-:P a owl:NamedIndividual , :Cost ;
+:P a owl:NamedIndividual ;
 	:hasQuantity qudt:Currency ;
 	:isDirectlyProportionalTo :Z ;
 	:referencesEquation :ProfitEquation ;
@@ -1111,11 +1111,26 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 :W_i a owl:NamedIndividual , :Symbol ;
 	:representsProperty :toolwear-1 .
 # 
+# http://modelmeth.nist.gov/manufacturing#X_1
+
+:X_1 a owl:NamedIndividual ;
+	:hasUnits :Length .
+# 
+# http://modelmeth.nist.gov/manufacturing#Y
+
+:Y a owl:NamedIndividual ;
+	:hasUnits :Area .
+# 
 # http://modelmeth.nist.gov/manufacturing#Z
 
 :Z a owl:NamedIndividual , :ObjectiveFunction ;
 	:hasObjectiveType "sought_characteristic" ;
 	rdfs:comment "Z=P/(N*t_h+T_N)" .
+# 
+# http://modelmeth.nist.gov/manufacturing#beta_1
+
+:beta_1 a owl:NamedIndividual ;
+	:hasUnits :Length .
 # 
 # http://modelmeth.nist.gov/manufacturing#cutting-insert-1
 
@@ -1175,6 +1190,11 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 :feedRate a owl:NamedIndividual , :ModelParameter ;
 	:hasQuantity qudt:Time .
 # 
+# http://modelmeth.nist.gov/manufacturing#m_1
+
+:m_1 a owl:NamedIndividual ;
+	:hasUnits :Mass .
+# 
 # http://modelmeth.nist.gov/manufacturing#maxToolWear
 
 :maxToolWear a owl:NamedIndividual , :ModelProperty .
@@ -1213,7 +1233,7 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 	:hasProcessContext :facing-1 , :turning-1 ;
 	:hasQuantity qudt:Dimensionless .
 
-_:genid61 a owl:Axiom ;
+_:genid60 a owl:Axiom ;
 	owl:annotatedSource :toolwear-1 ;
 	owl:annotatedProperty :hasProcessContext ;
 	owl:annotatedTarget :turning-1 ;
@@ -1232,6 +1252,11 @@ _:genid61 a owl:Axiom ;
 	:hasProcessContext :turning-1 ;
 	:referencesProperty :FinalRadius , :InitialRadius , :cuttingForce , :cuttingSpeed , :depthOfCut , :diameterDrift , :feedRate , :maxToolWear , :surfaceRoughness , :targetSurfaceRoughness , :toolRegrindScenario , :toolwear-1 ;
 	rdfs:comment "POD Temporary" .
+# 
+# http://modelmeth.nist.gov/manufacturing#v_1
+
+:v_1 a owl:NamedIndividual ;
+	:hasUnits :LinearVelocity .
 # 
 # http://qudt.org/1.1/schema/qudt#Currency
 
@@ -1263,74 +1288,74 @@ qudt:Time a owl:NamedIndividual .
 # 
 # 
 
-_:genid62 a owl:AllDifferent ;
-	owl:distinctMembers _:genid64 .
-
-_:genid64 a rdf:List ;
-	rdf:first :Aluminum ;
-	rdf:rest _:genid63 .
+_:genid61 a owl:AllDifferent ;
+	owl:distinctMembers _:genid63 .
 
 _:genid63 a rdf:List ;
+	rdf:first :Aluminum ;
+	rdf:rest _:genid62 .
+
+_:genid62 a rdf:List ;
 	rdf:first :CastIron ;
 	rdf:rest rdf:nil .
 # 
 
-_:genid65 a owl:AllDifferent ;
-	owl:distinctMembers _:genid67 .
-
-_:genid67 a rdf:List ;
-	rdf:first :Aluminum ;
-	rdf:rest _:genid66 .
+_:genid64 a owl:AllDifferent ;
+	owl:distinctMembers _:genid66 .
 
 _:genid66 a rdf:List ;
+	rdf:first :Aluminum ;
+	rdf:rest _:genid65 .
+
+_:genid65 a rdf:List ;
 	rdf:first :MildSteel ;
 	rdf:rest rdf:nil .
 # 
 
-_:genid68 a owl:AllDifferent ;
-	owl:distinctMembers _:genid70 .
-
-_:genid70 a rdf:List ;
-	rdf:first :Aluminum ;
-	rdf:rest _:genid69 .
+_:genid67 a owl:AllDifferent ;
+	owl:distinctMembers _:genid69 .
 
 _:genid69 a rdf:List ;
+	rdf:first :Aluminum ;
+	rdf:rest _:genid68 .
+
+_:genid68 a rdf:List ;
 	rdf:first :StainlessSteel ;
 	rdf:rest rdf:nil .
 # 
 
-_:genid71 a owl:AllDifferent ;
-	owl:distinctMembers _:genid73 .
-
-_:genid73 a rdf:List ;
-	rdf:first :CastIron ;
-	rdf:rest _:genid72 .
+_:genid70 a owl:AllDifferent ;
+	owl:distinctMembers _:genid72 .
 
 _:genid72 a rdf:List ;
+	rdf:first :CastIron ;
+	rdf:rest _:genid71 .
+
+_:genid71 a rdf:List ;
 	rdf:first :MildSteel ;
 	rdf:rest rdf:nil .
 # 
 
-_:genid74 a owl:AllDifferent ;
-	owl:distinctMembers _:genid76 .
-
-_:genid76 a rdf:List ;
-	rdf:first :CastIron ;
-	rdf:rest _:genid75 .
+_:genid73 a owl:AllDifferent ;
+	owl:distinctMembers _:genid75 .
 
 _:genid75 a rdf:List ;
+	rdf:first :CastIron ;
+	rdf:rest _:genid74 .
+
+_:genid74 a rdf:List ;
 	rdf:first :StainlessSteel ;
 	rdf:rest rdf:nil .
 # 
 
-_:genid77 a owl:AllDifferent ;
-	owl:distinctMembers _:genid79 .
-
-_:genid79 a rdf:List ;
-	rdf:first :MildSteel ;
-	rdf:rest _:genid78 .
+_:genid76 a owl:AllDifferent ;
+	owl:distinctMembers _:genid78 .
 
 _:genid78 a rdf:List ;
+	rdf:first :MildSteel ;
+	rdf:rest _:genid77 .
+
+_:genid77 a rdf:List ;
 	rdf:first :StainlessSteel ;
 	rdf:rest rdf:nil .
 # 
@@ -1348,49 +1373,49 @@ _:genid78 a rdf:List ;
 
 :m a <http://www.w3.org/2003/11/swrl#Variable> .
 
-_:genid80 <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+_:genid79 <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
 	rdfs:comment "Tool wear is to be avoided in machining processes."^^xsd:string ;
 	rdfs:label "Def-AvoidToolWearInMachining"^^xsd:string ;
 	a <http://www.w3.org/2003/11/swrl#Imp> ;
-	<http://www.w3.org/2003/11/swrl#body> _:genid85 .
+	<http://www.w3.org/2003/11/swrl#body> _:genid84 .
 
-_:genid85 a <http://www.w3.org/2003/11/swrl#AtomList> ;
-	rdf:first _:genid86 .
+_:genid84 a <http://www.w3.org/2003/11/swrl#AtomList> ;
+	rdf:first _:genid85 .
 
-_:genid86 a <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+_:genid85 a <http://www.w3.org/2003/11/swrl#ClassAtom> ;
 	<http://www.w3.org/2003/11/swrl#classPredicate> :ToolWear ;
 	<http://www.w3.org/2003/11/swrl#argument1> :tw .
 
-_:genid85 rdf:rest _:genid83 .
+_:genid84 rdf:rest _:genid82 .
 
-_:genid83 a <http://www.w3.org/2003/11/swrl#AtomList> ;
-	rdf:first _:genid84 .
+_:genid82 a <http://www.w3.org/2003/11/swrl#AtomList> ;
+	rdf:first _:genid83 .
 
-_:genid84 a <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+_:genid83 a <http://www.w3.org/2003/11/swrl#ClassAtom> ;
 	<http://www.w3.org/2003/11/swrl#classPredicate> :MachiningProcess ;
 	<http://www.w3.org/2003/11/swrl#argument1> :m .
 
-_:genid83 rdf:rest _:genid81 .
+_:genid82 rdf:rest _:genid80 .
 
-_:genid81 a <http://www.w3.org/2003/11/swrl#AtomList> ;
-	rdf:first _:genid82 .
+_:genid80 a <http://www.w3.org/2003/11/swrl#AtomList> ;
+	rdf:first _:genid81 .
 
-_:genid82 a <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+_:genid81 a <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
 	<http://www.w3.org/2003/11/swrl#propertyPredicate> :hasProcessContext ;
 	<http://www.w3.org/2003/11/swrl#argument1> :tw ;
 	<http://www.w3.org/2003/11/swrl#argument2> :m .
 
-_:genid81 rdf:rest rdf:nil .
+_:genid80 rdf:rest rdf:nil .
 
-_:genid80 <http://www.w3.org/2003/11/swrl#head> _:genid87 .
+_:genid79 <http://www.w3.org/2003/11/swrl#head> _:genid86 .
 
-_:genid87 a <http://www.w3.org/2003/11/swrl#AtomList> ;
-	rdf:first _:genid88 .
+_:genid86 a <http://www.w3.org/2003/11/swrl#AtomList> ;
+	rdf:first _:genid87 .
 
-_:genid88 a <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+_:genid87 a <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
 	<http://www.w3.org/2003/11/swrl#propertyPredicate> :hasObjectiveType ;
 	<http://www.w3.org/2003/11/swrl#argument1> :tw ;
 	<http://www.w3.org/2003/11/swrl#argument2> "avoided_characteristic"^^xsd:NMTOKEN .
 
-_:genid87 rdf:rest rdf:nil .
+_:genid86 rdf:rest rdf:nil .
 # Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi
