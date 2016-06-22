@@ -1254,12 +1254,11 @@ _:genid79 a <http://www.w3.org/2003/11/swrl#ClassAtom> ;
 _:genid78 rdf:rest _:genid76 .
 
 _:genid76 a <http://www.w3.org/2003/11/swrl#AtomList> ;
-	rdf:first _:genid84 .
+	rdf:first _:genid297 .
 
-_:genid84 a <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
-	<http://www.w3.org/2003/11/swrl#propertyPredicate> :hasProcessContext ;
-	<http://www.w3.org/2003/11/swrl#argument1> :d ;
-	<http://www.w3.org/2003/11/swrl#argument2> :m .
+_:genid297 a <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+	<http://www.w3.org/2003/11/swrl#classPredicate> :MachiningProcess ;
+	<http://www.w3.org/2003/11/swrl#argument1> :m .
 
 _:genid76 rdf:rest _:genid74 .
 
@@ -1286,7 +1285,7 @@ _:genid81 a <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
 _:genid80 rdf:rest rdf:nil .
 
 _:genid82 <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
-	rdfs:comment "Drift should be avoided in machining"^^xsd:string ;
+	rdfs:comment "Drift is to be avoided in machining"^^xsd:string ;
 	rdfs:label "Def-AvoidDriftInMachining"^^xsd:string ;
 	a <http://www.w3.org/2003/11/swrl#Imp> ;
 	<http://www.w3.org/2003/11/swrl#body> _:genid86 .
@@ -1296,18 +1295,28 @@ _:genid86 a <http://www.w3.org/2003/11/swrl#AtomList> ;
 
 _:genid87 a <http://www.w3.org/2003/11/swrl#ClassAtom> ;
 	<http://www.w3.org/2003/11/swrl#classPredicate> :Drift ;
-	<http://www.w3.org/2003/11/swrl#argument1> :d .
+	<http://www.w3.org/2003/11/swrl#argument1> :c .
 
 _:genid86 rdf:rest _:genid85 .
 
 _:genid85 a <http://www.w3.org/2003/11/swrl#AtomList> ;
-	rdf:first _:genid83 .
+	rdf:first _:genid296 .
 
-_:genid83 a <http://www.w3.org/2003/11/swrl#AtomList> ;
-	rdf:first _:genid84 ;
-	rdf:rest rdf:nil .
+_:genid296 a <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+	<http://www.w3.org/2003/11/swrl#classPredicate> :MachiningProcess ;
+	<http://www.w3.org/2003/11/swrl#argument1> :m .
 
 _:genid85 rdf:rest _:genid83 .
+
+_:genid83 a <http://www.w3.org/2003/11/swrl#AtomList> ;
+	rdf:first _:genid84 .
+
+_:genid84 a <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+	<http://www.w3.org/2003/11/swrl#propertyPredicate> :hasProcessContext ;
+	<http://www.w3.org/2003/11/swrl#argument1> :d ;
+	<http://www.w3.org/2003/11/swrl#argument2> :m .
+
+_:genid83 rdf:rest rdf:nil .
 
 _:genid82 <http://www.w3.org/2003/11/swrl#head> _:genid88 .
 
@@ -1337,8 +1346,13 @@ _:genid95 a <http://www.w3.org/2003/11/swrl#ClassAtom> ;
 _:genid94 rdf:rest _:genid93 .
 
 _:genid93 a <http://www.w3.org/2003/11/swrl#AtomList> ;
-	rdf:first _:genid82 ;
-	rdf:rest _:genid91 .
+	rdf:first _:genid295 .
+
+_:genid295 a <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+	<http://www.w3.org/2003/11/swrl#classPredicate> :MachiningProcess ;
+	<http://www.w3.org/2003/11/swrl#argument1> :m .
+
+_:genid93 rdf:rest _:genid91 .
 
 _:genid91 a <http://www.w3.org/2003/11/swrl#AtomList> ;
 	rdf:first _:genid92 .
@@ -1363,7 +1377,7 @@ _:genid97 a <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
 _:genid96 rdf:rest rdf:nil .
 
 _:genid98 <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
-	rdfs:comment "Tool wear is to be avoided in machining processes."^^xsd:string ;
+	rdfs:comment "Toolwear is to be avoided in machining"^^xsd:string ;
 	rdfs:label "Def-AvoidToolWearInMachining"^^xsd:string ;
 	a <http://www.w3.org/2003/11/swrl#Imp> ;
 	<http://www.w3.org/2003/11/swrl#body> _:genid102 .
@@ -1378,8 +1392,13 @@ _:genid103 a <http://www.w3.org/2003/11/swrl#ClassAtom> ;
 _:genid102 rdf:rest _:genid101 .
 
 _:genid101 a <http://www.w3.org/2003/11/swrl#AtomList> ;
-	rdf:first _:genid85 ;
-	rdf:rest _:genid99 .
+	rdf:first _:genid298 .
+
+_:genid298 a <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+	<http://www.w3.org/2003/11/swrl#classPredicate> :MachiningProcess ;
+	<http://www.w3.org/2003/11/swrl#argument1> :m .
+
+_:genid101 rdf:rest _:genid99 .
 
 _:genid99 a <http://www.w3.org/2003/11/swrl#AtomList> ;
 	rdf:first _:genid100 .
