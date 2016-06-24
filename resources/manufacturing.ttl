@@ -555,7 +555,7 @@
 :Characteristic_Description_7 rdf:type owl:NamedIndividual ,
                                        :Characteristic_Description ;
                               :hasProcessContext :Turning ;
-                              :hasSymbol :w_c,i ;
+                              :hasSymbol :w_ci ;
                               :isDirectlyProportionalTo :CuttingSpeed .
 
 
@@ -1014,7 +1014,7 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 ###  http://modelmeth.nist.gov/manufacturing#theta
 :theta rdf:type owl:NamedIndividual ,
                 :Symbol ;
-       :hasValue pi/12 .
+       :hasValue 15 .
 
 
 ###  http://modelmeth.nist.gov/manufacturing#toolRegrindScenario
@@ -1028,8 +1028,8 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
      :hasUnits :LinearVelocity .
 
 
-###  http://modelmeth.nist.gov/manufacturing#w_c,i
-:w_c,i rdf:type owl:NamedIndividual ,
+###  http://modelmeth.nist.gov/manufacturing#w_ci
+:w_ci rdf:type owl:NamedIndividual ,
                 :Symbol .
 
 
