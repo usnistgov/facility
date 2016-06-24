@@ -1,0 +1,66 @@
+@prefix : <http://modelmeth.nist.gov/manufacturing#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix qudt: <http://qudt.org/1.1/schema/qudt#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://modelmeth.nist.gov/manufacturing> a owl:Ontology .
+
+
+###  http://modelmeth.nist.gov/manufacturing#hasValue
+:hasValue rdf:type owl:DatatypeProperty ;
+          rdfs:range xsd:decimal .
+
+
+:V :hasValue 70.0 .
+:f :hasValue 0.0898 .
+ 
+:D :hasValue 98.0 .
+:D_0 :hasValue 100.0 .
+:delta_i :hasValue 0.050 .
+:d_i :hasValue 1.05 .
+:L :hasValue 35.0 .
+
+:k_w :hasValue (8.2961*(10^-5)) .
+:alpha_w :hasValue 2.747 .
+:beta_w :hasValue 1.473 .
+:gamma_w :hasValue 1.261 .
+:sigma_w :hasValue 0.43 .
+:W_hat :hasValue 0.40 .
+:Theta :hasValue 15 .
+
+:k_r :hasValue 11.619 .
+:alpha_r :hasValue  0.261 .
+:beta_r :hasValue 0.565 .
+:gamma_r :hasValue 0.565 .
+:sigma_r :hasValue 0.08887 .
+
+:k_c :hasValue 1514.6 .
+:alpha_c :hasValue  0.0992 .
+:beta_c :hasValue 1.016 .
+:gamma_c :hasValue 1.033 .
+:sigma_c :hasValue 0.03877 .
+
+:p :hasValue 37.5 .
+:N :hasValue 1 .
+:C_h :hasValue 0.5 .
+:C_w :hasValue 0.5 .
+:C_z :hasValue 2.0 .
+:t_h :hasValue 2.0 .
+:C_g :hasValue 20.0 .
+:scriptl_d :hasValue 125.0 .
+:scriptl_r :hasValue 0.0075 . 
+:R :hasValue 2.5 . 
+
+:f_min :hasValue 0.08 . 
+:f_max :hasValue 0.28 .
+:V_min :hasValue 32.0 .
+:V_min :hasValue 70.0 .
+:d_min :hasValue 0.5 .
+:d_max :hasValue 1.5 .
+:power_max :hasValue 15000.0 .
+:D_LSL :hasValue 97.9 .
+:D_USL :hasValue 98.1 .
+:R_USL :hasValue 10.0 .
