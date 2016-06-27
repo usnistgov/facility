@@ -117,9 +117,9 @@ _:genid9 a rdf:List ;
 :hasProcessContext a owl:ObjectProperty ;
 	rdfs:range :Process .
 # 
-# http://modelmeth.nist.gov/manufacturing#hasQuantity
+# http://modelmeth.nist.gov/manufacturing#hasQuantityKind
 
-:hasQuantity a owl:ObjectProperty ;
+:hasQuantityKind a owl:ObjectProperty ;
 	rdfs:subPropertyOf owl:topObjectProperty .
 # 
 # http://modelmeth.nist.gov/manufacturing#hasSymbol
@@ -258,7 +258,7 @@ _:genid12 a owl:Restriction ;
 	rdfs:subClassOf :WorkpieceCharacteristic , _:genid13 .
 
 _:genid13 a owl:Restriction ;
-	owl:onProperty :hasQuantity ;
+	owl:onProperty :hasQuantityKind ;
 	owl:hasValue qudt:Length .
 # 
 # http://modelmeth.nist.gov/manufacturing#FinishedPart
@@ -278,7 +278,7 @@ _:genid13 a owl:Restriction ;
 	rdfs:subClassOf :WorkpieceCharacteristic , _:genid14 .
 
 _:genid14 a owl:Restriction ;
-	owl:onProperty :hasQuantity ;
+	owl:onProperty :hasQuantityKind ;
 	owl:hasValue qudt:Length .
 # 
 # http://modelmeth.nist.gov/manufacturing#Labor
@@ -573,12 +573,13 @@ _:genid20 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#CumulativeUse
 
 :CumulativeUse a owl:NamedIndividual , :ProcessCharacteristic ;
-	:hasDescription :Characteristic_Description_6 .
+	:hasDescription :Characteristic_Description_6 ;
+	:hasQuantityKind qudt:Time .
 # 
 # http://modelmeth.nist.gov/manufacturing#CuttingFeedRate
 
 :CuttingFeedRate a owl:NamedIndividual , :MachiningProcessParameter , :ModelParameter ;
-	:hasQuantity :LinearVelocity ;
+	:hasQuantityKind :LinearVelocity ;
 	:hasSymbol :f .
 # 
 # http://modelmeth.nist.gov/manufacturing#CuttingFluidType
@@ -589,7 +590,7 @@ _:genid20 a owl:Restriction ;
 
 :CuttingForce a owl:NamedIndividual , :ModelProperty , :ProcessCharacteristic ;
 	:hasDescription :Characteristic_Description_3 ;
-	:hasQuantity qudt:Force .
+	:hasQuantityKind qudt:Force .
 # 
 # http://modelmeth.nist.gov/manufacturing#CuttingForceEquation
 
@@ -599,7 +600,7 @@ _:genid20 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#CuttingSpeed
 
 :CuttingSpeed a owl:NamedIndividual , :MachiningProcessParameter , :ModelParameter ;
-	:hasQuantity :LinearVelocity ;
+	:hasQuantityKind :LinearVelocity ;
 	:hasSymbol :V .
 # 
 # http://modelmeth.nist.gov/manufacturing#D
@@ -616,7 +617,7 @@ _:genid20 a owl:Restriction ;
 
 :DepthOfCut a owl:NamedIndividual , :ModelProperty , :ProcessCharacteristic ;
 	:hasDescription :Characteristic_Description_5 ;
-	:hasQuantity qudt:Length .
+	:hasQuantityKind qudt:Length .
 # 
 # http://modelmeth.nist.gov/manufacturing#Diamond
 
@@ -625,7 +626,8 @@ _:genid20 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#Drift
 
 :Drift a owl:NamedIndividual , :ProcessCharacteristic ;
-	:hasDescription :Characteristic_Description_2 .
+	:hasDescription :Characteristic_Description_2 ;
+	:hasQuantityKind qudt:Length .
 # 
 # http://modelmeth.nist.gov/manufacturing#Drilling
 
@@ -635,7 +637,7 @@ _:genid20 a owl:Restriction ;
 
 :F a owl:NamedIndividual , :Symbol ;
 	:hasProcessContext :Turning ;
-	:hasQuantity qudt:Force ;
+	:hasQuantityKind qudt:Force ;
 	:representsProperty :CuttingForce .
 # 
 # http://modelmeth.nist.gov/manufacturing#Facing
@@ -762,7 +764,7 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 
 :SurfaceRoughness a owl:NamedIndividual , :ModelProperty , :ProcessCharacteristic ;
 	:hasDescription :Characteristic_Description_1 ;
-	:hasQuantity qudt:Dimensionless .
+	:hasQuantityKind qudt:Length .
 # 
 # http://modelmeth.nist.gov/manufacturing#SurfaceRoughnessEquation
 
@@ -793,7 +795,7 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 
 :ToolWearPerPart a owl:NamedIndividual , :ModelProperty , :ProcessCharacteristic ;
 	:hasDescription :Characteristic_Description_7 ;
-	:hasQuantity qudt:Length .
+	:hasQuantityKind qudt:Length .
 # 
 # http://modelmeth.nist.gov/manufacturing#ToolwearCompensation
 
@@ -803,7 +805,7 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 
 :TotalToolWear a owl:NamedIndividual , :ModelProperty , :ProcessCharacteristic ;
 	:hasDescription :Characteristic_Description_4 ;
-	:hasQuantity qudt:Length .
+	:hasQuantityKind qudt:Length .
 # 
 # http://modelmeth.nist.gov/manufacturing#Turning
 
@@ -891,11 +893,18 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 # 
 # http://modelmeth.nist.gov/manufacturing#maxHorsepower
 
-:maxHorsepower a owl:NamedIndividual , :ProcessConstraint .
+:maxHorsepower a owl:NamedIndividual , :ProcessConstraint ;
+	:hasQuantityKind qudt:Power .
+# 
+# http://modelmeth.nist.gov/manufacturing#maxSurfaceRoughness
+
+:maxSurfaceRoughness a owl:NamedIndividual , :ProcessConstraint ;
+	:hasQuantityKind qudt:Length .
 # 
 # http://modelmeth.nist.gov/manufacturing#maxToolWear
 
-:maxToolWear a owl:NamedIndividual , :ModelProperty , :ProcessConstraint .
+:maxToolWear a owl:NamedIndividual , :ModelProperty , :ProcessConstraint ;
+	:hasQuantityKind qudt:Length .
 # 
 # http://modelmeth.nist.gov/manufacturing#phi
 
@@ -913,6 +922,7 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 # http://modelmeth.nist.gov/manufacturing#targetSurfaceRoughness
 
 :targetSurfaceRoughness a owl:NamedIndividual , :ModelProperty , :ProcessConstraint ;
+	:hasQuantityKind qudt:Length ;
 	:hasSymbol :R .
 # 
 # http://modelmeth.nist.gov/manufacturing#theta
@@ -922,7 +932,7 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 # http://modelmeth.nist.gov/manufacturing#toolRegrindScenario
 
 :toolRegrindScenario a owl:NamedIndividual , :ModelParameter ;
-	:hasQuantity qudt:Dimensionless .
+	:hasQuantityKind qudt:Dimensionless .
 # 
 # http://modelmeth.nist.gov/manufacturing#v_1
 

@@ -6,61 +6,98 @@
 @prefix qudt: <http://qudt.org/1.1/schema/qudt#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-<http://modelmeth.nist.gov/manufacturing> a owl:Ontology .
 
+<http://modelmeth.nist.gov/manufacturing> 
+     rdf:type owl:Ontology .
 
-###  http://modelmeth.nist.gov/manufacturing#hasValue
-:hasValue rdf:type owl:DatatypeProperty ;
+###  http://modelmeth.nist.gov/manufacturing#hasNumericalValue
+:hasNumericalValue rdf:type owl:DatatypeProperty ;
           rdfs:range xsd:decimal .
 
+:D :hasNumericalValue 98.0 ;
+	:hasUnits :mm ;
+	:hasURI <http://modelmeth.nist.gov/manufacturing#FinalDiameter> .
+:delta_i :hasNumericalValue 0.050 ;
+	:hasUnits :mm ;
+	:hasURI <http://modelmeth.nist.gov/manufacturing#delta> .
+:d_i :hasNumericalValue 1.05 ;
+	:hasUnits :mm ;
+	:hasURI <http://modelmeth.nist.gov/manufacturing#DepthOfCut> .
+:V :hasNumericalValue 70.0 ;
+	:hasUnits :m_per_min ;
+	:hasURI <http://modelmeth.nist.gov/manufacturing#CuttingSpeed> .
+:f :hasNumericalValue 0.0898  ;
+	:hasUnits :mm_per_rev ;
+	:hasURI <http://modelmeth.nist.gov/manufacturing#CuttingFeedRate> .
+:N :hasNumericalValue 1 ;
+	:hasURI <http://modelmeth.nist.gov/manufacturing#toolRegrindScenario> ;
+	:hasUnits :Dimensionless .
 
-:V :hasValue 70.0 .
-:f :hasValue 0.0898 .
- 
-:D :hasValue 98.0 .
-:D_0 :hasValue 100.0 .
-:delta_i :hasValue 0.050 .
-:d_i :hasValue 1.05 .
-:L :hasValue 35.0 .
+:D_0 :hasNumericalValue 100.0 .
+:L :hasNumericalValue 35.0 .
 
-:k_w :hasValue (8.2961*(10^-5)) .
-:alpha_w :hasValue 2.747 .
-:beta_w :hasValue 1.473 .
-:gamma_w :hasValue 1.261 .
-:sigma_w :hasValue 0.43 .
-:W_hat :hasValue 0.40 .
-:Theta :hasValue 15 .
+:W_hat :hasNumericalValue 0.40 ;
+	:hasUnits :micron ;
+	:hasURI <http://modelmeth.nist.gov/manufacturing#maxToolWear> .
+:Theta :hasNumericalValue 15  ;
+	:hasUnits :degree ;
+	:hasURI <http://modelmeth.nist.gov/manufacturing#ToolClearanceAngle> .
+	
+:k_w :hasNumericalValue 0.000082961 .
+:alpha_w :hasNumericalValue 2.747 .
+:beta_w :hasNumericalValue 1.473 .
+:gamma_w :hasNumericalValue 1.261 .
+:sigma_w :hasNumericalValue 0.43 .
 
-:k_r :hasValue 11.619 .
-:alpha_r :hasValue  0.261 .
-:beta_r :hasValue 0.565 .
-:gamma_r :hasValue 0.565 .
-:sigma_r :hasValue 0.08887 .
+:k_r :hasNumericalValue 11.619 .
+:alpha_r :hasNumericalValue  0.261 .
+:beta_r :hasNumericalValue 0.565 .
+:gamma_r :hasNumericalValue 0.565 .
+:sigma_r :hasNumericalValue 0.08887 .
 
-:k_c :hasValue 1514.6 .
-:alpha_c :hasValue  0.0992 .
-:beta_c :hasValue 1.016 .
-:gamma_c :hasValue 1.033 .
-:sigma_c :hasValue 0.03877 .
+:k_c :hasNumericalValue 1514.6 .
+:alpha_c :hasNumericalValue  0.0992 .
+:beta_c :hasNumericalValue 1.016 .
+:gamma_c :hasNumericalValue 1.033 .
+:sigma_c :hasNumericalValue 0.03877 .
 
-:p :hasValue 37.5 .
-:N :hasValue 1 .
-:C_h :hasValue 0.5 .
-:C_w :hasValue 0.5 .
-:C_z :hasValue 2.0 .
-:t_h :hasValue 2.0 .
-:C_g :hasValue 20.0 .
-:scriptl_d :hasValue 125.0 .
-:scriptl_r :hasValue 0.0075 . 
-:R :hasValue 2.5 . 
+:p :hasNumericalValue 37.5 ;
+	:hasUnits :dollar .
+:C_h :hasNumericalValue 0.5 ;
+	:hasUnits :dollar_per_min .
+:C_w :hasNumericalValue 0.5 ;
+	:hasUnits :dollar_per_min .
+:C_z :hasNumericalValue 2.0 ;
+	:hasUnits :dollar_per_min .
+:t_h :hasNumericalValue 2.0 ;
+	:hasUnits :min .
+:C_g :hasNumericalValue 20.0 ;
+	:hasUnits :dollar .
+:scriptl_d :hasNumericalValue 125.0 ;
+	:hasUnits :dollar_per_mm^2 .
+:scriptl_r :hasNumericalValue 0.0075 ;
+	:hasUnits :dollar_per_mm^2 . 
+:R :hasNumericalValue 2.5  ;
+	:hasURI <http://modelmeth.nist.gov/manufacturing#targetSurfaceRoughness> ;
+	:hasUnits :micron .
 
-:f_min :hasValue 0.08 . 
-:f_max :hasValue 0.28 .
-:V_min :hasValue 32.0 .
-:V_min :hasValue 70.0 .
-:d_min :hasValue 0.5 .
-:d_max :hasValue 1.5 .
-:power_max :hasValue 15000.0 .
-:D_LSL :hasValue 97.9 .
-:D_USL :hasValue 98.1 .
-:R_USL :hasValue 10.0 .
+:f_min :hasNumericalValue 0.08 ;
+	:hasUnits :mm_per_rev . 
+:f_max :hasNumericalValue 0.28 ;
+	:hasUnits :mm_per_rev .
+:V_min :hasNumericalValue 32.0 ; 
+	:hasUnits :m_per_min .
+:V_min :hasNumericalValue 70.0 ;
+	:hasUnits :m_per_min .
+:d_min :hasNumericalValue 0.5 ;
+	:hasUnits :mm.
+:d_max :hasNumericalValue 1.5 ;
+	:hasUnits :mm .
+:power_max :hasNumericalValue 15000.0  ;
+	:hasUnits :watts.
+:D_LSL :hasNumericalValue 97.9 ;
+ 	:hasUnits :mm .
+:D_USL :hasNumericalValue 98.1 ;
+	:hasUnits :mm .
+:R_USL :hasNumericalValue 10.0  ;
+	:hasUnits :micron .
