@@ -6,28 +6,26 @@
 @prefix qudt: <http://qudt.org/1.1/schema/qudt#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-
-<http://modelmeth.nist.gov/manufacturing> 
-     rdf:type owl:Ontology .
+<http://modelmeth.nist.gov/manufacturing> rdf:type owl:Ontology .
 
 ###  http://modelmeth.nist.gov/manufacturing#hasNumericalValue
 :hasNumericalValue rdf:type owl:DatatypeProperty ;
           rdfs:range xsd:decimal .
 
 :D :hasNumericalValue 98.0 ;
-	:hasUnits :mm ;
+	:hasUnits :Millimeter ;
 	:hasURI <http://modelmeth.nist.gov/manufacturing#FinalDiameter> .
 :delta_i :hasNumericalValue 0.050 ;
-	:hasUnits :mm ;
+	:hasUnits :Millimeter ;
 	:hasURI <http://modelmeth.nist.gov/manufacturing#delta> .
 :d_i :hasNumericalValue 1.05 ;
-	:hasUnits :mm ;
+	:hasUnits :Millimeter ;
 	:hasURI <http://modelmeth.nist.gov/manufacturing#DepthOfCut> .
 :V :hasNumericalValue 70.0 ;
-	:hasUnits :m_per_min ;
+	:hasUnits :MeterPerMinute ;
 	:hasURI <http://modelmeth.nist.gov/manufacturing#CuttingSpeed> .
 :f :hasNumericalValue 0.0898  ;
-	:hasUnits :mm_per_rev ;
+	:hasUnits :MillimeterPerRevolution ; #no equivalent in units vocab
 	:hasURI <http://modelmeth.nist.gov/manufacturing#CuttingFeedRate> .
 :N :hasNumericalValue 1 ;
 	:hasURI <http://modelmeth.nist.gov/manufacturing#toolRegrindScenario> ;
@@ -37,10 +35,10 @@
 :L :hasNumericalValue 35.0 .
 
 :W_hat :hasNumericalValue 0.40 ;
-	:hasUnits :micron ;
+	:hasUnits :Micrometer ;
 	:hasURI <http://modelmeth.nist.gov/manufacturing#maxToolWear> .
 :Theta :hasNumericalValue 15  ;
-	:hasUnits :degree ;
+	:hasUnits :DegreeAngle ;
 	:hasURI <http://modelmeth.nist.gov/manufacturing#ToolClearanceAngle> .
 	
 :k_w :hasNumericalValue 0.000082961 .
@@ -62,42 +60,42 @@
 :sigma_c :hasNumericalValue 0.03877 .
 
 :p :hasNumericalValue 37.5 ;
-	:hasUnits :dollar .
+	:hasUnits :USDollar .
 :C_h :hasNumericalValue 0.5 ;
-	:hasUnits :dollar_per_min .
+	:hasUnits :USDollarPerMinute . #no equivalent in units vocab
 :C_w :hasNumericalValue 0.5 ;
-	:hasUnits :dollar_per_min .
+	:hasUnits :USDollarPerMinute . #no equivalent in units vocab
 :C_z :hasNumericalValue 2.0 ;
-	:hasUnits :dollar_per_min .
+	:hasUnits :USDollarPerMinute . #no equivalent in units vocab
 :t_h :hasNumericalValue 2.0 ;
-	:hasUnits :min .
+	:hasUnits :Minute .
 :C_g :hasNumericalValue 20.0 ;
-	:hasUnits :dollar .
+	:hasUnits :USDollar .
 :scriptl_d :hasNumericalValue 125.0 ;
-	:hasUnits :dollar_per_mm^2 .
+	:hasUnits :USDollarPerMillimeterSquared . #no equivalent in units vocab
 :scriptl_r :hasNumericalValue 0.0075 ;
-	:hasUnits :dollar_per_mm^2 . 
+	:hasUnits :USDollarPerMillimeterSquared . #no equivalent in units vocab
 :R :hasNumericalValue 2.5  ;
 	:hasURI <http://modelmeth.nist.gov/manufacturing#targetSurfaceRoughness> ;
-	:hasUnits :micron .
+	:hasUnits :Micrometer .
 
 :f_min :hasNumericalValue 0.08 ;
-	:hasUnits :mm_per_rev . 
+	:hasUnits :MillimeterPerRevolution . #no equivalent in units vocab
 :f_max :hasNumericalValue 0.28 ;
-	:hasUnits :mm_per_rev .
+	:hasUnits :MillimeterPerRevolution . #no equivalent in units vocab
 :V_min :hasNumericalValue 32.0 ; 
-	:hasUnits :m_per_min .
+	:hasUnits :MeterPerMinute .
 :V_min :hasNumericalValue 70.0 ;
-	:hasUnits :m_per_min .
+	:hasUnits :MeterPerMinute .
 :d_min :hasNumericalValue 0.5 ;
-	:hasUnits :mm.
+	:hasUnits :Millimeter.
 :d_max :hasNumericalValue 1.5 ;
-	:hasUnits :mm .
+	:hasUnits :Millimeter .
 :power_max :hasNumericalValue 15000.0  ;
-	:hasUnits :watts.
+	:hasUnits :Watt.
 :D_LSL :hasNumericalValue 97.9 ;
- 	:hasUnits :mm .
+ 	:hasUnits :Millimeter .
 :D_USL :hasNumericalValue 98.1 ;
-	:hasUnits :mm .
+	:hasUnits :Millimeter .
 :R_USL :hasNumericalValue 10.0  ;
-	:hasUnits :micron .
+	:hasUnits :Micrometer .

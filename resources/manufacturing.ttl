@@ -456,11 +456,6 @@ _:genid20 a owl:Restriction ;
 	rdfs:subClassOf :ModelAbstraction ;
 	rdfs:comment "A representation of a ModelProperty" .
 # 
-# http://modelmeth.nist.gov/manufacturing#ToolWear
-
-:ToolWear a owl:Class ;
-	rdfs:subClassOf :ProcessCharacteristic .
-# 
 # http://modelmeth.nist.gov/manufacturing#Workpiece
 
 :Workpiece a owl:Class ;
@@ -695,6 +690,10 @@ _:genid20 a owl:Restriction ;
 :KE a owl:NamedIndividual ;
 	:hasUnits :EnergyAndWork .
 # 
+# http://modelmeth.nist.gov/manufacturing#LaborCost
+
+:LaborCost a owl:NamedIndividual , :Cost .
+# 
 # http://modelmeth.nist.gov/manufacturing#LinearVelocity
 
 :LinearVelocity a owl:NamedIndividual .
@@ -702,6 +701,10 @@ _:genid20 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#MachineBed
 
 :MachineBed a owl:NamedIndividual , :MachineCharacteristic .
+# 
+# http://modelmeth.nist.gov/manufacturing#MachineCost
+
+:MachineCost a owl:NamedIndividual , :Cost .
 # 
 # http://modelmeth.nist.gov/manufacturing#MachinePower
 
@@ -775,6 +778,7 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 
 :T_N a owl:NamedIndividual , :Symbol ;
 	:isDirectlyProportionalTo :Z , :t_c ;
+	:representsProperty :CumulativeUse ;
 	:hasObjectiveType "avoided_processCharacteristic" .
 # 
 # http://modelmeth.nist.gov/manufacturing#Temperature
@@ -799,7 +803,7 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 # 
 # http://modelmeth.nist.gov/manufacturing#ToolwearCompensation
 
-:ToolwearCompensation a owl:NamedIndividual , :ModelProperty .
+:ToolwearCompensation a owl:NamedIndividual , :ModelProperty , :ProcessCharacteristic .
 # 
 # http://modelmeth.nist.gov/manufacturing#TotalToolWear
 
@@ -876,7 +880,8 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 # http://modelmeth.nist.gov/manufacturing#delta
 
 :delta a owl:NamedIndividual , :Symbol ;
-	:hasProcessContext :Turning .
+	:hasProcessContext :Turning ;
+	:representsProperty :ToolwearCompensation .
 # 
 # http://modelmeth.nist.gov/manufacturing#f
 
@@ -895,6 +900,8 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 
 :maxHorsepower a owl:NamedIndividual , :ProcessConstraint ;
 	:hasQuantityKind qudt:Power .
+
+qudt:Power a owl:NamedIndividual .
 # 
 # http://modelmeth.nist.gov/manufacturing#maxSurfaceRoughness
 
@@ -927,7 +934,8 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 # 
 # http://modelmeth.nist.gov/manufacturing#theta
 
-:theta a owl:NamedIndividual , :Symbol .
+:theta a owl:NamedIndividual , :Symbol ;
+	:representsProperty :ToolAngle .
 # 
 # http://modelmeth.nist.gov/manufacturing#toolRegrindScenario
 
@@ -941,7 +949,8 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 # 
 # http://modelmeth.nist.gov/manufacturing#w_ci
 
-:w_ci a owl:NamedIndividual , :Symbol .
+:w_ci a owl:NamedIndividual , :Symbol ;
+	:representsProperty :ToolWearPerPart .
 # 
 # http://qudt.org/1.1/schema/qudt#Dimensionless
 
@@ -954,6 +963,8 @@ qudt:Force a owl:NamedIndividual .
 # http://qudt.org/1.1/schema/qudt#Length
 
 qudt:Length a owl:NamedIndividual .
+# 
+# http://qudt.org/1.1/schema/qudt#Power
 # 
 # http://qudt.org/1.1/schema/qudt#Time
 
