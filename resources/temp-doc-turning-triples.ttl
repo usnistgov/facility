@@ -134,4 +134,8 @@
 	:hasConcept :SurfaceRoughness , :MaximumAcceptableValue ;
 	:hasUnits :Micrometer .
 	
+:Phi_i :hasNumericalValue 9.73838 ;
+	:hasConcept :SurfaceRoughness ; 
+	:hasUnits :Micrometer .
+:F_i :hasConcept :CuttingForce .
 	

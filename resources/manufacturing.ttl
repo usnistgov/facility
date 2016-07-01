@@ -486,6 +486,10 @@ _:genid19 a owl:Restriction ;
 
 :Boring a owl:NamedIndividual , :SinglePointCutting .
 # 
+# http://modelmeth.nist.gov/manufacturing#CalculatedValue
+
+:CalculatedValue a owl:NamedIndividual , :Modifier .
+# 
 # http://modelmeth.nist.gov/manufacturing#CarbonToolSteel
 
 :CarbonToolSteel a owl:NamedIndividual , :CuttingToolMaterial .
@@ -738,7 +742,6 @@ _:genid19 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#N
 
 :N a owl:NamedIndividual , :Symbol ;
-	:isDirectlyProportionalTo :Z ;
 	rdfs:comment "Number of parts made before regrind" .
 # 
 # http://modelmeth.nist.gov/manufacturing#Planing
@@ -793,7 +796,6 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 # http://modelmeth.nist.gov/manufacturing#T_N
 
 :T_N a owl:NamedIndividual , :Symbol ;
-	:isDirectlyProportionalTo :Z , :t_c ;
 	:representsProperty :CumulativeUse ;
 	:hasObjectiveType "avoided_processCharacteristic" .
 # 
@@ -837,15 +839,12 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 # http://modelmeth.nist.gov/manufacturing#TurningOptimization
 
 :TurningOptimization a owl:NamedIndividual , :Model ;
-	:isDirectlyProportionalTo :Z , :t_c ;
 	:referencesEquation :CuttingForceEquation , :ProcessingTimeEquation , :SurfaceRoughnessEquation , :ToolWearEquation .
 # 
 # http://modelmeth.nist.gov/manufacturing#V
 
 :V a owl:NamedIndividual , :Symbol ;
 	:hasProcessContext :Turning ;
-	:isDirectlyProportionalTo :F , :phi ;
-	:isInverselyProportionalTo :t_c ;
 	:representsProperty :CuttingSpeed .
 # 
 # http://modelmeth.nist.gov/manufacturing#W_hat
@@ -864,12 +863,12 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 # http://modelmeth.nist.gov/manufacturing#X_1
 
 :X_1 a owl:NamedIndividual , :TestVars ;
-	:hasUnits :Length .
+	:hasUnits :Kilogram .
 # 
 # http://modelmeth.nist.gov/manufacturing#Y
 
 :Y a owl:NamedIndividual , :TestVars ;
-	:hasUnits :Area .
+	:hasUnits :Newton .
 # 
 # http://modelmeth.nist.gov/manufacturing#Z
 
@@ -880,7 +879,7 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 # http://modelmeth.nist.gov/manufacturing#beta_1
 
 :beta_1 a owl:NamedIndividual , :TestVars ;
-	:hasUnits :Length .
+	:hasUnits :MeterPerSecondSquared .
 # 
 # http://modelmeth.nist.gov/manufacturing#cuttingInsert
 
@@ -891,15 +890,12 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 
 :d_i a owl:NamedIndividual , :Symbol ;
 	:hasProcessContext :Turning ;
-	:isDirectlyProportionalTo :F , :phi ;
 	:representsProperty :DepthOfCut .
 # 
 # http://modelmeth.nist.gov/manufacturing#f
 
 :f a owl:NamedIndividual , :Symbol ;
 	:hasProcessContext :Turning ;
-	:isDirectlyProportionalTo :F , :phi ;
-	:isInverselyProportionalTo :t_c ;
 	:representsProperty :CuttingFeedRate .
 # 
 # http://modelmeth.nist.gov/manufacturing#m_1
@@ -917,7 +913,6 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 # http://modelmeth.nist.gov/manufacturing#t_c
 
 :t_c a owl:NamedIndividual , :Symbol ;
-	:isDirectlyProportionalTo :F , :phi ;
 	:hasObjectiveType "avoided_processCharacteristic" .
 # 
 # http://modelmeth.nist.gov/manufacturing#theta
