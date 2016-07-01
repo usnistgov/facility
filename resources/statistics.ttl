@@ -1,0 +1,752 @@
+@prefix : <http://modelmeth.nist.gov/statistics#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix qudt: <http://qudt.org/1.1/schema/qudt#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://modelmeth.nist.gov/statistics> rdf:type owl:Ontology ;
+                                          
+                                          owl:imports <http://model-meth.nist.gov/1.0/schema/dtype> ,
+                                                      <http://model-meth.nist.gov/1.1/schema/qudt> ,
+                                                      <http://model-meth.nist.gov/1.2/schema/vaem> .
+
+
+#################################################################
+#
+#    Annotation properties
+#
+#################################################################
+
+
+
+#################################################################
+#
+#    Datatypes
+#
+#################################################################
+
+
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  http://modelmeth.nist.gov/statistics#appliesTo
+
+:appliesTo rdf:type owl:ObjectProperty .
+
+
+
+###  http://modelmeth.nist.gov/statistics#definedBy
+
+:definedBy rdf:type owl:ObjectProperty .
+
+
+
+###  http://modelmeth.nist.gov/statistics#defines
+
+:defines rdf:type owl:ObjectProperty ;
+         
+         owl:inverseOf :definedBy .
+
+
+
+###  http://modelmeth.nist.gov/statistics#determinedBy
+
+:determinedBy rdf:type owl:ObjectProperty .
+
+
+
+###  http://modelmeth.nist.gov/statistics#hasCharacteristic
+
+:hasCharacteristic rdf:type owl:ObjectProperty .
+
+
+###  http://modelmeth.nist.gov/statistics#hasValue
+
+:hasValue rdf:type owl:AsymmetricProperty ,
+                   owl:ObjectProperty .
+
+
+###  http://modelmeth.nist.gov/statistics#isSpecifiedBy
+
+:isSpecifiedBy rdf:type owl:ObjectProperty .
+
+
+
+###  http://modelmeth.nist.gov/statistics#provides
+
+:provides rdf:type owl:ObjectProperty .
+
+
+
+###  http://modelmeth.nist.gov/statistics#quantifiedBy
+
+:quantifiedBy rdf:type owl:ObjectProperty .
+
+
+
+###  http://modelmeth.nist.gov/statistics#quantifies
+
+:quantifies rdf:type owl:ObjectProperty ;
+            
+            owl:inverseOf :quantifiedBy .
+
+
+#################################################################
+#
+#    Data properties
+#
+#################################################################
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+
+###  http://modelmeth.nist.gov/statistics#AlternativeHypothesis
+
+:AlternativeHypothesis rdf:type owl:Class ;
+                       
+                       rdfs:subClassOf :Condition ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :hasValue ;
+                                         owl:allValuesFrom :True
+                                       ] .
+
+
+
+###  http://modelmeth.nist.gov/statistics#AlternativeTypicalValue
+
+:AlternativeTypicalValue rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf :TypicalValue .
+
+
+
+###  http://modelmeth.nist.gov/statistics#AnalysisTechnique
+
+:AnalysisTechnique rdf:type owl:Class ;
+                   
+                   rdfs:subClassOf :StatisticsAnalysis .
+
+
+
+###  http://modelmeth.nist.gov/statistics#Average
+
+:Average rdf:type owl:Class ;
+         
+         owl:equivalentClass :Mean ;
+         
+         rdfs:subClassOf :CommonTypicalValue .
+
+
+
+###  http://modelmeth.nist.gov/statistics#CauchyDistribution
+
+:CauchyDistribution rdf:type owl:Class ;
+                    
+                    rdfs:subClassOf :Distribution .
+
+
+###  http://modelmeth.nist.gov/statistics#CommonTypicalValue
+
+:CommonTypicalValue rdf:type owl:Class ;
+                    
+                    rdfs:subClassOf :TypicalValue .
+
+
+
+###  http://modelmeth.nist.gov/statistics#Condition
+
+:Condition rdf:type owl:Class ;
+           
+           owl:equivalentClass [ rdf:type owl:Class ;
+                                 owl:unionOf ( :AlternativeHypothesis
+                                               :NullHypothesis
+                                             )
+                               ] ;
+           
+           rdfs:subClassOf :Characteristic .
+
+
+
+###  http://modelmeth.nist.gov/statistics#ConfidenceLevel
+
+:ConfidenceLevel rdf:type owl:Class ;
+                 
+                 rdfs:subClassOf :Characteristic .
+
+
+###  http://modelmeth.nist.gov/statistics#CriticalRegion
+
+:CriticalRegion rdf:type owl:Class ;
+                
+                rdfs:subClassOf :Characteristic .
+
+
+
+###  http://modelmeth.nist.gov/statistics#CumulativeUse
+
+:CumulativeUse rdf:type owl:Class ;
+               
+               rdfs:subClassOf :ProcessCharacteristic .
+
+
+
+###  http://modelmeth.nist.gov/statistics#Distribution
+
+:Distribution rdf:type owl:Class ;
+              
+              rdfs:subClassOf :Characteristic .
+
+
+###  http://modelmeth.nist.gov/statistics#ExponentialDistribution
+
+:ExponentialDistribution rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf :Distribution .
+
+
+
+
+###  http://modelmeth.nist.gov/statistics#GraphicalAnalysis
+
+:GraphicalAnalysis rdf:type owl:Class ;
+                   
+                   rdfs:subClassOf :AnalysisTechnique .
+
+
+###  http://modelmeth.nist.gov/statistics#HypothesisTest
+
+:HypothesisTest rdf:type owl:Class ;
+                
+                rdfs:subClassOf :QuantitativeAnalysis ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :isSpecifiedBy ;
+                                  owl:someValuesFrom :TestStatistic
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :quantifies ;
+                                  owl:someValuesFrom :Uncertainty
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :definedBy ;
+                                  owl:someValuesFrom :Condition
+                                ] .
+
+
+###  http://modelmeth.nist.gov/statistics#Interval
+
+:Interval rdf:type owl:Class ;
+          
+          rdfs:subClassOf :Characteristic ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :hasValue ;
+                            owl:someValuesFrom [ rdf:type owl:Class ;
+                                                 owl:intersectionOf ( :LowerValue
+                                                                      :UpperValue
+                                                                    )
+                                               ]
+                          ] .
+
+
+
+###  http://modelmeth.nist.gov/statistics#IntervalEstimate
+
+:IntervalEstimate rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf :QuantitativeAnalysis ,
+                                  [ rdf:type owl:Class ;
+                                    owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                           owl:onProperty :provides ;
+                                                           owl:someValuesFrom :Interval
+                                                         ]
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty :quantifies ;
+                                                           owl:someValuesFrom :Uncertainty
+                                                         ]
+                                                       )
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :definedBy ;
+                                    owl:someValuesFrom [ rdf:type owl:Class ;
+                                                         owl:intersectionOf ( :PointEstimate
+                                                                              :Uncertainty
+                                                                            )
+                                                       ]
+                                  ] .
+
+
+
+###  http://modelmeth.nist.gov/statistics#LevelOfConfidence
+
+:LevelOfConfidence rdf:type owl:Class ;
+                   
+                   rdfs:subClassOf :Characteristic .
+
+
+
+###  http://modelmeth.nist.gov/statistics#LocationParameterEstimate
+
+:LocationParameterEstimate rdf:type owl:Class ;
+                           
+                           rdfs:subClassOf :QuantitativeAnalysis ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :hasValue ;
+                                             owl:someValuesFrom :TypicalValue
+                                           ] .
+
+
+
+###  http://modelmeth.nist.gov/statistics#LognormalDistribution
+
+:LognormalDistribution rdf:type owl:Class ;
+                       
+                       rdfs:subClassOf :Distribution .
+
+
+
+###  http://modelmeth.nist.gov/statistics#LowerValue
+
+:LowerValue rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Value .
+
+
+###  http://modelmeth.nist.gov/statistics#Mean
+
+:Mean rdf:type owl:Class ;
+      
+      rdfs:subClassOf :CommonTypicalValue ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :appliesTo ;
+                        owl:allValuesFrom :UnivariateData
+                      ] .
+
+
+
+###  http://modelmeth.nist.gov/statistics#Median
+
+:Median rdf:type owl:Class ;
+        
+        rdfs:subClassOf :CommonTypicalValue ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :appliesTo ;
+                          owl:allValuesFrom :UnivariateData
+                        ] .
+
+
+
+###  http://modelmeth.nist.gov/statistics#MidMean
+
+:MidMean rdf:type owl:Class ;
+         
+         rdfs:subClassOf :AlternativeTypicalValue .
+
+
+
+###  http://modelmeth.nist.gov/statistics#Mode
+
+:Mode rdf:type owl:Class ;
+      
+      rdfs:subClassOf :CommonTypicalValue ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :appliesTo ;
+                        owl:allValuesFrom :UnivariateData
+                      ] .
+
+
+###  http://modelmeth.nist.gov/statistics#ModelAbstraction
+
+:ModelAbstraction rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf :Abstract ;
+                  
+                  rdfs:comment "A conceptualization of a manufacturing process" .
+
+
+
+###  http://modelmeth.nist.gov/statistics#MultiFactorANOVA
+
+:MultiFactorANOVA rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf :QuantitativeAnalysis .
+
+
+
+###  http://modelmeth.nist.gov/statistics#NormalDistribution
+
+:NormalDistribution rdf:type owl:Class ;
+                    
+                    rdfs:subClassOf :Distribution .
+
+
+
+###  http://modelmeth.nist.gov/statistics#NullHypothesis
+
+:NullHypothesis rdf:type owl:Class ;
+                
+                rdfs:subClassOf :Condition ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :hasValue ;
+                                  owl:allValuesFrom :False
+                                ] .
+
+
+
+###  http://modelmeth.nist.gov/statistics#NullHypothesisRejectionProbability
+
+:NullHypothesisRejectionProbability rdf:type owl:Class ;
+                                    
+                                    owl:equivalentClass :PowerOfTest ;
+                                    
+                                    rdfs:subClassOf :Characteristic .
+
+
+###  http://modelmeth.nist.gov/statistics#OneFactorANOVA
+
+:OneFactorANOVA rdf:type owl:Class ;
+                
+                rdfs:subClassOf :QuantitativeAnalysis .
+
+
+
+###  http://modelmeth.nist.gov/statistics#OneSample-T-Test
+
+:OneSample-T-Test rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf :QuantitativeAnalysis .
+
+
+
+###  http://modelmeth.nist.gov/statistics#PointEstimate
+
+:PointEstimate rdf:type owl:Class ;
+               
+               rdfs:subClassOf :QuantitativeAnalysis ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasCharacteristic ;
+                                 owl:someValuesFrom :Uncertainty
+                               ] .
+
+
+
+###  http://modelmeth.nist.gov/statistics#Population
+
+:Population rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Variable .
+
+
+
+###  http://modelmeth.nist.gov/statistics#PopulationParameter
+
+:PopulationParameter rdf:type owl:Class ;
+                     
+                     rdfs:subClassOf :Characteristic .
+
+
+
+###  http://modelmeth.nist.gov/statistics#PowerOfTest
+
+:PowerOfTest rdf:type owl:Class ;
+             
+             rdfs:subClassOf :Characteristic .
+
+
+
+###  http://modelmeth.nist.gov/statistics#PracticalSignificance
+
+:PracticalSignificance rdf:type owl:Class ;
+                       
+                       rdfs:subClassOf :Significance .
+
+
+
+###  http://modelmeth.nist.gov/statistics#ProbabilityDistribution
+
+:ProbabilityDistribution rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf :AnalysisTechnique .
+
+
+
+###  http://modelmeth.nist.gov/statistics#QuantitativeAnalysis
+
+:QuantitativeAnalysis rdf:type owl:Class ;
+                      
+                      rdfs:subClassOf :AnalysisTechnique .
+
+
+
+###  http://modelmeth.nist.gov/statistics#RandomSample
+
+:RandomSample rdf:type owl:Class ;
+              
+              rdfs:subClassOf :Variable .
+
+
+###  http://modelmeth.nist.gov/statistics#SampleMean
+
+:SampleMean rdf:type owl:Class ;
+            
+            rdfs:subClassOf :Characteristic ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasValue ;
+                              owl:someValuesFrom :SampleMeanValue
+                            ] .
+
+
+
+###  http://modelmeth.nist.gov/statistics#SampleMeanValue
+
+:SampleMeanValue rdf:type owl:Class ;
+                 
+                 rdfs:subClassOf :Value .
+
+
+
+###  http://modelmeth.nist.gov/statistics#SensitivityOfTest
+
+:SensitivityOfTest rdf:type owl:Class ;
+                   
+                   rdfs:subClassOf :Characteristic .
+
+
+
+###  http://modelmeth.nist.gov/statistics#Significance
+
+:Significance rdf:type owl:Class ;
+              
+              rdfs:subClassOf :Characteristic .
+
+
+
+###  http://modelmeth.nist.gov/statistics#SignificanceLevel
+
+:SignificanceLevel rdf:type owl:Class ;
+                   
+                   rdfs:subClassOf :Characteristic ,
+                                   [ rdf:type owl:Class ;
+                                     owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :hasValue ;
+                                                     owl:hasValue <http://modelmeth.nist.gov/statistics#0.01>
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :hasValue ;
+                                                     owl:hasValue <http://modelmeth.nist.gov/statistics#0.05>
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :hasValue ;
+                                                     owl:hasValue <http://modelmeth.nist.gov/statistics#0.1>
+                                                   ]
+                                                 )
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :defines ;
+                                     owl:someValuesFrom :SensitivityOfTest
+                                   ] .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#StatisticsAnalysis
+
+:StatisticsAnalysis rdf:type owl:Class ;
+                     
+                     rdfs:subClassOf :ModelAbstraction .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#StatisticsSignificance
+
+:StatisticsSignificance rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf :Significance .
+
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#Symbol
+
+:Symbol rdf:type owl:Class ;
+        
+        rdfs:subClassOf :ModelAbstraction ;
+        
+        rdfs:comment "A representation of a ModelProperty" .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#TestStatistic
+
+:TestStatistic rdf:type owl:Class ;
+               
+               rdfs:subClassOf :Characteristic .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#TestStatisticCutOffValue
+
+:TestStatisticCutOffValue rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf :Value ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty :defines ;
+                                            owl:someValuesFrom :CriticalRegion
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty :determinedBy ;
+                                            owl:someValuesFrom [ rdf:type owl:Class ;
+                                                                 owl:intersectionOf ( :SignificanceLevel
+                                                                                      :TestStatisticDistribution
+                                                                                    )
+                                                               ]
+                                          ] .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#TestStatisticDistribution
+
+:TestStatisticDistribution rdf:type owl:Class ;
+                           
+                           rdfs:subClassOf :Distribution .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#TrimmedMean
+
+:TrimmedMean rdf:type owl:Class ;
+             
+             rdfs:subClassOf :AlternativeTypicalValue .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#TwoSample-T-TestForEqualMeans
+
+:TwoSample-T-TestForEqualMeans rdf:type owl:Class ;
+                               
+                               rdfs:subClassOf :QuantitativeAnalysis .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#Type-I-Error
+
+:Type-I-Error rdf:type owl:Class ;
+              
+              rdfs:subClassOf :Characteristic .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#Type-II-Error
+
+:Type-II-Error rdf:type owl:Class ;
+               
+               rdfs:subClassOf :Characteristic .
+
+
+###  http://modelmeth.nist.gov/manufacturing#Uncertainty
+
+:Uncertainty rdf:type owl:Class ;
+             
+             rdfs:subClassOf :Characteristic ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :quantifies ;
+                               owl:someValuesFrom [ rdf:type owl:Class ;
+                                                    owl:unionOf ( :HypothesisTest
+                                                                  :IntervalEstimate
+                                                                )
+                                                  ]
+                             ] .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#UnivariateData
+
+:UnivariateData rdf:type owl:Class ;
+                
+                rdfs:subClassOf :Variable .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#Value
+
+:Value rdf:type owl:Class ;
+       
+       rdfs:subClassOf :Characteristic .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#Variable
+
+:Variable rdf:type owl:Class ;
+          
+          rdfs:subClassOf :StatisticsAnalysis .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#WinsorizedMean
+
+:WinsorizedMean rdf:type owl:Class ;
+                
+                rdfs:subClassOf :AlternativeTypicalValue .
+
+
+#################################################################
+#
+#    Individuals
+#
+#################################################################
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#Mean
+
+:Mean rdf:type :TypicalValue ,
+               owl:NamedIndividual .
+
+
+
+###  http://modelmeth.nist.gov/manufacturing#Median
+
+:Median rdf:type :TypicalValue ,
+                 owl:NamedIndividual .
+
+
+
+###  http://modelmeth.nist.gov/manufacturingn#Mode
+
+:Mode rdf:type :TypicalValue ,
+               owl:NamedIndividual .
+
+
+
+
+
+#################################################################
+#
+#    General axioms
+#
+#################################################################
+
+
+
+
+#################################################################
+#
+#    Rules
+#
+#################################################################
+
+
