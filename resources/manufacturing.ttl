@@ -76,6 +76,42 @@ _:genid9 a rdf:List ;
 # #################################################################
 # 
 # 
+# http://modelmeth.nist.gov/ibrahim#appliesTo
+
+<http://modelmeth.nist.gov/ibrahim#appliesTo> a owl:ObjectProperty .
+# 
+# http://modelmeth.nist.gov/ibrahim#definedBy
+
+<http://modelmeth.nist.gov/ibrahim#definedBy> a owl:ObjectProperty .
+# 
+# http://modelmeth.nist.gov/ibrahim#defines
+
+<http://modelmeth.nist.gov/ibrahim#defines> a owl:ObjectProperty .
+# 
+# http://modelmeth.nist.gov/ibrahim#determinedBy
+
+<http://modelmeth.nist.gov/ibrahim#determinedBy> a owl:ObjectProperty .
+# 
+# http://modelmeth.nist.gov/ibrahim#hasCharacteristic
+
+<http://modelmeth.nist.gov/ibrahim#hasCharacteristic> a owl:ObjectProperty .
+# 
+# http://modelmeth.nist.gov/ibrahim#hasValue
+
+<http://modelmeth.nist.gov/ibrahim#hasValue> a owl:ObjectProperty .
+# 
+# http://modelmeth.nist.gov/ibrahim#isSpecifiedBy
+
+<http://modelmeth.nist.gov/ibrahim#isSpecifiedBy> a owl:ObjectProperty .
+# 
+# http://modelmeth.nist.gov/ibrahim#provides
+
+<http://modelmeth.nist.gov/ibrahim#provides> a owl:ObjectProperty .
+# 
+# http://modelmeth.nist.gov/ibrahim#quantifies
+
+<http://modelmeth.nist.gov/ibrahim#quantifies> a owl:ObjectProperty .
+# 
 # http://modelmeth.nist.gov/manufacturing#hasCost
 
 :hasCost a owl:ObjectProperty ;
@@ -186,6 +222,518 @@ _:genid9 a rdf:List ;
 # #################################################################
 # 
 # 
+# http://modelmeth.nist.gov/ibrahim#AlternativeHypothesis
+
+<http://modelmeth.nist.gov/ibrahim#AlternativeHypothesis> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Condition> , _:genid11 .
+
+_:genid11 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#hasValue> ;
+	owl:allValuesFrom <http://modelmeth.nist.gov/ibrahim#True> .
+# 
+# http://modelmeth.nist.gov/ibrahim#AlternativeTypicalValue
+
+<http://modelmeth.nist.gov/ibrahim#AlternativeTypicalValue> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#TypicalValue> .
+# 
+# http://modelmeth.nist.gov/ibrahim#AnalysisTechnique
+
+<http://modelmeth.nist.gov/ibrahim#AnalysisTechnique> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#StatisticalAnalysis> .
+# 
+# http://modelmeth.nist.gov/ibrahim#Average
+
+<http://modelmeth.nist.gov/ibrahim#Average> a owl:Class ;
+	owl:equivalentClass <http://modelmeth.nist.gov/ibrahim#Mean> ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#CommonTypicalValue> .
+# 
+# http://modelmeth.nist.gov/ibrahim#CauchyDistribution
+
+<http://modelmeth.nist.gov/ibrahim#CauchyDistribution> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Distribution> .
+# 
+# http://modelmeth.nist.gov/ibrahim#Characteristic
+
+<http://modelmeth.nist.gov/ibrahim#Characteristic> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#StatisticalAnalysis> .
+# 
+# http://modelmeth.nist.gov/ibrahim#CommonTypicalValue
+
+<http://modelmeth.nist.gov/ibrahim#CommonTypicalValue> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#TypicalValue> .
+# 
+# http://modelmeth.nist.gov/ibrahim#Condition
+
+<http://modelmeth.nist.gov/ibrahim#Condition> a owl:Class ;
+	owl:equivalentClass _:genid12 .
+
+_:genid12 a owl:Class ;
+	owl:unionOf _:genid14 .
+
+_:genid14 a rdf:List ;
+	rdf:first <http://modelmeth.nist.gov/ibrahim#AlternativeHypothesis> ;
+	rdf:rest _:genid13 .
+
+_:genid13 a rdf:List ;
+	rdf:first <http://modelmeth.nist.gov/ibrahim#NullHypothesis> ;
+	rdf:rest rdf:nil .
+
+<http://modelmeth.nist.gov/ibrahim#Condition> rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> .
+# 
+# http://modelmeth.nist.gov/ibrahim#ConfidenceLevel
+
+<http://modelmeth.nist.gov/ibrahim#ConfidenceLevel> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> .
+# 
+# http://modelmeth.nist.gov/ibrahim#CriticalRegion
+
+<http://modelmeth.nist.gov/ibrahim#CriticalRegion> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> .
+# 
+# http://modelmeth.nist.gov/ibrahim#Distribution
+
+<http://modelmeth.nist.gov/ibrahim#Distribution> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> .
+# 
+# http://modelmeth.nist.gov/ibrahim#ExponentialDistribution
+
+<http://modelmeth.nist.gov/ibrahim#ExponentialDistribution> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Distribution> .
+# 
+# http://modelmeth.nist.gov/ibrahim#False
+
+<http://modelmeth.nist.gov/ibrahim#False> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> .
+# 
+# http://modelmeth.nist.gov/ibrahim#GraphicalAnalysis
+
+<http://modelmeth.nist.gov/ibrahim#GraphicalAnalysis> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#AnalysisTechnique> .
+# 
+# http://modelmeth.nist.gov/ibrahim#HypothesisTest
+
+<http://modelmeth.nist.gov/ibrahim#HypothesisTest> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#QuantitativeAnalysis> , _:genid15 .
+
+_:genid15 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#definedBy> ;
+	owl:someValuesFrom <http://modelmeth.nist.gov/ibrahim#Condition> .
+
+<http://modelmeth.nist.gov/ibrahim#HypothesisTest> rdfs:subClassOf _:genid16 .
+
+_:genid16 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#isSpecifiedBy> ;
+	owl:someValuesFrom <http://modelmeth.nist.gov/ibrahim#TestStatistic> .
+
+<http://modelmeth.nist.gov/ibrahim#HypothesisTest> rdfs:subClassOf _:genid17 .
+
+_:genid17 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#quantifies> ;
+	owl:someValuesFrom <http://modelmeth.nist.gov/ibrahim#Uncertainty> .
+# 
+# http://modelmeth.nist.gov/ibrahim#Interval
+
+<http://modelmeth.nist.gov/ibrahim#Interval> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> , _:genid18 .
+
+_:genid18 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#hasValue> ;
+	owl:someValuesFrom _:genid19 .
+
+_:genid19 owl:intersectionOf _:genid21 .
+
+_:genid21 a rdf:List ;
+	rdf:first <http://modelmeth.nist.gov/ibrahim#LowerValue> ;
+	rdf:rest _:genid20 .
+
+_:genid20 a rdf:List ;
+	rdf:first <http://modelmeth.nist.gov/ibrahim#UpperValue> ;
+	rdf:rest rdf:nil .
+
+_:genid19 a owl:Class .
+# 
+# http://modelmeth.nist.gov/ibrahim#IntervalEstimate
+
+<http://modelmeth.nist.gov/ibrahim#IntervalEstimate> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#QuantitativeAnalysis> , _:genid22 .
+
+_:genid22 owl:intersectionOf _:genid25 .
+
+_:genid25 a rdf:List ;
+	rdf:first _:genid26 .
+
+_:genid26 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#provides> ;
+	owl:someValuesFrom <http://modelmeth.nist.gov/ibrahim#Interval> .
+
+_:genid25 rdf:rest _:genid23 .
+
+_:genid23 a rdf:List ;
+	rdf:first _:genid24 .
+
+_:genid24 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#quantifies> ;
+	owl:someValuesFrom <http://modelmeth.nist.gov/ibrahim#Uncertainty> .
+
+_:genid23 rdf:rest rdf:nil .
+
+_:genid22 a owl:Class .
+
+<http://modelmeth.nist.gov/ibrahim#IntervalEstimate> rdfs:subClassOf _:genid27 .
+
+_:genid27 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#definedBy> ;
+	owl:someValuesFrom _:genid28 .
+
+_:genid28 owl:intersectionOf _:genid30 .
+
+_:genid30 a rdf:List ;
+	rdf:first <http://modelmeth.nist.gov/ibrahim#PointEstimate> ;
+	rdf:rest _:genid29 .
+
+_:genid29 a rdf:List ;
+	rdf:first <http://modelmeth.nist.gov/ibrahim#Uncertainty> ;
+	rdf:rest rdf:nil .
+
+_:genid28 a owl:Class .
+# 
+# http://modelmeth.nist.gov/ibrahim#LevelOfConfidence
+
+<http://modelmeth.nist.gov/ibrahim#LevelOfConfidence> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> .
+# 
+# http://modelmeth.nist.gov/ibrahim#LocationParameterEstimate
+
+<http://modelmeth.nist.gov/ibrahim#LocationParameterEstimate> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#QuantitativeAnalysis> , _:genid31 .
+
+_:genid31 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#hasValue> ;
+	owl:someValuesFrom <http://modelmeth.nist.gov/ibrahim#TypicalValue> .
+# 
+# http://modelmeth.nist.gov/ibrahim#LognormalDistribution
+
+<http://modelmeth.nist.gov/ibrahim#LognormalDistribution> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Distribution> .
+# 
+# http://modelmeth.nist.gov/ibrahim#LowerValue
+
+<http://modelmeth.nist.gov/ibrahim#LowerValue> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Value> .
+# 
+# http://modelmeth.nist.gov/ibrahim#Mean
+
+<http://modelmeth.nist.gov/ibrahim#Mean> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#CommonTypicalValue> , _:genid32 .
+
+_:genid32 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#appliesTo> ;
+	owl:allValuesFrom <http://modelmeth.nist.gov/ibrahim#UnivariateData> .
+# 
+# http://modelmeth.nist.gov/ibrahim#Median
+
+<http://modelmeth.nist.gov/ibrahim#Median> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#CommonTypicalValue> , _:genid33 .
+
+_:genid33 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#appliesTo> ;
+	owl:allValuesFrom <http://modelmeth.nist.gov/ibrahim#UnivariateData> .
+# 
+# http://modelmeth.nist.gov/ibrahim#MidMean
+
+<http://modelmeth.nist.gov/ibrahim#MidMean> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#AlternativeTypicalValue> .
+# 
+# http://modelmeth.nist.gov/ibrahim#Mode
+
+<http://modelmeth.nist.gov/ibrahim#Mode> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#CommonTypicalValue> , _:genid34 .
+
+_:genid34 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#appliesTo> ;
+	owl:allValuesFrom <http://modelmeth.nist.gov/ibrahim#UnivariateData> .
+# 
+# http://modelmeth.nist.gov/ibrahim#ModelAbstraction-mistake
+
+<http://modelmeth.nist.gov/ibrahim#ModelAbstraction-mistake> a owl:Class .
+# 
+# http://modelmeth.nist.gov/ibrahim#ModelProperty
+
+<http://modelmeth.nist.gov/ibrahim#ModelProperty> a owl:Class ;
+	owl:disjointWith <http://modelmeth.nist.gov/ibrahim#Symbol> .
+# 
+# http://modelmeth.nist.gov/ibrahim#MultiFactorANOVA
+
+<http://modelmeth.nist.gov/ibrahim#MultiFactorANOVA> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#QuantitativeAnalysis> .
+# 
+# http://modelmeth.nist.gov/ibrahim#NormalDistribution
+
+<http://modelmeth.nist.gov/ibrahim#NormalDistribution> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Distribution> .
+# 
+# http://modelmeth.nist.gov/ibrahim#NullHypothesis
+
+<http://modelmeth.nist.gov/ibrahim#NullHypothesis> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Condition> , _:genid35 .
+
+_:genid35 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#hasValue> ;
+	owl:allValuesFrom <http://modelmeth.nist.gov/ibrahim#False> .
+# 
+# http://modelmeth.nist.gov/ibrahim#NullHypothesisRejectionProbability
+
+<http://modelmeth.nist.gov/ibrahim#NullHypothesisRejectionProbability> a owl:Class ;
+	owl:equivalentClass <http://modelmeth.nist.gov/ibrahim#PowerOfTest> ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> .
+# 
+# http://modelmeth.nist.gov/ibrahim#OneFactorANOVA
+
+<http://modelmeth.nist.gov/ibrahim#OneFactorANOVA> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#QuantitativeAnalysis> .
+# 
+# http://modelmeth.nist.gov/ibrahim#OneSample-T-Test
+
+<http://modelmeth.nist.gov/ibrahim#OneSample-T-Test> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#QuantitativeAnalysis> .
+# 
+# http://modelmeth.nist.gov/ibrahim#PointEstimate
+
+<http://modelmeth.nist.gov/ibrahim#PointEstimate> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#QuantitativeAnalysis> , _:genid36 .
+
+_:genid36 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#hasCharacteristic> ;
+	owl:someValuesFrom <http://modelmeth.nist.gov/ibrahim#Uncertainty> .
+# 
+# http://modelmeth.nist.gov/ibrahim#Population
+
+<http://modelmeth.nist.gov/ibrahim#Population> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Variable> .
+# 
+# http://modelmeth.nist.gov/ibrahim#PopulationParameter
+
+<http://modelmeth.nist.gov/ibrahim#PopulationParameter> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> .
+# 
+# http://modelmeth.nist.gov/ibrahim#PowerOfTest
+
+<http://modelmeth.nist.gov/ibrahim#PowerOfTest> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> .
+# 
+# http://modelmeth.nist.gov/ibrahim#PracticalSignificance
+
+<http://modelmeth.nist.gov/ibrahim#PracticalSignificance> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Significance> .
+# 
+# http://modelmeth.nist.gov/ibrahim#ProbabilityDistribution
+
+<http://modelmeth.nist.gov/ibrahim#ProbabilityDistribution> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#AnalysisTechnique> .
+# 
+# http://modelmeth.nist.gov/ibrahim#QuantitativeAnalysis
+
+<http://modelmeth.nist.gov/ibrahim#QuantitativeAnalysis> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#AnalysisTechnique> .
+# 
+# http://modelmeth.nist.gov/ibrahim#RandomSample
+
+<http://modelmeth.nist.gov/ibrahim#RandomSample> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Variable> .
+# 
+# http://modelmeth.nist.gov/ibrahim#SampleMean
+
+<http://modelmeth.nist.gov/ibrahim#SampleMean> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> , _:genid37 .
+
+_:genid37 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#hasValue> ;
+	owl:someValuesFrom <http://modelmeth.nist.gov/ibrahim#SampleMeanValue> .
+# 
+# http://modelmeth.nist.gov/ibrahim#SampleMeanValue
+
+<http://modelmeth.nist.gov/ibrahim#SampleMeanValue> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Value> .
+# 
+# http://modelmeth.nist.gov/ibrahim#SensitivityOfTest
+
+<http://modelmeth.nist.gov/ibrahim#SensitivityOfTest> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> .
+# 
+# http://modelmeth.nist.gov/ibrahim#Significance
+
+<http://modelmeth.nist.gov/ibrahim#Significance> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> .
+# 
+# http://modelmeth.nist.gov/ibrahim#SignificanceLevel
+
+<http://modelmeth.nist.gov/ibrahim#SignificanceLevel> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> , _:genid38 .
+
+_:genid38 a owl:Class ;
+	owl:unionOf _:genid43 .
+
+_:genid43 a rdf:List ;
+	rdf:first _:genid44 .
+
+_:genid44 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#hasValue> ;
+	owl:hasValue :0.01 .
+
+_:genid43 rdf:rest _:genid41 .
+
+_:genid41 a rdf:List ;
+	rdf:first _:genid42 .
+
+_:genid42 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#hasValue> ;
+	owl:hasValue :0.05 .
+
+_:genid41 rdf:rest _:genid39 .
+
+_:genid39 a rdf:List ;
+	rdf:first _:genid40 .
+
+_:genid40 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#hasValue> ;
+	owl:hasValue :0.1 .
+
+_:genid39 rdf:rest rdf:nil .
+
+<http://modelmeth.nist.gov/ibrahim#SignificanceLevel> rdfs:subClassOf _:genid45 .
+
+_:genid45 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#defines> ;
+	owl:someValuesFrom <http://modelmeth.nist.gov/ibrahim#SensitivityOfTest> .
+# 
+# http://modelmeth.nist.gov/ibrahim#StatisticalAnalysis
+
+<http://modelmeth.nist.gov/ibrahim#StatisticalAnalysis> a owl:Class ;
+	rdfs:subClassOf :ModelAbstraction .
+# 
+# http://modelmeth.nist.gov/ibrahim#StatisticalSignificance
+
+<http://modelmeth.nist.gov/ibrahim#StatisticalSignificance> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Significance> .
+# 
+# http://modelmeth.nist.gov/ibrahim#Symbol
+
+<http://modelmeth.nist.gov/ibrahim#Symbol> a owl:Class ;
+	rdfs:subClassOf :ModelAbstraction ;
+	rdfs:comment "A representation of a ModelProperty" .
+# 
+# http://modelmeth.nist.gov/ibrahim#TestStatistic
+
+<http://modelmeth.nist.gov/ibrahim#TestStatistic> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> .
+# 
+# http://modelmeth.nist.gov/ibrahim#TestStatisticCutOffValue
+
+<http://modelmeth.nist.gov/ibrahim#TestStatisticCutOffValue> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Value> , _:genid46 .
+
+_:genid46 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#defines> ;
+	owl:someValuesFrom <http://modelmeth.nist.gov/ibrahim#CriticalRegion> .
+
+<http://modelmeth.nist.gov/ibrahim#TestStatisticCutOffValue> rdfs:subClassOf _:genid47 .
+
+_:genid47 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#determinedBy> ;
+	owl:someValuesFrom _:genid48 .
+
+_:genid48 owl:intersectionOf _:genid50 .
+
+_:genid50 a rdf:List ;
+	rdf:first <http://modelmeth.nist.gov/ibrahim#SignificanceLevel> ;
+	rdf:rest _:genid49 .
+
+_:genid49 a rdf:List ;
+	rdf:first <http://modelmeth.nist.gov/ibrahim#TestStatisticDistribution> ;
+	rdf:rest rdf:nil .
+
+_:genid48 a owl:Class .
+# 
+# http://modelmeth.nist.gov/ibrahim#TestStatisticDistribution
+
+<http://modelmeth.nist.gov/ibrahim#TestStatisticDistribution> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Distribution> .
+# 
+# http://modelmeth.nist.gov/ibrahim#TrimmedMean
+
+<http://modelmeth.nist.gov/ibrahim#TrimmedMean> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#AlternativeTypicalValue> .
+# 
+# http://modelmeth.nist.gov/ibrahim#True
+
+<http://modelmeth.nist.gov/ibrahim#True> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> .
+# 
+# http://modelmeth.nist.gov/ibrahim#TwoSample-T-TestForEqualMeans
+
+<http://modelmeth.nist.gov/ibrahim#TwoSample-T-TestForEqualMeans> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#QuantitativeAnalysis> .
+# 
+# http://modelmeth.nist.gov/ibrahim#Type-I-Error
+
+<http://modelmeth.nist.gov/ibrahim#Type-I-Error> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> .
+# 
+# http://modelmeth.nist.gov/ibrahim#Type-II-Error
+
+<http://modelmeth.nist.gov/ibrahim#Type-II-Error> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> .
+# 
+# http://modelmeth.nist.gov/ibrahim#TypicalValue
+
+<http://modelmeth.nist.gov/ibrahim#TypicalValue> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Value> .
+# 
+# http://modelmeth.nist.gov/ibrahim#Uncertainty
+
+<http://modelmeth.nist.gov/ibrahim#Uncertainty> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> , _:genid51 .
+
+_:genid51 a owl:Restriction ;
+	owl:onProperty <http://modelmeth.nist.gov/ibrahim#quantifies> ;
+	owl:someValuesFrom _:genid52 .
+
+_:genid52 a owl:Class ;
+	owl:unionOf _:genid54 .
+
+_:genid54 a rdf:List ;
+	rdf:first <http://modelmeth.nist.gov/ibrahim#HypothesisTest> ;
+	rdf:rest _:genid53 .
+
+_:genid53 a rdf:List ;
+	rdf:first <http://modelmeth.nist.gov/ibrahim#IntervalEstimate> ;
+	rdf:rest rdf:nil .
+# 
+# http://modelmeth.nist.gov/ibrahim#UnivariateData
+
+<http://modelmeth.nist.gov/ibrahim#UnivariateData> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Variable> .
+# 
+# http://modelmeth.nist.gov/ibrahim#UpperValue
+
+<http://modelmeth.nist.gov/ibrahim#UpperValue> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Value> .
+# 
+# http://modelmeth.nist.gov/ibrahim#Value
+
+<http://modelmeth.nist.gov/ibrahim#Value> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#Characteristic> .
+# 
+# http://modelmeth.nist.gov/ibrahim#Variable
+
+<http://modelmeth.nist.gov/ibrahim#Variable> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#StatisticalAnalysis> .
+# 
+# http://modelmeth.nist.gov/ibrahim#WinsorizedMean
+
+<http://modelmeth.nist.gov/ibrahim#WinsorizedMean> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/ibrahim#AlternativeTypicalValue> .
+# 
 # http://modelmeth.nist.gov/manufacturing#Abstract
 
 :Abstract a owl:Class ;
@@ -200,9 +748,9 @@ _:genid9 a rdf:List ;
 # http://modelmeth.nist.gov/manufacturing#Characteristic_Description
 
 :Characteristic_Description a owl:Class ;
-	owl:equivalentClass _:genid11 .
+	owl:equivalentClass _:genid55 .
 
-_:genid11 a owl:Restriction ;
+_:genid55 a owl:Restriction ;
 	owl:onProperty :hasProcessContext ;
 	owl:someValuesFrom :MachiningProcess .
 
@@ -227,9 +775,9 @@ _:genid11 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#EconomicCharacteristic
 
 :EconomicCharacteristic a owl:Class ;
-	rdfs:subClassOf :Abstract , _:genid12 .
+	rdfs:subClassOf :Abstract , _:genid56 .
 
-_:genid12 a owl:Restriction ;
+_:genid56 a owl:Restriction ;
 	owl:onProperty :hasObjectiveType ;
 	owl:hasValue "avoided_characteristic" .
 
@@ -355,9 +903,9 @@ _:genid12 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#PartDimension
 
 :PartDimension a owl:Class ;
-	rdfs:subClassOf :WorkpieceCharacteristic , _:genid13 .
+	rdfs:subClassOf :WorkpieceCharacteristic , _:genid57 .
 
-_:genid13 a owl:Restriction ;
+_:genid57 a owl:Restriction ;
 	owl:onProperty :hasQuantityKind ;
 	owl:hasValue qudt:Length .
 # 
@@ -369,9 +917,9 @@ _:genid13 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#PhysicalEquation
 
 :PhysicalEquation a owl:Class ;
-	rdfs:subClassOf :Equation , _:genid14 .
+	rdfs:subClassOf :Equation , _:genid58 .
 
-_:genid14 a owl:Restriction ;
+_:genid58 a owl:Restriction ;
 	owl:onProperty :hasDimensionalConsistency ;
 	owl:hasValue "true"^^xsd:boolean .
 
@@ -380,9 +928,9 @@ _:genid14 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#Process
 
 :Process a owl:Class ;
-	owl:equivalentClass _:genid15 .
+	owl:equivalentClass _:genid59 .
 
-_:genid15 a owl:Restriction ;
+_:genid59 a owl:Restriction ;
 	owl:onProperty :hasProcessCharacteristic ;
 	owl:someValuesFrom :ProcessCharacteristic .
 
@@ -392,15 +940,15 @@ _:genid15 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#ProcessCharacteristic
 
 :ProcessCharacteristic a owl:Class ;
-	owl:equivalentClass _:genid16 .
+	owl:equivalentClass _:genid60 .
 
-_:genid16 a owl:Restriction ;
+_:genid60 a owl:Restriction ;
 	owl:onProperty :hasProcessContext ;
 	owl:allValuesFrom :Process .
 
-:ProcessCharacteristic owl:equivalentClass _:genid17 .
+:ProcessCharacteristic owl:equivalentClass _:genid61 .
 
-_:genid17 a owl:Restriction ;
+_:genid61 a owl:Restriction ;
 	owl:onProperty :hasSymbol ;
 	owl:allValuesFrom :Symbol .
 
@@ -421,9 +969,9 @@ _:genid17 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#RegressionEquation
 
 :RegressionEquation a owl:Class ;
-	rdfs:subClassOf :Equation , _:genid18 .
+	rdfs:subClassOf :Equation , _:genid62 .
 
-_:genid18 a owl:Restriction ;
+_:genid62 a owl:Restriction ;
 	owl:onProperty :hasDimensionalConsistency ;
 	owl:hasValue "false"^^xsd:boolean .
 
@@ -432,9 +980,9 @@ _:genid18 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#Resource
 
 :Resource a owl:Class ;
-	owl:equivalentClass _:genid19 .
+	owl:equivalentClass _:genid63 .
 
-_:genid19 a owl:Restriction ;
+_:genid63 a owl:Restriction ;
 	owl:onProperty :hasCost ;
 	owl:allValuesFrom :EconomicCharacteristic .
 
@@ -929,6 +1477,18 @@ t_c,i=(πD_i¯L)/(1000Vf)""" .
 
 :w_ci a owl:NamedIndividual , :Symbol .
 # 
+# http://modelmeth.nist.gov/manufacturing#0.01
+
+:0.01 a owl:NamedIndividual .
+# 
+# http://modelmeth.nist.gov/manufacturing#0.05
+
+:0.05 a owl:NamedIndividual .
+# 
+# http://modelmeth.nist.gov/manufacturing#0.1
+
+:0.1 a owl:NamedIndividual .
+# 
 # http://qudt.org/1.1/schema/qudt#Dimensionless
 
 qudt:Dimensionless a owl:NamedIndividual .
@@ -975,74 +1535,74 @@ unit:USDollar a owl:NamedIndividual .
 # 
 # 
 
-_:genid20 a owl:AllDifferent ;
-	owl:distinctMembers _:genid22 .
+_:genid64 a owl:AllDifferent ;
+	owl:distinctMembers _:genid66 .
 
-_:genid22 a rdf:List ;
+_:genid66 a rdf:List ;
 	rdf:first :Aluminum ;
-	rdf:rest _:genid21 .
+	rdf:rest _:genid65 .
 
-_:genid21 a rdf:List ;
+_:genid65 a rdf:List ;
 	rdf:first :CastIron ;
 	rdf:rest rdf:nil .
 # 
 
-_:genid23 a owl:AllDifferent ;
-	owl:distinctMembers _:genid25 .
+_:genid67 a owl:AllDifferent ;
+	owl:distinctMembers _:genid69 .
 
-_:genid25 a rdf:List ;
+_:genid69 a rdf:List ;
 	rdf:first :Aluminum ;
-	rdf:rest _:genid24 .
+	rdf:rest _:genid68 .
 
-_:genid24 a rdf:List ;
+_:genid68 a rdf:List ;
 	rdf:first :MildSteel ;
 	rdf:rest rdf:nil .
 # 
 
-_:genid26 a owl:AllDifferent ;
-	owl:distinctMembers _:genid28 .
+_:genid70 a owl:AllDifferent ;
+	owl:distinctMembers _:genid72 .
 
-_:genid28 a rdf:List ;
+_:genid72 a rdf:List ;
 	rdf:first :Aluminum ;
-	rdf:rest _:genid27 .
+	rdf:rest _:genid71 .
 
-_:genid27 a rdf:List ;
+_:genid71 a rdf:List ;
 	rdf:first :StainlessSteel ;
 	rdf:rest rdf:nil .
 # 
 
-_:genid29 a owl:AllDifferent ;
-	owl:distinctMembers _:genid31 .
+_:genid73 a owl:AllDifferent ;
+	owl:distinctMembers _:genid75 .
 
-_:genid31 a rdf:List ;
+_:genid75 a rdf:List ;
 	rdf:first :CastIron ;
-	rdf:rest _:genid30 .
+	rdf:rest _:genid74 .
 
-_:genid30 a rdf:List ;
+_:genid74 a rdf:List ;
 	rdf:first :MildSteel ;
 	rdf:rest rdf:nil .
 # 
 
-_:genid32 a owl:AllDifferent ;
-	owl:distinctMembers _:genid34 .
+_:genid76 a owl:AllDifferent ;
+	owl:distinctMembers _:genid78 .
 
-_:genid34 a rdf:List ;
+_:genid78 a rdf:List ;
 	rdf:first :CastIron ;
-	rdf:rest _:genid33 .
+	rdf:rest _:genid77 .
 
-_:genid33 a rdf:List ;
+_:genid77 a rdf:List ;
 	rdf:first :StainlessSteel ;
 	rdf:rest rdf:nil .
 # 
 
-_:genid35 a owl:AllDifferent ;
-	owl:distinctMembers _:genid37 .
+_:genid79 a owl:AllDifferent ;
+	owl:distinctMembers _:genid81 .
 
-_:genid37 a rdf:List ;
+_:genid81 a rdf:List ;
 	rdf:first :MildSteel ;
-	rdf:rest _:genid36 .
+	rdf:rest _:genid80 .
 
-_:genid36 a rdf:List ;
+_:genid80 a rdf:List ;
 	rdf:first :StainlessSteel ;
 	rdf:rest rdf:nil .
 # 
