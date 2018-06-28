@@ -1,11 +1,21 @@
-# facility
+# Facility - Ontology-based Component of Manufacturing Notebooks
 
-This is early development of a web server that would present information about various production facility resources and processes
-to an end user. We (talking to the Vanderbilt folks) could potentially use this 
-to serve data from SPARQL queries. The alternative is to do those queries directly from JENA. 
+Facility is a demonstration web server to present ontology-based information about various manufacturing
+production facility resources and processes to an end user. It is intended to be used in conjunction with
+SPARQL queries and Jupyter notebooks supporting manufacturing processes and operations.
+The OWL ontology provided in this github repostiory is for demonstration purposes only.
 
-The program provides a rudimentary OWL ontology. See the resources directory. Whether or not
-we use the server, we can manage the OWL ontology through this github repostiory.
+## Motivation and Approach
+
+As described in [1], mathematical models of production processes and operations can  be
+verified more easily when they reference dimensionality and provenance information of data used in the analysis.
+[Jupyter notebooks](http://jupyter.org) can be integrated with an organization's knowledgebase of
+production properties and historical operational data to support this verification. The Facility
+software supports this usage of Jupyter notebooks with an HTTP server of ontology-based information
+that serves pages about the property dimenstionality and provenance based on an OWL ontology of
+such information. 
+
+
 
 ## Installation
 
@@ -28,11 +38,6 @@ lein uberjar
     $ java -jar facility-standalone.jar :port 3034
 
 
-## Bugs
-
-Doesn't do much. 
-
-
 ## Disclaimer
 The use of any software or hardware by the project does not imply a recommendation or endorsement by NIST.
 
@@ -46,8 +51,27 @@ NIST-developed software is expressly provided “AS IS.” NIST MAKES NO WARRANT
 
 You are solely responsible for determining the appropriateness of using and distributing the software and you assume all risks associated with its use, including but not limited to the risks and costs of program errors, compliance with applicable laws, damage to or loss of data, programs or equipment, and the unavailability or interruption of operation. This software is not intended to be used in any situation where a failure could cause risk of injury or damage to property. The software developed by NIST employees is not subject to copyright protection within the United States.
 
+## Credits
+
+Peter Denno 
+
+April Nellis 
+
+Ibrahim Asouroko
+
+
+## References
+
+[1]: [Denno, P.; Kim, D. B., "Integrating views of properties in models of unit manufacturing processes"," International Journal of Computer Integrated Manufacturing Vol, 20, Issue 9, 2016."](https://www.tandfonline.com/doi/full/10.1080/0951192X.2015.1130259?scroll=top&needAccess=true)
+
+# Contact Us
+
+<a target="_blank" href="mailto:peter.denno@nist.gov">Peter Denno (peter.denno ( at ) nist.gov</a>
 
 
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+
+
+
+
+

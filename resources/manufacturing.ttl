@@ -620,7 +620,7 @@ _:genid45 a owl:Restriction ;
 
 <http://modelmeth.nist.gov/ibrahim#Symbol> a owl:Class ;
 	rdfs:subClassOf :ModelAbstraction ;
-	rdfs:comment "A representation of a ModelProperty" .
+	rdfs:comment "" , "A representation of a ModelProperty" .
 # 
 # http://modelmeth.nist.gov/ibrahim#TestStatistic
 
@@ -739,11 +739,31 @@ _:genid53 a rdf:List ;
 :Abstract a owl:Class ;
 	rdfs:comment "Aspect with neither a spatial nor a temporal location" .
 # 
+# http://modelmeth.nist.gov/manufacturing#AleatoryUncertainty
+
+:AleatoryUncertainty a owl:Class ;
+	rdfs:subClassOf :Uncertainty ;
+	owl:disjointWith :EpistemicUncertainty ;
+	rdfs:comment "Uncertainty that, within the context of the modeling universe, cannot be reduced by gathering more data or by refining models. [Der Kuireghian]" .
+# 
 # http://modelmeth.nist.gov/manufacturing#Alloy
 
 :Alloy a owl:Class ;
 	rdfs:subClassOf :Material ;
 	rdfs:comment "Material composed of multiple metals or metals and other elements" .
+# 
+# http://modelmeth.nist.gov/manufacturing#AnalyticalModel
+
+:AnalyticalModel a owl:Class ;
+	owl:equivalentClass :PhysicalModel ;
+	rdfs:subClassOf :Model ;
+	rdfs:comment "a Model that relates BasicVariables to DerivedVariables." .
+# 
+# http://modelmeth.nist.gov/manufacturing#BasicVariable
+
+:BasicVariable a owl:Class ;
+	rdfs:subClassOf :Variable ;
+	rdfs:comment "a Variable that corresponds to a Property that can be directly measured. Note: an individual may be both a BasicVariable and a RandomVariable." .
 # 
 # http://modelmeth.nist.gov/manufacturing#Characteristic_Description
 
@@ -755,6 +775,18 @@ _:genid55 a owl:Restriction ;
 	owl:someValuesFrom :MachiningProcess .
 
 :Characteristic_Description rdfs:subClassOf :ProcessCharacteristic .
+# 
+# http://modelmeth.nist.gov/manufacturing#ComputationalUncertainty
+
+:ComputationalUncertainty a owl:Class ;
+	rdfs:subClassOf :EpistemicUncertainty ;
+	rdfs:comment "Uncertainty modeled by the random variables Y corresponding to the derived variables y, which may include, in addition to all the above uncertainties, uncertain errors resulting from computational errors, numerical approximations or truncations. For example, the computation of load effects in a nonlinear structure by a finite element procedure employs iterative calculations, which invariably involve convergence tolerances and truncation errors. [Der Kiureghian]" .
+# 
+# http://modelmeth.nist.gov/manufacturing#Credibility
+
+:Credibility a owl:Class ;
+	rdfs:subClassOf :Abstract ;
+	rdfs:comment "an expression of confidence in a belief" .
 # 
 # http://modelmeth.nist.gov/manufacturing#CuttingInsert
 
@@ -772,6 +804,12 @@ _:genid55 a owl:Restriction ;
 :CuttingToolMaterial a owl:Class ;
 	rdfs:subClassOf :CuttingTool .
 # 
+# http://modelmeth.nist.gov/manufacturing#DerivedVariable
+
+:DerivedVariable a owl:Class ;
+	rdfs:subClassOf :Variable ;
+	rdfs:comment "a Variable that corresponds to a Property that cannot be directly measured, but is known only through its relationship with other Variables." .
+# 
 # http://modelmeth.nist.gov/manufacturing#EconomicCharacteristic
 
 :EconomicCharacteristic a owl:Class ;
@@ -782,6 +820,12 @@ _:genid56 a owl:Restriction ;
 	owl:hasValue "avoided_characteristic" .
 
 :EconomicCharacteristic rdfs:comment "Monetary value of an aspect of the smart manufacturing process" .
+# 
+# http://modelmeth.nist.gov/manufacturing#EpistemicUncertainty
+
+:EpistemicUncertainty a owl:Class ;
+	rdfs:subClassOf :Uncertainty ;
+	rdfs:comment "Uncertainty that, within the context of the modeling universe, can be reduced by gathering more data or by refining models. [Der Kuireghian]" .
 # 
 # http://modelmeth.nist.gov/manufacturing#Equation
 
@@ -800,6 +844,18 @@ _:genid56 a owl:Restriction ;
 :EquipmentCharacteristic a owl:Class ;
 	rdfs:subClassOf :Physical ;
 	rdfs:comment "Equipment aspect that contributes to the manufacturing process" .
+# 
+# http://modelmeth.nist.gov/manufacturing#FEAModel
+
+:FEAModel a owl:Class ;
+	rdfs:subClassOf :NumericalModel ;
+	rdfs:comment "a NumericalModel that applies the finite element method." .
+# 
+# http://modelmeth.nist.gov/manufacturing#Fidelity
+
+:Fidelity a owl:Class ;
+	rdfs:subClassOf :Abstract ;
+	rdfs:comment "the degree to which a Model agrees with reality" .
 # 
 # http://modelmeth.nist.gov/manufacturing#FinishedPart
 
@@ -859,6 +915,12 @@ _:genid56 a owl:Restriction ;
 	rdfs:subClassOf :WorkpieceCharacteristic ;
 	rdfs:comment "Substance that the Workpiece/FinishedPart is made up of" .
 # 
+# http://modelmeth.nist.gov/manufacturing#MeasurementError
+
+:MeasurementError a owl:Class ;
+	rdfs:subClassOf :Abstract ;
+	rdfs:comment "the difference between a measured value and the 'true value' of the thing being measured [S. Bell]" .
+# 
 # http://modelmeth.nist.gov/manufacturing#Model
 
 :Model a owl:Class ;
@@ -870,6 +932,11 @@ _:genid56 a owl:Restriction ;
 :ModelAbstraction a owl:Class ;
 	rdfs:subClassOf :Abstract ;
 	rdfs:comment "A conceptualization of a manufacturing process" .
+# 
+# http://modelmeth.nist.gov/manufacturing#ModelFormUncertainty
+
+:ModelFormUncertainty a owl:Class ;
+	rdfs:subClassOf :EpistemicUncertainty .
 # 
 # http://modelmeth.nist.gov/manufacturing#ModelParameter
 
@@ -894,11 +961,40 @@ _:genid56 a owl:Restriction ;
 :MultiPointCutting a owl:Class ;
 	rdfs:subClassOf :MachiningProcess .
 # 
+# http://modelmeth.nist.gov/manufacturing#NumericalModel
+
+:NumericalModel a owl:Class ;
+	rdfs:subClassOf :Model ;
+	rdfs:comment "a Model that encodes an AnalyticalModel or ProbabilisticModel for the purpose of simulation or computation of DerivedVariables." .
+# 
 # http://modelmeth.nist.gov/manufacturing#ObjectiveFunction
 
 :ObjectiveFunction a owl:Class ;
 	rdfs:subClassOf :Equation ;
 	rdfs:comment "The function that describes the objective to be accomplished" .
+# 
+# http://modelmeth.nist.gov/manufacturing#POD-edits-2016-09-19
+
+:POD-edits-2016-09-19 a owl:Class ;
+	rdfs:comment """I added Uncertainty, UncertaintySource (and its subclasses), DerivedVariable, BasicVariable, RandomVariable.
+
+Open Issues:
+ * Are ModelProperty and Variable the same thing?
+ * Are the things under UncertaintySource really sources of uncertainty or kinds of uncertainty.
+ * Attaching PhysicalModel / StatisticalModel to UncertaintySource subtypes is a MISTAKE to be fixed later.
+ * Likewise (see previous comment) ParameterMeasurementUncertainty ???
+ * What is the distinction Kuireghian is making between \"model\" and \"sub-model\" 
+    ** Is a model a composition of submodels? 
+    ** Do the sub-models need to be composable in an algebraic sense? In a procedural sense?
+ * Probably ProbabilisticModelFormUncertainty is the same as PhysicalModeModelUncertainty
+
+ * Have not yet addressed Accuracy and its relation to Uncertainty.""" .
+# 
+# http://modelmeth.nist.gov/manufacturing#ParameterMeasurementUncertainty
+
+:ParameterMeasurementUncertainty a owl:Class ;
+	rdfs:subClassOf :Uncertainty ;
+	rdfs:comment "Uncertain errors involved in measuring of observations, based on which the parameters [of physical and probabilistic models] are estimated. These include errors involved in indirect measurement, e.g., the measurement of a quantity through a proxy, as in non-destructive testing of material strength. [Der Kiureghian]" .
 # 
 # http://modelmeth.nist.gov/manufacturing#PartDimension
 
@@ -924,6 +1020,17 @@ _:genid58 a owl:Restriction ;
 	owl:hasValue "true"^^xsd:boolean .
 
 :PhysicalEquation rdfs:comment "Equations based on physics concepts with consistent dimensionality" .
+# 
+# http://modelmeth.nist.gov/manufacturing#PhysicalModel
+
+:PhysicalModel a owl:Class ;
+	rdfs:subClassOf :Model ;
+	rdfs:comment "a Model that relates BasicVariables to DerivedVariables." .
+# 
+# http://modelmeth.nist.gov/manufacturing#ProbabilisticModel
+
+:ProbabilisticModel a owl:Class ;
+	rdfs:subClassOf :Model .
 # 
 # http://modelmeth.nist.gov/manufacturing#Process
 
@@ -966,6 +1073,18 @@ _:genid61 a owl:Restriction ;
 	rdfs:subClassOf :ProcessCharacteristic ;
 	rdfs:comment "A controllable characteristics of a manufacturing process" .
 # 
+# http://modelmeth.nist.gov/manufacturing#PropertyMeasurementUncertainty
+
+:PropertyMeasurementUncertainty a owl:Class ;
+	rdfs:subClassOf :Uncertainty ;
+	rdfs:comment "Uncertainty inherent in the basic random variables, such as the uncertainty inherent in material property constants and load values, which can be directly measured. [Der Kiureghian]" .
+# 
+# http://modelmeth.nist.gov/manufacturing#RandomVariable
+
+:RandomVariable a owl:Class ;
+	rdfs:subClassOf :Variable ;
+	rdfs:comment "a Variable taking values from a distribution." .
+# 
 # http://modelmeth.nist.gov/manufacturing#RegressionEquation
 
 :RegressionEquation a owl:Class ;
@@ -975,7 +1094,7 @@ _:genid62 a owl:Restriction ;
 	owl:onProperty :hasDimensionalConsistency ;
 	owl:hasValue "false"^^xsd:boolean .
 
-:RegressionEquation rdfs:comment "Equation derived from observed interactions between process characteristics" .
+:RegressionEquation rdfs:comment "Equation derived from observations" .
 # 
 # http://modelmeth.nist.gov/manufacturing#Resource
 
@@ -995,6 +1114,12 @@ _:genid63 a owl:Restriction ;
 	rdfs:subClassOf :MachiningProcess ;
 	rdfs:comment "A subtractive manufacturing process using a single point of contact to remove material" .
 # 
+# http://modelmeth.nist.gov/manufacturing#StatisticalUncertaintyOfModelParameters
+
+:StatisticalUncertaintyOfModelParameters a owl:Class ;
+	rdfs:subClassOf :Uncertainty ;
+	rdfs:comment "Statistical uncertainty in the estimation of the parameters of the probabilistic sub-model. Note: Der Kuireghian types 4 and 5. [Der Kiureghian]" .
+# 
 # http://modelmeth.nist.gov/manufacturing#Symbol
 
 :Symbol a owl:Class ;
@@ -1004,6 +1129,18 @@ _:genid63 a owl:Restriction ;
 # http://modelmeth.nist.gov/manufacturing#TestVars
 
 :TestVars a owl:Class .
+# 
+# http://modelmeth.nist.gov/manufacturing#Uncertainty
+
+:Uncertainty a owl:Class ;
+	rdfs:subClassOf :Abstract ;
+	rdfs:comment "the quantification of doubt about a measurement [S. Bell]" .
+# 
+# http://modelmeth.nist.gov/manufacturing#Variable
+
+:Variable a owl:Class ;
+	rdfs:subClassOf :ModelAbstraction ;
+	rdfs:comment "an element representing a input to a function; Variables are denoted with Symbols" .
 # 
 # http://modelmeth.nist.gov/manufacturing#Workpiece
 

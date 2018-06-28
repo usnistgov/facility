@@ -121,8 +121,8 @@
   [request]
   "Handle page for process tab."
   (app-page-wrapper {:tab :process}
-    (let [params (query mfg-kb '((?/x rdfs/subClassOf mfg/MachiningProcessParameter)))
-          mchars (query mfg-kb '((?/x rdfs/subClassOf mfg/MachineCharacteristic)))
+    (let [params (query mfg-kb '((?/x rdfs/subClassOf MachiningProcessParameter)))
+          mchars (query mfg-kb '((?/x rdfs/subClassOf MachineCharacteristic)))
           params-url (map owl-class-url (map '?/x params))
           mchars-url (map owl-class-url (map '?/x mchars))
           [params mchars] (seq-equal-length params-url mchars-url " ")]
@@ -135,7 +135,7 @@
   "Handle page for process tab."
   [request]
   (app-page-wrapper {:tab :process}
-    (let [params (query mfg-kb '((?/x rdfs/subClassOf mfg/MachiningProcessParameter)))
+    (let [params (query mfg-kb '((?/x rdfs/subClassOf MachiningProcessParameter)))
           params-url (map owl-class-url (map '?/x params))]
       (html
         [:h1 "Process Characteristics"]
@@ -152,7 +152,7 @@
   "Handle page for equipment tab."
   [request]
   (app-page-wrapper {:tab :equip}
-     (let [mchars (query mfg-kb '((?/x rdfs/subClassOf mfg/MachineCharacteristic)))
+     (let [mchars (query mfg-kb '((?/x rdfs/subClassOf MachineCharacteristic)))
            mchars-url (map owl-class-url (map '?/x mchars))]
        (html
         [:h1 "Equipment Characteristics"]
