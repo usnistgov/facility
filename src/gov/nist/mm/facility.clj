@@ -229,7 +229,7 @@
                ["| Symbol | Variable | Meaning |\n"
                 "|-------------------------------------------------------|\n"
                 "| $D_{LSL}$ | D_LSL | Lower bound on final part diameter|\n"
-                "| $D_{USL}$ | D_USL |Upper bound on final part diameter|\n"
+                "| $D_{USL}$ | D_USL | Upper bound on final part diameter|\n"
                 "| $R_{USL}$ | R_USL | Maximum allowable surface roughness |\n"
                 "\n"
                 "The paper provides the following values:"]})

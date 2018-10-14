@@ -1,7 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-    <uri id="User Entered Import Resolution" name="http://model-meth.nist.gov/1.0/schema/dtype" uri="NIST-model-meth-linked-model-dtype.ttl"/>
-    <uri id="User Entered Import Resolution" name="http://model-meth.nist.gov/1.2/schema/vaem" uri="NIST-model-meth-OSG_vaem-(v1.2).ttl"/>
-    <uri id="User Entered Import Resolution" name="http://model-meth.nist.gov/1.1/schema/qudt" uri="OVG_dimensions-qudt-(v1.1).ttl"/>
-    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base=""/>
-</catalog>
+../../ModelingOntology/catalog-v001.xml
