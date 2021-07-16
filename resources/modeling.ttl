@@ -1,1 +1,624 @@
-../../ModelingOntology/modeling.ttl
+@prefix : <http://modelmeth.nist.gov/modeling#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://modelmeth.nist.gov/modeling> a owl:Ontology .
+# 
+# 
+# #################################################################
+# #
+# #    Annotation properties
+# #
+# #################################################################
+# 
+# 
+# http://modelmeth.nist.gov/modeling#clojureCodeNote
+
+:clojureCodeNote a owl:AnnotationProperty ;
+	rdfs:comment "an annotation specifying Clojure code." .
+# 
+# http://modelmeth.nist.gov/modeling#hasUnits
+
+:hasUnits a owl:AnnotationProperty .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Datatypes
+# #
+# #################################################################
+# 
+# 
+# http://modelmeth.nist.gov/modeling#characteristicObjectiveType
+
+:characteristicObjectiveType a rdfs:Datatype ;
+	owl:equivalentClass _:genid1 .
+
+_:genid1 a rdfs:Datatype ;
+	owl:oneOf _:genid5 .
+
+_:genid5 a rdf:List ;
+	rdf:first "avoided_characteristic"^^xsd:NMTOKEN ;
+	rdf:rest _:genid4 .
+
+_:genid4 a rdf:List ;
+	rdf:first "sought_characteristic"^^xsd:NMTOKEN ;
+	rdf:rest rdf:nil .
+# 
+# http://modelmeth.nist.gov/modeling#clojureCode
+
+:clojureCode a rdfs:Datatype .
+# 
+# http://modelmeth.nist.gov/modeling#processCharacteristicObjectiveType
+
+:processCharacteristicObjectiveType a rdfs:Datatype ;
+	owl:equivalentClass _:genid6 .
+
+_:genid6 a rdfs:Datatype ;
+	owl:oneOf _:genid10 .
+
+_:genid10 a rdf:List ;
+	rdf:first "avoided_processCharacteristic"^^xsd:NMTOKEN ;
+	rdf:rest _:genid9 .
+
+_:genid9 a rdf:List ;
+	rdf:first "sought_processCharacteristic"^^xsd:NMTOKEN ;
+	rdf:rest rdf:nil .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Object Properties
+# #
+# #################################################################
+# 
+# 
+# http://modelmeth.nist.gov/modeling#hasCost
+
+:hasCost a owl:ObjectProperty ;
+	rdfs:domain :Resource .
+# 
+# http://modelmeth.nist.gov/modeling#hasObjective
+
+:hasObjective a owl:ObjectProperty ;
+	rdfs:domain :ObjectiveFunction ;
+	rdfs:range :Objective .
+# 
+# http://modelmeth.nist.gov/modeling#hasProcessContext
+
+:hasProcessContext a owl:ObjectProperty .
+# 
+# http://modelmeth.nist.gov/modeling#hasQuantityKind
+
+:hasQuantityKind a owl:ObjectProperty ;
+	rdfs:subPropertyOf owl:topObjectProperty .
+# 
+# http://modelmeth.nist.gov/modeling#hasSymbol
+
+:hasSymbol a owl:ObjectProperty .
+# 
+# http://modelmeth.nist.gov/modeling#isDirectlyProportionalTo
+
+:isDirectlyProportionalTo a owl:ObjectProperty , owl:SymmetricProperty .
+# 
+# http://modelmeth.nist.gov/modeling#isInverselyProportionalTo
+
+:isInverselyProportionalTo a owl:ObjectProperty , owl:SymmetricProperty .
+# 
+# http://modelmeth.nist.gov/modeling#referencesEquation
+
+:referencesEquation a owl:ObjectProperty , owl:AsymmetricProperty , owl:IrreflexiveProperty ;
+	rdfs:domain :Model ;
+	rdfs:range :Equation .
+# 
+# http://modelmeth.nist.gov/modeling#referencesProperty
+
+:referencesProperty a owl:ObjectProperty , owl:AsymmetricProperty , owl:IrreflexiveProperty ;
+	rdfs:domain :Model ;
+	rdfs:range :ModelProperty .
+# 
+# http://modelmeth.nist.gov/modeling#representsProperty
+
+:representsProperty a owl:ObjectProperty ;
+	rdfs:subPropertyOf owl:topObjectProperty ;
+	a owl:AsymmetricProperty , owl:IrreflexiveProperty ;
+	rdfs:domain :Symbol ;
+	rdfs:range :ModelProperty .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Data properties
+# #
+# #################################################################
+# 
+# 
+# http://modelmeth.nist.gov/modeling#hasDimensionalConsistency
+
+:hasDimensionalConsistency a owl:DatatypeProperty ;
+	rdfs:range xsd:boolean .
+# 
+# http://modelmeth.nist.gov/modeling#hasObjectiveType
+
+:hasObjectiveType a owl:DatatypeProperty , owl:FunctionalProperty .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Classes
+# #
+# #################################################################
+# 
+# 
+# http://modelmeth.nist.gov/modeling#Abstract
+
+:Abstract a owl:Class ;
+	owl:disjointWith :Physical ;
+	rdfs:comment "Aspect with neither a spatial nor a temporal location. \\cite{Pease2011}" .
+# 
+# http://modelmeth.nist.gov/modeling#AleatoryUncertainty
+
+:AleatoryUncertainty a owl:Class ;
+	rdfs:subClassOf :Uncertainty ;
+	owl:disjointWith :EpistemicUncertainty ;
+	rdfs:comment "Uncertainty that, within the context of the modeling universe, cannot be reduced by gathering more data or by refining models. \\cite{Kiureghian2008}" .
+# 
+# http://modelmeth.nist.gov/modeling#AnalyticalModel
+
+:AnalyticalModel a owl:Class ;
+	rdfs:subClassOf :PredictiveModel ;
+	rdfs:comment "a model through which deductive inference provides insight about the subject by relating BasicVariables to DerivedVariables. N.B. Typically, it is belief in the validity of certain causal claims that justifies use of an analytical model." .
+# 
+# http://modelmeth.nist.gov/modeling#BasicVariable
+
+:BasicVariable a owl:Class ;
+	rdfs:subClassOf :ModelProperty ;
+	owl:disjointWith :DerivedVariable ;
+	rdfs:comment "a Variable that corresponds to a Property that can be directly measured. Note: an individual may be both a BasicVariable and a RandomVariable." .
+# 
+# http://modelmeth.nist.gov/modeling#CADModel
+
+:CADModel a owl:Class ;
+	rdfs:subClassOf :SubscriptiveModel ;
+	owl:backwardCompatibleWith "a model that provides intended geometry of a Part" .
+# 
+# http://modelmeth.nist.gov/modeling#Cardinality
+
+:Cardinality a owl:Class ;
+	rdfs:subClassOf :ModelingConcept .
+# 
+# http://modelmeth.nist.gov/modeling#CausalViewpointVariable
+
+:CausalViewpointVariable a owl:Class ;
+	rdfs:subClassOf :ModelProperty .
+# 
+# http://modelmeth.nist.gov/modeling#ComputationalUncertainty
+
+:ComputationalUncertainty a owl:Class ;
+	rdfs:subClassOf :EpistemicUncertainty ;
+	rdfs:comment "Uncertainty modeled by the random variables Y corresponding to the derived variables y, which may include, in addition to all the above uncertainties, uncertain errors resulting from computational errors, numerical approximations or truncations. For example, the computation of load effects in a nonlinear structure by a finite element procedure employs iterative calculations, which invariably involve convergence tolerances and truncation errors. [Der Kiureghian]" .
+# 
+# http://modelmeth.nist.gov/modeling#ControlledVariable
+
+:ControlledVariable a owl:Class ;
+	rdfs:subClassOf :CausalViewpointVariable ;
+	owl:disjointWith :NonControlledVariable , :PerformanceVariable ;
+	rdfs:comment "a variable that, in the context of the analysis, can be set. AKA a design variable." .
+# 
+# http://modelmeth.nist.gov/modeling#Cost
+
+:Cost a owl:Class ;
+	rdfs:subClassOf :Physical .
+# 
+# http://modelmeth.nist.gov/modeling#Credibility
+
+:Credibility a owl:Class ;
+	rdfs:subClassOf :Abstract ;
+	rdfs:comment "an expression of confidence in a belief" .
+# 
+# http://modelmeth.nist.gov/modeling#DerivedVariable
+
+:DerivedVariable a owl:Class ;
+	rdfs:subClassOf :ModelProperty ;
+	rdfs:comment "a Variable that corresponds to a Property that cannot be directly measured, but is known only through its relationship with other Variables." .
+# 
+# http://modelmeth.nist.gov/modeling#DiscreteEventSimulation
+
+:DiscreteEventSimulation a owl:Class ;
+	rdfs:subClassOf :ProbabilisticModel ;
+	rdfs:comment "a Monte Carlo simulation that describes the probable state of a system by simulating the consequences of a probabilistic occurrence of events" .
+# 
+# http://modelmeth.nist.gov/modeling#DomainDeclaration
+
+:DomainDeclaration a owl:Class ;
+	rdfs:subClassOf :ModelingConcept .
+# 
+# http://modelmeth.nist.gov/modeling#EditingNotes
+
+:EditingNotes a owl:Class ;
+	rdfs:subClassOf :Physical .
+# 
+# http://modelmeth.nist.gov/modeling#EpistemicUncertainty
+
+:EpistemicUncertainty a owl:Class ;
+	rdfs:subClassOf :Uncertainty ;
+	rdfs:comment "Uncertainty that, within the context of the modeling universe, can be reduced by gathering more data or by refining models. \\cite{Kiureghian2008}" .
+# 
+# http://modelmeth.nist.gov/modeling#Equation
+
+:Equation a owl:Class ;
+	rdfs:subClassOf :ModelAbstraction ;
+	rdfs:comment "Function describing the relation between ModelProperties" .
+# 
+# http://modelmeth.nist.gov/modeling#FEAModel
+
+:FEAModel a owl:Class ;
+	rdfs:subClassOf :NumericalModel ;
+	rdfs:comment "a NumericalModel that applies the finite element method." .
+# 
+# http://modelmeth.nist.gov/modeling#Fidelity
+
+:Fidelity a owl:Class ;
+	rdfs:subClassOf :Abstract ;
+	rdfs:comment "the degree to which a Model agrees with reality" .
+# 
+# http://modelmeth.nist.gov/modeling#Function
+
+:Function a owl:Class ;
+	rdfs:subClassOf :ModelAbstraction .
+# 
+# http://modelmeth.nist.gov/modeling#InfluencedVariable
+
+:InfluencedVariable a owl:Class ;
+	rdfs:subClassOf :CausalViewpointVariable ;
+	rdfs:comment "a Variable whose value is interpreted as an effect of a causal relationship described by the model" .
+# 
+# http://modelmeth.nist.gov/modeling#Labor
+
+:Labor a owl:Class ;
+	rdfs:subClassOf :Process ;
+	owl:backwardCompatibleWith "the activities of people engaged in manufacturing." .
+# 
+# http://modelmeth.nist.gov/modeling#MeasurementError
+
+:MeasurementError a owl:Class ;
+	rdfs:subClassOf :Abstract ;
+	rdfs:comment "the difference between a measured value and the 'true value' of the thing being measured [S. Bell]" .
+# 
+# http://modelmeth.nist.gov/modeling#Model
+
+:Model a owl:Class ;
+	rdfs:subClassOf :ModelAbstraction ;
+	rdfs:comment "an abstraction expressed formally to aid in planning or investigating" .
+# 
+# http://modelmeth.nist.gov/modeling#ModelAbstraction
+
+:ModelAbstraction a owl:Class ;
+	rdfs:subClassOf :Abstract ;
+	:clojureCodeNote "{:priority 0}"^^:clojureCode ;
+	rdfs:comment "A conceptualization of a manufacturing process" .
+# 
+# http://modelmeth.nist.gov/modeling#ModelFormUncertainty
+
+:ModelFormUncertainty a owl:Class ;
+	rdfs:subClassOf :EpistemicUncertainty .
+# 
+# http://modelmeth.nist.gov/modeling#ModelParameter
+
+:ModelParameter a owl:Class ;
+	rdfs:subClassOf :ModelProperty ;
+	rdfs:comment "a ModelProperty whose value can be specified so as to specify a context of the analysis." .
+# 
+# http://modelmeth.nist.gov/modeling#ModelProperty
+
+:ModelProperty a owl:Class ;
+	rdfs:subClassOf :ModelAbstraction ;
+	owl:disjointWith :Symbol ;
+	rdfs:comment "A property describing some aspect of a model. NOTE: It may be denoted in a mathematical relation by a Symbol." .
+# 
+# http://modelmeth.nist.gov/modeling#ModelPropertyMeasurementUncertainty
+
+:ModelPropertyMeasurementUncertainty a owl:Class ;
+	rdfs:subClassOf :UncertaintySource ;
+	rdfs:comment "Uncertainty inherent in the basic random variables \\textbf{X}, such as the uncertainty inherent in material property constants and load values, which can be directly measured. \\cite{Kiureghian2008}" .
+# 
+# http://modelmeth.nist.gov/modeling#ModelUncertainty
+
+:ModelUncertainty a owl:Class ;
+	rdfs:subClassOf :Uncertainty .
+# 
+# http://modelmeth.nist.gov/modeling#ModelingConcept
+
+:ModelingConcept a owl:Class ;
+	rdfs:subClassOf :Abstract ;
+	:clojureCodeNote "A method of representation asserted by a modeling language. This class is \"meta\" to the other OWL classes and properties in this ontology. That is, whereas those other properties are used to model things directly, these are used to say what other modeling languages can express." , "{:priority 2}"^^:clojureCode .
+# 
+# http://modelmeth.nist.gov/modeling#NonControlledVariable
+
+:NonControlledVariable a owl:Class ;
+	rdfs:subClassOf :CausalViewpointVariable ;
+	rdfs:comment "a variable in a causal relationship for which intervention is impossible." .
+# 
+# http://modelmeth.nist.gov/modeling#NumericalModel
+
+:NumericalModel a owl:Class ;
+	rdfs:subClassOf :PredictiveModel ;
+	rdfs:comment "a Model that encodes an AnalyticalModel or ProbabilisticModel for the purpose of simulation or computation of DerivedVariables." .
+# 
+# http://modelmeth.nist.gov/modeling#Object
+
+:Object a owl:Class ;
+	rdfs:subClassOf :Physical ;
+	owl:disjointWith :Process ;
+	rdfs:comment "\"Corresponds roughly to the class of ordinary objects.  Examples include normal physical objects, geographical regions, and locations of Processes, the complement of Objects in the Physical class.  In a 4D ontology, an Object is something whose spatiotemporal extent is thought of as dividing into spatial parts roughly parallel to the time-axis.\\cite{Pease2011}" .
+# 
+# http://modelmeth.nist.gov/modeling#Objective
+
+:Objective a owl:Class ;
+	rdfs:subClassOf :Proposition ;
+	rdfs:comment "a Proposition expressing an optative propositional attitude." .
+# 
+# http://modelmeth.nist.gov/modeling#ObjectiveFunction
+
+:ObjectiveFunction a owl:Class ;
+	rdfs:subClassOf :Equation ;
+	rdfs:comment "The function that describes the objective to be accomplished" .
+# 
+# http://modelmeth.nist.gov/modeling#Parameter
+
+:Parameter a owl:Class ;
+	rdfs:subClassOf :ModelingConcept .
+# 
+# http://modelmeth.nist.gov/modeling#ParameterMeasurementUncertainty
+
+:ParameterMeasurementUncertainty a owl:Class ;
+	rdfs:subClassOf :Uncertainty ;
+	rdfs:comment "Uncertain errors involved in measuring of observations, based on which the parameters [of physical and probabilistic models] are estimated. These include errors involved in indirect measurement, e.g., the measurement of a quantity through a proxy, as in non-destructive testing of material strength. \\cite{Kiureghian2008}" .
+# 
+# http://modelmeth.nist.gov/modeling#PerformanceVariable
+
+:PerformanceVariable a owl:Class ;
+	rdfs:subClassOf :CausalViewpointVariable .
+# 
+# http://modelmeth.nist.gov/modeling#Physical
+
+:Physical a owl:Class ;
+	rdfs:comment "Aspect that has a spatial or temporal location \\cite{Pease2011}" .
+# 
+# http://modelmeth.nist.gov/modeling#PhysicalEquation
+
+:PhysicalEquation a owl:Class ;
+	rdfs:subClassOf :Equation , _:genid11 .
+
+_:genid11 a owl:Restriction ;
+	owl:onProperty :hasDimensionalConsistency ;
+	owl:hasValue "true"^^xsd:boolean .
+
+:PhysicalEquation rdfs:comment "Equations based on physics concepts with consistent dimensionality" .
+# 
+# http://modelmeth.nist.gov/modeling#PredictiveModel
+
+:PredictiveModel a owl:Class ;
+	rdfs:subClassOf :Model ;
+	owl:disjointWith :SubscriptiveModel ;
+	rdfs:comment "a Model that, given a set of initial circumstances, describes likely outcomes" .
+# 
+# http://modelmeth.nist.gov/modeling#ProbabilisticModel
+
+:ProbabilisticModel a owl:Class ;
+	rdfs:subClassOf :Model ;
+	owl:backwardCompatibleWith "a model that describes in terms of probabilities" .
+# 
+# http://modelmeth.nist.gov/modeling#ProbabilisticModelFormUncertainty
+
+:ProbabilisticModelFormUncertainty a owl:Class ;
+	rdfs:subClassOf :UncertaintySource ;
+	rdfs:comment "Uncertain model error resulting from selection of the form of the probabilistic sub-model used to describe the distribution of basic variables. \\cite{Kiureghian2008}" .
+# 
+# http://modelmeth.nist.gov/modeling#Process
+
+:Process a owl:Class ;
+	rdfs:subClassOf :Physical ;
+	rdfs:comment "\"The class of things that happen and have temporal parts or stages.  Examples include extended events like a football match or a race, actions like Pursuing and Reading, and biological processes. The formal definition is: anything that occurs in time but is not an Object.  Note that a Process may have participants 'inside' it which are Objects, such as the players in a football match.  In a 4D ontology, a Process is something whose spatiotemporal extent is thought of as dividing into temporal stages roughly perpendicular to the time-axis.\" \\cite{Pease2011}" .
+# 
+# http://modelmeth.nist.gov/modeling#ProcessPlan
+
+:ProcessPlan a owl:Class ;
+	rdfs:subClassOf :SubscriptiveModel ;
+	owl:backwardCompatibleWith "a Subscriptive model that describes how a product is made. Note it may refer to actual Equipment instances used or only classes of equipment used." .
+# 
+# http://modelmeth.nist.gov/modeling#PropertyDeclaration
+
+:PropertyDeclaration a owl:Class ;
+	rdfs:subClassOf :ModelingConcept .
+# 
+# http://modelmeth.nist.gov/modeling#PropertyMeasurementUncertainty
+
+:PropertyMeasurementUncertainty a owl:Class ;
+	rdfs:subClassOf :Uncertainty ;
+	rdfs:comment "Uncertainty inherent in the basic random variables, such as the uncertainty inherent in material property constants and load values, which can be directly measured. \\cite{Kiureghian2008}" .
+# 
+# http://modelmeth.nist.gov/modeling#Proposition
+
+:Proposition a owl:Class ;
+	rdfs:subClassOf :ModelingConcept ;
+	rdfs:comment "Abstract entities that express a complete thought or a set of such thoughts.  As an example, the formula '(instance Yojo Cat)' expresses the Proposition that the entity named Yojo is an element of the Class of Cats.  Note that propositions are not restricted to the content expressed by individual sentences of a Language.  They may encompass the content expressed by theories, books, and even whole libraries.  It is important to distinguish Propositions from the ContentBearingObjects that express them.  A Proposition is a piece of information, e.g. that the cat is on the mat, but a ContentBearingObject is an Object that represents this information. A Proposition is an abstraction that may have multiple representations: strings, sounds, icons, etc.  For example, the Proposition that the cat is on the mat is represented here as a string of graphical characters displayed on a monitor and/or printed on paper, but it can be represented by a sequence of sounds or by some non-latin alphabet or by some cryptographic form\" \\cite{Pease2011}" .
+# 
+# http://modelmeth.nist.gov/modeling#RandomVariable
+
+:RandomVariable a owl:Class ;
+	rdfs:subClassOf :Function ;
+	rdfs:comment "a measurable function over a probability space (i.e. outcomes). Note: typically a random variable is used to enable specification and sampling of a probability distribution associated with the probability space." .
+# 
+# http://modelmeth.nist.gov/modeling#RangeDeclaration
+
+:RangeDeclaration a owl:Class ;
+	rdfs:subClassOf :ModelingConcept .
+# 
+# http://modelmeth.nist.gov/modeling#RegressionEquation
+
+:RegressionEquation a owl:Class ;
+	rdfs:subClassOf :Equation , _:genid12 .
+
+_:genid12 a owl:Restriction ;
+	owl:onProperty :hasDimensionalConsistency ;
+	owl:hasValue "false"^^xsd:boolean .
+
+:RegressionEquation rdfs:comment "Equation derived from observations" .
+# 
+# http://modelmeth.nist.gov/modeling#Resource
+
+:Resource a owl:Class ;
+	rdfs:subClassOf :Object ;
+	rdfs:comment "Physical things necessary for the production of a Part" .
+# 
+# http://modelmeth.nist.gov/modeling#StatisticalUncertaintyOfModelParameters
+
+:StatisticalUncertaintyOfModelParameters a owl:Class ;
+	rdfs:subClassOf :Uncertainty ;
+	rdfs:comment "Statistical uncertainty in the estimation of the parameters of the probabilistic sub-model. Note: Der Kuireghian types 4 and 5. \\cite{Kiureghian2008}" .
+# 
+# http://modelmeth.nist.gov/modeling#SubscriptiveModel
+
+:SubscriptiveModel a owl:Class ;
+	rdfs:subClassOf :Model ;
+	rdfs:comment "a Model that describes intent." ;
+	rdfs:label "Subscriptive Model" .
+# 
+# http://modelmeth.nist.gov/modeling#SubtypeRelation
+
+:SubtypeRelation a owl:Class ;
+	rdfs:subClassOf :ModelingConcept .
+# 
+# http://modelmeth.nist.gov/modeling#Symbol
+
+:Symbol a owl:Class ;
+	rdfs:subClassOf :ModelAbstraction ;
+	rdfs:comment "A representation of a ModelProperty" .
+# 
+# http://modelmeth.nist.gov/modeling#TypeDeclaration
+
+:TypeDeclaration a owl:Class ;
+	rdfs:subClassOf :ModelingConcept .
+# 
+# http://modelmeth.nist.gov/modeling#Uncertainty
+
+:Uncertainty a owl:Class ;
+	rdfs:subClassOf :Abstract ;
+	:clojureCodeNote "{:priority 1}"^^:clojureCode ;
+	rdfs:comment "the quantification of doubt about a measurement. \\cite{Bell2001}" .
+# 
+# http://modelmeth.nist.gov/modeling#UncertaintySource
+
+:UncertaintySource a owl:Class ;
+	rdfs:subClassOf :Abstract ;
+	:clojureCodeNote "{:priority 1}"^^:clojureCode .
+# 
+# http://modelmeth.nist.gov/operations#DefinedVariable
+
+<http://modelmeth.nist.gov/operations#DefinedVariable> a owl:Class ;
+	rdfs:subClassOf :CausalViewpointVariable ;
+	rdfs:comment "a CausalViewpointVariable that is provided a definition as a function of other CausalViewpointVariables." ;
+	rdfs:label "Defined Variable" .
+# 
+# http://modelmeth.nist.gov/operations#DiscreteEventSimulation
+
+<http://modelmeth.nist.gov/operations#DiscreteEventSimulation> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/operations#ModelTechnology> ;
+	rdfs:comment "a Monte Carlo simulation where stochastic variables are time-based." ;
+	rdfs:label "Discrete Event Simulation" .
+# 
+# http://modelmeth.nist.gov/operations#FiniteElementMethod
+
+<http://modelmeth.nist.gov/operations#FiniteElementMethod> a owl:Class ;
+	rdfs:subClassOf <http://modelmeth.nist.gov/operations#ModelTechnology> ;
+	rdfs:comment "the method of finite element analyses, a numerical technique for finding approximate solutions to boundary value problems for partial differential equations. (Wikipedia)" ;
+	rdfs:label "Finite Element Method" .
+# 
+# http://modelmeth.nist.gov/operations#ModelDomainViewpoint
+
+<http://modelmeth.nist.gov/operations#ModelDomainViewpoint> a owl:Class ;
+	rdfs:subClassOf :ModelAbstraction .
+# 
+# http://modelmeth.nist.gov/operations#ModelTechnology
+
+<http://modelmeth.nist.gov/operations#ModelTechnology> a owl:Class ;
+	rdfs:subClassOf :ModelAbstraction ;
+	rdfs:comment "the technology used to represent the model and make inferences from it" .
+# 
+# http://modelmeth.nist.gov/operations#ModeledEntity
+
+<http://modelmeth.nist.gov/operations#ModeledEntity> a owl:Class ;
+	rdfs:subClassOf :ModelAbstraction ;
+	rdfs:comment "an object modeled. Example: In a model of a production system, the machines and buffers may be Modeled Entities." ;
+	rdfs:label "Modeled Entity" .
+# 
+# http://modelmeth.nist.gov/operations#ProcessOccurrence
+
+<http://modelmeth.nist.gov/operations#ProcessOccurrence> a owl:Class ;
+	rdfs:subClassOf :Process ;
+	rdfs:comment "Description of the manufacturing taking place to produce the finished part" .
+# 
+# http://org.semanticweb.owlapi/error#Error9
+
+<http://org.semanticweb.owlapi/error#Error9> a owl:Class ;
+	rdfs:subClassOf :Physical .
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Individuals
+# #
+# #################################################################
+# 
+# 
+# http://modelmeth.nist.gov/modeling#OWLNamedIndividualfoo_0047
+
+:OWLNamedIndividualfoo_0047 a owl:NamedIndividual , :EditingNotes ;
+	rdfs:comment """Edits 2018-11-08
+
+- Cleaned up some of Ibrahim's adds (removing statistics from ontology).
+- Removed Classes of EditingNotes.
+- Created separate file for operations""" ;
+	rdfs:label "POD-edits-2016-11-08"@en .
+# 
+# http://modelmeth.nist.gov/modeling#POD-edits-2016-09-19
+
+:POD-edits-2016-09-19 a owl:NamedIndividual , :EditingNotes ;
+	rdfs:comment """I added Uncertainty, UncertaintySource (and its subclasses), DerivedVariable, BasicVariable, RandomVariable.
+
+Open Issues:
+ * Are ModelProperty and Variable the same thing?
+ * Are the things under UncertaintySource really sources of uncertainty or kinds of uncertainty.
+ * Attaching PhysicalModel / StatisticalModel to UncertaintySource subtypes is a MISTAKE to be fixed later.
+ * Likewise (see previous comment) ParameterMeasurementUncertainty ???
+ * What is the distinction Kuireghian is making between \"model\" and \"sub-model\" 
+    ** Is a model a composition of submodels? 
+    ** Do the sub-models need to be composable in an algebraic sense? In a procedural sense?
+ * Probably ProbabilisticModelFormUncertainty is the same as PhysicalModeModelUncertainty
+
+ * Have not yet addressed Accuracy and its relation to Uncertainty.""" .
+# 
+# http://modelmeth.nist.gov/modeling#POD-edits-2017-07-18
+
+:POD-edits-2017-07-18 a owl:NamedIndividual , :EditingNotes ;
+	rdfs:comment """* ObjectiveFunction definition needs work. For example, what is the domain and codomain? (ordering? metric space?)
+* ModelingConcept. It is a meta concept, but I'm not sure where to go with it. Needs lots of work, many more subtypes. Look at SUMO (Representation?) for some ideas.
+* CAREFUL! : Updating multiple ontologies concurrently you may run into a \"do you want to reload\" message! DON'T RELOAD!
+* DL Limitation: I would really like my Operations concept to be an INSTANCE of a vaem domain. Can't do that!
+* I'm on the fence about all the xCharacteristic classes. One the one hand, they are a nice organizing principle for things that need more work inside QUDT, on the other hand, the domain of relations provides the same knowledge. Maybe I get rid of these once I have all the classes defined and organized.
+* Sequencing problems: should this be restricted to line sequencing, or is the fact that the facility is/is not a line rather inconsequential? The problem is primarily focused on BNs.
+* LevelScheduling is in the wrong place; as described in its comment, it is an objective. In fact, I'm wondering whether some refactoring is in order: The SequencingProblem types need to be associated with objectives!
+* Need an upper ontology notion of \"condition\" for e.g. EquipmentCondition -- a state (ephemeral) rather than an enduring characteristic of the thing. sumo:StateChange ?
+* The things under ResourceState aren't states of resources,
+* Need to do something about class \"Machine\" -- it means \"WorkCenter\" ?""" .
+# 
+# Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

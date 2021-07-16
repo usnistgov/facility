@@ -1,1 +1,661 @@
-../../ModelingOntology/operations.ttl
+@prefix : <http://modelmeth.nist.gov/operations#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://modelmeth.nist.gov/operations> .
+
+<http://modelmeth.nist.gov/operations> rdf:type owl:Ontology ;
+                                        owl:imports <http://modelmeth.nist.gov/modeling> ,
+                                                    <http://www.ontologydesignpatterns.org/ont/dlp/DLP_397.owl> .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.linkedmodel.org/schema/vaem#comment
+<http://www.linkedmodel.org/schema/vaem#comment> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://modelmeth.nist.gov/operations#hasBreakdownRate
+:hasBreakdownRate rdf:type owl:ObjectProperty ,
+                           owl:FunctionalProperty ;
+                  rdfs:domain :Machine ;
+                  rdfs:range :BreakDownRate .
+
+
+###  http://modelmeth.nist.gov/operations#hasJobType
+:hasJobType rdf:type owl:ObjectProperty ;
+            rdfs:domain :Job ;
+            rdfs:range :Jobtype .
+
+
+###  http://modelmeth.nist.gov/operations#hasMachine
+:hasMachine rdf:type owl:ObjectProperty ,
+                     owl:InverseFunctionalProperty ;
+            rdfs:domain :Workstation ;
+            rdfs:range :Machine .
+
+
+###  http://modelmeth.nist.gov/operations#hasRepairRate
+:hasRepairRate rdf:type owl:ObjectProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :Machine ;
+               rdfs:range :RepairRate .
+
+
+###  http://modelmeth.nist.gov/operations#hasResidenceTime
+:hasResidenceTime rdf:type owl:ObjectProperty ,
+                           owl:FunctionalProperty ;
+                  rdfs:domain :Job ;
+                  rdfs:range :ResidenceTime .
+
+
+###  http://modelmeth.nist.gov/operations#hasWorkCapacity
+:hasWorkCapacity rdf:type owl:ObjectProperty ,
+                          owl:FunctionalProperty ;
+                 rdfs:domain :Machine ;
+                 rdfs:range :WorkCapacity .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://modelmeth.nist.gov/operations#hasBufferSize
+:hasBufferSize rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :Buffer ;
+               rdfs:range xsd:nonNegativeInteger ;
+               rdfs:comment "the capacity (in parts) of the queue onto which the machine places finished work" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://modelmeth.nist.gov/modeling#NonControlledVariable
+<http://modelmeth.nist.gov/modeling#NonControlledVariable> rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> .
+
+
+###  http://modelmeth.nist.gov/modeling#PerformanceVariable
+<http://modelmeth.nist.gov/modeling#PerformanceVariable> rdfs:comment "a ModelProerty the value of which can decide whether a system requirement is met." ;
+                                                         rdfs:label "Performance Variable" .
+
+
+###  http://modelmeth.nist.gov/operations#AssemblyLineBalancingProblem
+:AssemblyLineBalancingProblem rdf:type owl:Class ;
+                              rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                              :OperationsProblem ;
+                              rdfs:comment "a problem for which solutions seek to distribute work between workcenters in a line." .
+
+
+###  http://modelmeth.nist.gov/operations#AsynchronousLine
+:AsynchronousLine rdf:type owl:Class ;
+                  rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Object> ,
+                                  :Line ;
+                  owl:disjointWith :SynchronousLine ;
+                  rdfs:comment "a line in which the movement of jobs to next workstations is not coordinated; new work may be processed as soon as the workcenter is free and the new work is available. Note: asynchronous operation is enabled by buffers between workcenters." .
+
+
+###  http://modelmeth.nist.gov/operations#BatchProduction
+:BatchProduction rdf:type owl:Class ;
+                 rdfs:subClassOf :ProductionType ;
+                 owl:disjointWith :ContinuousProduction ,
+                                  :DiscreteProduction ;
+                 rdfs:comment "a ProductionType in which a collection of workpieces are processed together at some or all Workstations." .
+
+
+###  http://modelmeth.nist.gov/operations#Blocked
+:Blocked rdf:type owl:Class ;
+         rdfs:subClassOf :ResourceState ;
+         rdfs:comment "a State of a Workstation in a TransferLine in which a Job await processing by the Workstation but processing cannot be initiated because the current job cannot be discharged because the buffer to which it would discharge the Job is full." .
+
+
+###  http://modelmeth.nist.gov/operations#BlockingProbability
+:BlockingProbability rdf:type owl:Class ;
+                     rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                     <http://modelmeth.nist.gov/modeling#NonControlledVariable> ,
+                                     :ResourceCharacteristic ;
+                     rdfs:comment "the probability that a Machine or Workstation is in a Blocked state under current assumptions." .
+
+
+###  http://modelmeth.nist.gov/operations#BreakDownRate
+:BreakDownRate rdf:type owl:Class ;
+               rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                               <http://modelmeth.nist.gov/modeling#ModelParameter> ,
+                               :ResourceCharacteristic ;
+               rdfs:comment "the (average) rate at which the machine is switching to non-operational status" .
+
+
+###  http://modelmeth.nist.gov/operations#Buffer
+:Buffer rdf:type owl:Class ;
+        rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Object> ,
+                        :ProductionResource ;
+        owl:disjointWith :Machine ,
+                         :Workstation ;
+        rdfs:comment "a queue between machines that accepts parts from the upstream machine and providing parts to the downstream machine." .
+
+
+###  http://modelmeth.nist.gov/operations#CarSequencing
+:CarSequencing rdf:type owl:Class ;
+               rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                               :SequencingConstraint ;
+               rdfs:comment "a sequencing problem similar to mixed model sequencing but with only certain (less restrictive) constraints to be decided, specifically, the maximum number of jobs with a certain option $H_o$ that are to be allowed within $N_o$ sequence positions. \\cite{Boysen2009}" .
+
+
+###  http://modelmeth.nist.gov/operations#ContinuousProduction
+:ContinuousProduction rdf:type owl:Class ;
+                      rdfs:subClassOf :ProductionType ;
+                      owl:disjointWith :DiscreteProduction ;
+                      rdfs:comment "a ProductionType where raw materials flow continuously through the production system (e.g. petroleum production). N.B. This ontology does not describe many concepts related to ContinuousProduction." .
+
+
+###  http://modelmeth.nist.gov/operations#CycleTime
+:CycleTime rdf:type owl:Class ;
+           rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                           :DefinedVariable ,
+                           :JobTypeCharacteristic ;
+           rdfs:label "the time required to process a part at a given workcenter." .
+
+
+###  http://modelmeth.nist.gov/operations#CyclicalScheduling
+:CyclicalScheduling rdf:type owl:Class ;
+                    rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                    :SequencingProblem ;
+                    rdfs:comment "a sequencing problem for which the solution is expressed as a finite sequence that is intended to be repeated without any intervening scheduluing nor any delay." .
+
+
+###  http://modelmeth.nist.gov/operations#DeterministicProcessingTime
+:DeterministicProcessingTime rdf:type owl:Class ;
+                             rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                             :ProcessingTime ;
+                             rdfs:comment "a ProcessingTime described by a fixed quantity of time." .
+
+
+###  http://modelmeth.nist.gov/operations#DiscreteProduction
+:DiscreteProduction rdf:type owl:Class ;
+                    rdfs:subClassOf :ProductionType ;
+                    rdfs:comment "a ProductionType where a Job is associated with a single product." .
+
+
+###  http://modelmeth.nist.gov/operations#DynamicProcessingTime
+:DynamicProcessingTime rdf:type owl:Class ;
+                       rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                       :ProcessingTime ;
+                       rdfs:comment "a processing time that may vary with time. Example: varying due to learning effect. \\cite{Boysen2008}" .
+
+
+###  http://modelmeth.nist.gov/operations#FeederLine
+:FeederLine rdf:type owl:Class ;
+            rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Object> ;
+            <http://www.linkedmodel.org/schema/vaem#comment> "a Line that provides component parts or assemblies to the principal line on which the workpiece travels." .
+
+
+###  http://modelmeth.nist.gov/operations#FlowShopProduction
+:FlowShopProduction rdf:type owl:Class ;
+                    rdfs:subClassOf :ProductionType ;
+                    rdfs:comment "a ProductionType in which each jobs visit every workstation in serial order, but the order of processing of the individual jobs can be permutated (i.e. the buffers between Workstations are not necessarily FIFO). \\cite{Pinedo2016} \"FlowLineProduction\"" .
+
+
+###  http://modelmeth.nist.gov/operations#FlowShopScheduling
+:FlowShopScheduling rdf:type owl:Class ;
+                    rdfs:subClassOf :ProductionSchedulingProblem ;
+                    rdfs:comment "A ProductionSchedulingProblem in which \"there are a set of m machines (processors) and a set of n jobs. Each job comprises a set of m operations which must be done on different machines. All jobs have the same processing operation order when passing through the machines. There are no precedence constraints among operations of different jobs. Operations cannot be interrupted and each machine can process only one operation at a time. The problem is to find the job sequences on the machines which minimise the makespan, i.e. the maximum of the completion times of all operations.\" \\cite{Seda2007}" ,
+                                 "POD This needs work. It combines objective with constraints and LineProductionType" .
+
+
+###  http://modelmeth.nist.gov/operations#InputLevelScheduling
+:InputLevelScheduling rdf:type owl:Class ;
+                      rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                      :SchedulingObjective ;
+                      rdfs:comment "a sequencing problem that seeks solutions that do not violate constraints on the rate at which input materials can be provided. \\cite{Boysen2009}" .
+
+
+###  http://modelmeth.nist.gov/operations#Job
+:Job rdf:type owl:Class ;
+     rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Process> ,
+                     :OperationsDomainConcept ;
+     rdfs:comment "work (sequence of processes) that is performed to produce a product or batch of products" .
+
+
+###  http://modelmeth.nist.gov/operations#JobCharacteristic
+:JobCharacteristic rdf:type owl:Class ;
+                   rdfs:subClassOf :OperationsDomainConcept ;
+                   <http://www.linkedmodel.org/schema/vaem#comment> "a characteristic of a Job." .
+
+
+###  http://modelmeth.nist.gov/operations#JobShopProduction
+:JobShopProduction rdf:type owl:Class ;
+                   rdfs:subClassOf :ProductionType ;
+                   rdfs:comment "a ProductionType where each Job (or all Jobs of a JobType) follows its own predetermined route. \\cite{Pinedo2016}" .
+
+
+###  http://modelmeth.nist.gov/operations#JobTypeCharacteristic
+:JobTypeCharacteristic rdf:type owl:Class ;
+                       rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                       :OperationsDomainConcept ;
+                       rdfs:comment "a property of a job type." .
+
+
+###  http://modelmeth.nist.gov/operations#Jobtype
+:Jobtype rdf:type owl:Class ;
+         rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                         :OperationsDomainConcept ;
+         rdfs:comment "the production process type associated with a class of products." .
+
+
+###  http://modelmeth.nist.gov/operations#Line
+:Line rdf:type owl:Class ;
+      rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Object> ,
+                      :OperationsDomainConcept ;
+      <http://www.linkedmodel.org/schema/vaem#comment> "a serial arrangement of Workstations that comprise a subsystem of a Production System" .
+
+
+###  http://modelmeth.nist.gov/operations#Machine
+:Machine rdf:type owl:Class ;
+         rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Object> ,
+                         :ProductionResource ;
+         rdfs:comment "a unit of production equipment that can be fitted with tooling and a fixture to perform an operation of a workstation." .
+
+
+###  http://modelmeth.nist.gov/operations#MinspanObjective
+:MinspanObjective rdf:type owl:Class ;
+                  rdfs:subClassOf :SchedulingObjective ;
+                  rdfs:comment "a SchedulingObjective in which the goal is to complete a given collection of jobs as soon as possible after work on the jobs begins." .
+
+
+###  http://modelmeth.nist.gov/operations#MixedModelProduction
+:MixedModelProduction rdf:type owl:Class ;
+                      rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                      :ProductionType ;
+                      rdfs:comment "production in which the production system produces products of various types in lot sizes of one. \\cite{Liao2014}" .
+
+
+###  http://modelmeth.nist.gov/operations#MixedModelSequencing
+:MixedModelSequencing rdf:type owl:Class ;
+                      rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                      :SequencingProblem ;
+                      rdfs:comment "a SequencingProblem that \"aims at avoiding/minimizing sequence-dependent work overload based on a detailed scheduling which explicitly takes operation times, worker movements, station borders and other operational characteristics of the line into account.\" \\cite{Boysen2009}" .
+
+
+###  http://modelmeth.nist.gov/operations#MultiJobProduction
+:MultiJobProduction rdf:type owl:Class ;
+                    rdfs:subClassOf :ProductionSystemViewpoint ;
+                    rdfs:comment "a production system model representing a series of machines connect through buffers and producing potential many part types." ;
+                    rdfs:label "Multi Job Production" .
+
+
+###  http://modelmeth.nist.gov/operations#MultiModelProduction
+:MultiModelProduction rdf:type owl:Class ;
+                      rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                      :ProductionType ;
+                      rdfs:comment "production in which the production system produces batches with intermediate setup operations. \\cite{Liao2014}" .
+
+
+###  http://modelmeth.nist.gov/operations#MultiModelSequencing
+:MultiModelSequencing rdf:type owl:Class ;
+                      rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                      :SequencingProblem .
+
+
+###  http://modelmeth.nist.gov/operations#OperationsDomainConcept
+:OperationsDomainConcept rdf:type owl:Class ;
+                         rdfs:comment "a concept whose domain of discourse is production operations. NB this is currently used to collect classes that are part of operations modeling project" .
+
+
+###  http://modelmeth.nist.gov/operations#OperationsProblem
+:OperationsProblem rdf:type owl:Class ;
+                   rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                   :OperationsDomainConcept ;
+                   rdfs:comment "a characterization of an aspect of production operations in which a decision, guidance, or an actionable recommendation is sought." .
+
+
+###  http://modelmeth.nist.gov/operations#PacedLine
+:PacedLine rdf:type owl:Class ;
+           rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Object> ,
+                           :SynchronousLine ;
+           owl:disjointWith :UnpacedLine ;
+           rdfs:comment "a SynchronousLine in which jobs move to the next workstation at specified times, regardless of whether or not the work to be performed at the current workstation is complete." .
+
+
+###  http://modelmeth.nist.gov/operations#PerformanceGoal
+:PerformanceGoal rdf:type owl:Class ;
+                 rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ;
+                 rdfs:comment "an outcome sought from the behavior of the ProductionSystem" .
+
+
+###  http://modelmeth.nist.gov/operations#PermutationFlowShopProduction
+:PermutationFlowShopProduction rdf:type owl:Class ;
+                               rdfs:subClassOf :FlowShopProduction ;
+                               rdfs:comment "FlowShopProduction where jobs maintain ordering consistent with the sequence in which they are released to production. Equivalently, FlowShopProduction where buffers are FIFO." .
+
+
+###  http://modelmeth.nist.gov/operations#PhonyPhysicalSubClass
+:PhonyPhysicalSubClass rdf:type owl:Class ;
+                       rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Object> ,
+                                       :ProcessingTime ;
+                       <http://modelmeth.nist.gov/modeling#clojureCodeNote> "{:priority :ignore}"^^<http://modelmeth.nist.gov/modeling#clojureCode> ;
+                       <http://www.linkedmodel.org/schema/vaem#comment> "I added this temporarily while thinking about the Abstract/Physical dichotomy. Perhaps it should remain for the simple purpose of tesing the {:priority :ignore} functionality." .
+
+
+###  http://modelmeth.nist.gov/operations#ProcessOccurrence
+:ProcessOccurrence rdf:type owl:Class ;
+                   rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Process> ,
+                                   :OperationsDomainConcept .
+
+
+###  http://modelmeth.nist.gov/operations#ProcessOccurrenceCharacteristic
+:ProcessOccurrenceCharacteristic rdf:type owl:Class ;
+                                 rdfs:subClassOf :OperationsDomainConcept .
+
+
+###  http://modelmeth.nist.gov/operations#ProcessingTime
+:ProcessingTime rdf:type owl:Class ;
+                rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                :OperationsDomainConcept ;
+                rdfs:comment "the amount of time required by a part at a workstation." .
+
+
+###  http://modelmeth.nist.gov/operations#Product
+:Product rdf:type owl:Class ;
+         rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Object> ,
+                         :OperationsDomainConcept ;
+         rdfs:comment "an artifact that is an intended result of production." .
+
+
+###  http://modelmeth.nist.gov/operations#ProductionLeadtimeGoal
+:ProductionLeadtimeGoal rdf:type owl:Class ;
+                        rdfs:subClassOf :PerformanceGoal ;
+                        rdfs:comment "a PerformanceGoal pertaining to the time required to process a part through a ProductionSystem under assumptions about its WIP load." .
+
+
+###  http://modelmeth.nist.gov/operations#ProductionRate
+:ProductionRate rdf:type owl:Class ;
+                rdfs:subClassOf <http://modelmeth.nist.gov/modeling#PerformanceVariable> ;
+                rdfs:comment "the ﻿average number of parts produced by the last machine of a productions system per unit of time in the steady state of system operation. \\cite{Li2009a}" .
+
+
+###  http://modelmeth.nist.gov/operations#ProductionResource
+:ProductionResource rdf:type owl:Class ;
+                    rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Object> ,
+                                    :OperationsDomainConcept ;
+                    rdfs:comment "durable resources used in production." .
+
+
+###  http://modelmeth.nist.gov/operations#ProductionSchedulingProblem
+:ProductionSchedulingProblem rdf:type owl:Class ;
+                             rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                             :OperationsProblem ;
+                             rdfs:comment "the problem of deciding what to produce when or in what sequence to produce product. Potentially there are, of course, many objectives in scheduling production. Two general and distinct objectives are (1) the sales and operations planning (S\\&OP) problem: scheduling against supply chain constraints (e.g. in consideration of demand and inventory management) and (2) scheduling for efficient use of manufacturing resources. This latter objective is the primary focus of the ontology." .
+
+
+###  http://modelmeth.nist.gov/operations#ProductionSystem
+:ProductionSystem rdf:type owl:Class ;
+                  rdfs:subClassOf :OperationsDomainConcept ;
+                  <http://www.linkedmodel.org/schema/vaem#comment> "a system that orchestrates the operation of it component parts and the flow of material so as to produce one or more Product." .
+
+
+###  http://modelmeth.nist.gov/operations#ProductionSystemStructure
+:ProductionSystemStructure rdf:type owl:Class ;
+                           rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ;
+                           rdfs:comment "a characterization of the spatial arrangement and physical connection between the elements of a production system." .
+
+
+###  http://modelmeth.nist.gov/operations#ProductionSystemViewpoint
+:ProductionSystemViewpoint rdf:type owl:Class ;
+                           rdfs:subClassOf :ModelDomainViewpoint ;
+                           rdfs:comment "a ModelDomainViewpoint concerning a production system and its performance characteristics" ;
+                           rdfs:label "Production System Viewpoint" .
+
+
+###  http://modelmeth.nist.gov/operations#ProductionType
+:ProductionType rdf:type owl:Class ;
+                rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ;
+                rdfs:comment "a characterization of the manner in which Jobs flow between Workstations." .
+
+
+###  http://modelmeth.nist.gov/operations#RepairRate
+:RepairRate rdf:type owl:Class ;
+            rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                            <http://modelmeth.nist.gov/modeling#ModelParameter> ,
+                            :ResourceCharacteristic ;
+            rdfs:comment "the (average) rate at which the machine is brought back to operational status" .
+
+
+###  http://modelmeth.nist.gov/operations#ResidenceTime
+:ResidenceTime rdf:type owl:Class ;
+               rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                               <http://modelmeth.nist.gov/modeling#NonControlledVariable> ,
+                               :JobCharacteristic ;
+               rdfs:comment "the amount of time a Job remains in the system" .
+
+
+###  http://modelmeth.nist.gov/operations#ResourceCharacteristic
+:ResourceCharacteristic rdf:type owl:Class ;
+                        rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                        :OperationsDomainConcept ;
+                        rdfs:comment "the State of a resource (a node in a finite state machine)." .
+
+
+###  http://modelmeth.nist.gov/operations#ResourceProperty
+:ResourceProperty rdf:type owl:Class ;
+                  rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                  :OperationsDomainConcept .
+
+
+###  http://modelmeth.nist.gov/operations#ResourceState
+:ResourceState rdf:type owl:Class ;
+               rdfs:subClassOf :OperationsDomainConcept ,
+                               <http://www.ontologydesignpatterns.org/ont/dlp/ExtendedDnS.owl#physical-phenomenon> ;
+               rdfs:comment "an ephemeral characteristic of a Machine." .
+
+
+###  http://modelmeth.nist.gov/operations#SJPanalyticalModel
+:SJPanalyticalModel rdf:type owl:Class ;
+                    rdfs:subClassOf <http://modelmeth.nist.gov/modeling#AnalyticalModel> ;
+                    rdfs:comment "an AnalyticalModel of a production system describing its performance characteristics. The production system consists of a series of machines through which a single Part (job type) flow." .
+
+
+###  http://modelmeth.nist.gov/operations#SchedulingObjective
+:SchedulingObjective rdf:type owl:Class ;
+                     rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Objective> ,
+                                     :OperationsDomainConcept .
+
+
+###  http://modelmeth.nist.gov/operations#SequencingConstraint
+:SequencingConstraint rdf:type owl:Class ;
+                      rdfs:subClassOf :OperationsDomainConcept ;
+                      rdfs:comment "a Constraint used in a SequencingProblem" .
+
+
+###  http://modelmeth.nist.gov/operations#SequencingProblem
+:SequencingProblem rdf:type owl:Class ;
+                   rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                   :ProductionSchedulingProblem ;
+                   rdfs:comment "the problem of deciding in what order to start jobs of various job types in line production." .
+
+
+###  http://modelmeth.nist.gov/operations#SerialLineLayout
+:SerialLineLayout rdf:type owl:Class ;
+                  rdfs:subClassOf :ProductionSystemStructure ;
+                  owl:disjointWith :UShapedLayout ;
+                  rdfs:comment "a line layout where workcenters are arranged in line" .
+
+
+###  http://modelmeth.nist.gov/operations#SingleJobProduction
+:SingleJobProduction rdf:type owl:Class ;
+                     rdfs:subClassOf :ProductionSystemViewpoint ;
+                     rdfs:comment "a production system model representing a series of machines connect through buffers and producing a single part type." ;
+                     rdfs:label "Single Job Production" .
+
+
+###  http://modelmeth.nist.gov/operations#SingleModelProduction
+:SingleModelProduction rdf:type owl:Class ;
+                       rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                       :ProductionType ;
+                       rdfs:comment "production in which the production system is dedicated to the production of a single product type. \\cite{Liao2014}" .
+
+
+###  http://modelmeth.nist.gov/operations#StandaloneThroughput
+:StandaloneThroughput rdf:type owl:Class ;
+                      rdfs:subClassOf :OperationsDomainConcept ;
+                      rdfs:comment "﻿the average number Jobs completed by a Machine or Workstation per unit of time in the steady state of system operation. \\cite{Alavian2017}" .
+
+
+###  http://modelmeth.nist.gov/operations#StarvationProbability
+:StarvationProbability rdf:type owl:Class ;
+                       rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                       <http://modelmeth.nist.gov/modeling#NonControlledVariable> ,
+                                       :ResourceCharacteristic ;
+                       rdfs:comment "the probability that a Machine or Workstation is in a Starved state under current assumptions." .
+
+
+###  http://modelmeth.nist.gov/operations#Starved
+:Starved rdf:type owl:Class ;
+         rdfs:subClassOf :ResourceState ;
+         rdfs:comment "a State of a Workstation in a TransferLine in which the Workstation sits idle because it does not have a Job in its input Buffer." .
+
+
+###  http://modelmeth.nist.gov/operations#StochasticProcessingTime
+:StochasticProcessingTime rdf:type owl:Class ;
+                          rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                          :ProcessingTime ;
+                          rdfs:comment "a ProcessingTime described by a RandomVariable." .
+
+
+###  http://modelmeth.nist.gov/operations#SynchronousLine
+:SynchronousLine rdf:type owl:Class ;
+                 rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Object> ,
+                                 :Line ;
+                 rdfs:comment "a line in which all work moves between workstations simultaneously. Note: Typically the simultaneous movement is a necessity brought about by the line not having buffers between workstations." .
+
+
+###  http://modelmeth.nist.gov/operations#Throughput
+:Throughput rdf:type owl:Class ;
+            rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                            <http://modelmeth.nist.gov/modeling#PerformanceVariable> ;
+            rdfs:comment "﻿average number of parts produced by the last machine of a productions system per unit of time in the steady state of system operation. \\cite{Li2009a}" ;
+            rdfs:label "Throughput"@en .
+
+
+###  http://modelmeth.nist.gov/operations#ThroughputGoal
+:ThroughputGoal rdf:type owl:Class ;
+                rdfs:subClassOf :PerformanceGoal ;
+                rdfs:comment "a PerformanceGoal pertaining to Throughput" .
+
+
+###  http://modelmeth.nist.gov/operations#TransferLineLayout
+:TransferLineLayout rdf:type owl:Class ;
+                    rdfs:subClassOf :SerialLineLayout ;
+                    rdfs:comment "SerialLineLayout where there is a Buffer between each Workstation." .
+
+
+###  http://modelmeth.nist.gov/operations#TransferLineProduction
+:TransferLineProduction rdf:type owl:Class ;
+                        rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                        :ProductionType ;
+                        rdfs:comment "A ProductionType in which every jobs visit every Workstation and every Buffer between workstations. AKA flow line. AKA Production line. \\cite{Dallery1992}" .
+
+
+###  http://modelmeth.nist.gov/operations#UShapedLayout
+:UShapedLayout rdf:type owl:Class ;
+               rdfs:subClassOf :ProductionSystemStructure ;
+               rdfs:comment "a line layout where workcenters are arranged in a U shape." .
+
+
+###  http://modelmeth.nist.gov/operations#UnpacedLine
+:UnpacedLine rdf:type owl:Class ;
+             rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Object> ,
+                             :SynchronousLine ;
+             rdfs:comment "a SynchronousLine in which jobs move to their next workstation only when work at the current workstation is completed." .
+
+
+###  http://modelmeth.nist.gov/operations#WIPGoal
+:WIPGoal rdf:type owl:Class ;
+         rdfs:subClassOf :PerformanceGoal ;
+         rdfs:comment "a PerformanceGoal pertaining to the amount of Work In Process in the ProductionSystem." .
+
+
+###  http://modelmeth.nist.gov/operations#WorkCapacity
+:WorkCapacity rdf:type owl:Class ;
+              rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                              <http://modelmeth.nist.gov/modeling#ModelParameter> ,
+                              :ResourceProperty ;
+              rdfs:comment "the amount of work that the machine can do per unit time. NOTE: the processing time of a JobType on a machine is the JobType's Work Requirement divided by the Machine Work Capacity." .
+
+
+###  http://modelmeth.nist.gov/operations#WorkInProcess
+:WorkInProcess rdf:type owl:Class ;
+               rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Object> ,
+                               <http://modelmeth.nist.gov/modeling#PerformanceVariable> ,
+                               :OperationsDomainConcept ;
+               rdfs:comment "the amount of parts currently being process and waiting in Buffers to be processed" .
+
+
+###  http://modelmeth.nist.gov/operations#WorkRequirement
+:WorkRequirement rdf:type owl:Class ;
+                 rdfs:subClassOf <http://modelmeth.nist.gov/modeling#Abstract> ,
+                                 <http://modelmeth.nist.gov/modeling#ModelParameter> ,
+                                 :OperationsDomainConcept ;
+                 rdfs:comment "the time required to perform the operations performed on the machine" .
+
+
+###  http://modelmeth.nist.gov/operations#WorkcenterOperation
+:WorkcenterOperation rdf:type owl:Class ;
+                     rdfs:subClassOf :OperationsDomainConcept ;
+                     rdfs:label "the unit of work that occurs at a workcenter for a particular job type." .
+
+
+###  http://modelmeth.nist.gov/operations#Workstation
+:Workstation rdf:type owl:Class ;
+             rdfs:subClassOf :ProductionResource ;
+             rdfs:comment "a designated location in a production facility where jobs may stop for processing. N.B.: Some problem formulations equate Workstation with Machine. Best practice for using this ontology would specify a Workstation in 1-1 correspondence with a Machine in these cases." .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://modelmeth.nist.gov/operations#ExampleSJPmodel
+:ExampleSJPmodel rdf:type owl:NamedIndividual ,
+                          :SJPanalyticalModel .
+
+
+###  http://modelmeth.nist.gov/operations#OWLNamedIndividual_00001
+:OWLNamedIndividual_00001 rdf:type owl:NamedIndividual ;
+                          rdfs:label "sjpModel1Throughput"@en .
+
+
+###  http://modelmeth.nist.gov/operations#OWLNamedIndividual_00004
+:OWLNamedIndividual_00004 rdf:type owl:NamedIndividual ,
+                                   :SJPanalyticalModel ;
+                          rdfs:label "model1"@en .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :DeterministicProcessingTime
+                :DynamicProcessingTime
+                :StochasticProcessingTime
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :MixedModelProduction
+                :MultiModelProduction
+                :SingleModelProduction
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
